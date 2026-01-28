@@ -250,3 +250,281 @@ android/app/build/outputs/apk/release/app-release.apk
 
 👉 MAIS : Java, Gradle, Android SDK doivent être parfaitement configurés
 ➡️ Je ne la recommande pas pour toi maintenant
+
+Running application "main" with appParams:
+ {rootTag: '#root', hydrate: false} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\modules\warnOnce\index.js:26  "shadow*" style props are deprecated. Use "boxShadow".
+warnOnce @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\modules\warnOnce\index.js:26
+preprocess @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\exports\StyleSheet\preprocess.js:115
+compileAndInsertAtomic @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\exports\StyleSheet\index.js:58
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\exports\StyleSheet\index.js:101
+create @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\exports\StyleSheet\index.js:89
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app\(admin)\logs.tsx:142
+loadModuleImplementation @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\metro-runtime\src\polyfills\require.js:286
+guardedLoadModule @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\metro-runtime\src\polyfills\require.js:186
+metroRequire @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\metro-runtime\src\polyfills\require.js:94
+get @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app:7
+metroContext @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app:49
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-router\build\getRoutes.js:215
+contextModuleToFileNodes @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-router\build\getRoutes.js:207
+contextModuleToTree @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-router\build\getRoutes.js:397
+getExactRoutesInternal @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-router\build\getRoutes.js:379
+getRoutes @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-router\build\getRoutes.js:286
+initialize @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-router\build\global-state\router-store.js:76
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-router\build\global-state\router-store.js:213
+mountMemo @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:17227
+useMemo @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:17672
+useMemo @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react\cjs\react.development.js:1652
+useInitializeExpoRouter @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-router\build\global-state\router-store.js:212
+ContextNavigator @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-router\build\ExpoRoot.js:73
+renderWithHooks @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:16307
+mountIndeterminateComponent @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:20076
+beginWork @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:21590
+beginWork$1 @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:27428
+performUnitOfWork @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26559
+workLoopSync @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26468
+renderRootSync @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26436
+performConcurrentWorkOnRoot @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:25741
+workLoop @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\node_modules\scheduler\cjs\scheduler.development.js:269
+flushWork @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\node_modules\scheduler\cjs\scheduler.development.js:241
+performWorkUntilDeadline @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\node_modules\scheduler\cjs\scheduler.development.js:535
+[NEW] Explain Console errors by using Copilot in Edge: click
+         
+         to explain an error. 
+        Learn more
+        Don't show again
+C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@expo\metro-runtime\build\error-overlay\LogBox.web.js:98  Erreur lors du chargement des données d'authentification: TypeError: _ExpoSecureStore.default.getValueWithKeyAsync is not a function
+    at Object.<anonymous> (C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-secure-store\build\SecureStore.js:85:2)
+    at Generator.next (<anonymous>)
+    at asyncGeneratorStep (C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5:15)
+    at _next (C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19:7)
+    at C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24:4
+    at new Promise (<anonymous>)
+    at Object.<anonymous> (C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16:7)
+    at Object._getItemAsync (C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-secure-store\build\SecureStore.js:96:35)
+    at Object.getItemAsync (C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\expo-secure-store\build\SecureStore.js:87:1)
+    at C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\contexts\AuthContext.tsx:47:38
+registerError @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@expo\metro-runtime\build\error-overlay\LogBox.web.js:98
+console.error @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@expo\metro-runtime\build\error-overlay\LogBox.web.js:37
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\contexts\AuthContext.tsx:62
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_throw @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:22
+Promise.then
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:10
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+loadAuthData @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\contexts\AuthContext.tsx:64
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\contexts\AuthContext.tsx:42
+commitHookEffectListMount @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:23153
+commitPassiveMountOnFiber @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:24928
+commitPassiveMountEffects_complete @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:24893
+commitPassiveMountEffects_begin @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:24880
+commitPassiveMountEffects @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:24869
+flushPassiveEffectsImpl @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:27041
+flushPassiveEffects @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26986
+performSyncWorkOnRoot @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26079
+flushSyncCallbacks @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:12044
+commitRootImpl @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26961
+commitRoot @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26684
+finishConcurrentRender @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:25983
+performConcurrentWorkOnRoot @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:25811
+workLoop @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\node_modules\scheduler\cjs\scheduler.development.js:269
+flushWork @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\node_modules\scheduler\cjs\scheduler.development.js:241
+performWorkUntilDeadline @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\node_modules\scheduler\cjs\scheduler.development.js:535
+C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\modules\warnOnce\index.js:26  props.pointerEvents is deprecated. Use style.pointerEvents
+warnOnce @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\modules\warnOnce\index.js:26
+createDOMProps @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\modules\createDOMProps\index.js:807
+createElement @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\exports\createElement\index.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\exports\View\index.js:113
+renderWithHooks @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:16307
+updateForwardRef @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:19229
+beginWork @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:21639
+beginWork$1 @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:27428
+performUnitOfWork @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26559
+workLoopSync @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26468
+renderRootSync @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26436
+performSyncWorkOnRoot @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26088
+flushSyncCallbacks @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:12044
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:25653
+C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:200   POST http://localhost:5000/api/auth/register net::ERR_CONNECTION_REFUSED
+dispatchXhrRequest @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:200
+xhr @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:17
+dispatchRequest @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\dispatchRequest.js:52
+Promise.then
+_request @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:166
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:42
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+request @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:38
+httpMethod @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:226
+wrap @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\helpers\bind.js:14
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\services\authService.ts:75
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+register @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\services\authService.ts:78
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app\(auth)\register.tsx:53
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+handleRegister @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app\(auth)\register.tsx:74
+onClick @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\modules\usePressEvents\PressResponder.js:316
+callCallback @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4166
+invokeGuardedCallbackDev @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4216
+invokeGuardedCallback @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4279
+invokeGuardedCallbackAndCatchFirstError @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4294
+executeDispatch @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9043
+processDispatchQueueItemsInOrder @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9075
+processDispatchQueue @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9087
+dispatchEventsForPlugins @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9100
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9290
+batchedUpdates$1 @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26142
+batchedUpdates @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:3993
+dispatchEventForPluginEventSystem @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9289
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6467
+dispatchEvent @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6459
+dispatchDiscreteEvent @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6432
+C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:200   POST http://localhost:5000/api/auth/login net::ERR_CONNECTION_REFUSED
+dispatchXhrRequest @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:200
+xhr @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:17
+dispatchRequest @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\dispatchRequest.js:52
+Promise.then
+_request @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:166
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:42
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+request @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:38
+httpMethod @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:226
+wrap @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\helpers\bind.js:14
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\services\authService.ts:79
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+login @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\services\authService.ts:83
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app\(auth)\login.tsx:34
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+handleLogin @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app\(auth)\login.tsx:47
+onClick @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\modules\usePressEvents\PressResponder.js:316
+callCallback @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4166
+invokeGuardedCallbackDev @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4216
+invokeGuardedCallback @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4279
+invokeGuardedCallbackAndCatchFirstError @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4294
+executeDispatch @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9043
+processDispatchQueueItemsInOrder @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9075
+processDispatchQueue @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9087
+dispatchEventsForPlugins @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9100
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9290
+batchedUpdates$1 @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26142
+batchedUpdates @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:3993
+dispatchEventForPluginEventSystem @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9289
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6467
+dispatchEvent @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6459
+dispatchDiscreteEvent @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6432
+C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:200   POST http://localhost:5000/api/auth/login net::ERR_CONNECTION_REFUSED
+dispatchXhrRequest @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:200
+xhr @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:17
+dispatchRequest @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\dispatchRequest.js:52
+Promise.then
+_request @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:166
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:42
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+request @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:38
+httpMethod @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:226
+wrap @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\helpers\bind.js:14
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\services\authService.ts:79
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+login @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\services\authService.ts:83
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app\(auth)\login.tsx:34
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+handleLogin @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app\(auth)\login.tsx:47
+onClick @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\modules\usePressEvents\PressResponder.js:316
+callCallback @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4166
+invokeGuardedCallbackDev @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4216
+invokeGuardedCallback @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4279
+invokeGuardedCallbackAndCatchFirstError @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4294
+executeDispatch @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9043
+processDispatchQueueItemsInOrder @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9075
+processDispatchQueue @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9087
+dispatchEventsForPlugins @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9100
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9290
+batchedUpdates$1 @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26142
+batchedUpdates @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:3993
+dispatchEventForPluginEventSystem @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9289
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6467
+dispatchEvent @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6459
+dispatchDiscreteEvent @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6432
+C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:200   POST http://localhost:5000/api/auth/login net::ERR_CONNECTION_REFUSED
+dispatchXhrRequest @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:200
+xhr @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:17
+dispatchRequest @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\dispatchRequest.js:52
+Promise.then
+_request @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:166
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:42
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+request @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:38
+httpMethod @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\core\Axios.js:226
+wrap @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\helpers\bind.js:14
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\services\authService.ts:79
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+login @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\services\authService.ts:83
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app\(auth)\login.tsx:34
+asyncGeneratorStep @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:5
+_next @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:19
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:24
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@babel\runtime\helpers\asyncToGenerator.js:16
+handleLogin @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\app\(auth)\login.tsx:47
+onClick @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-native-web\dist\modules\usePressEvents\PressResponder.js:316
+callCallback @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4166
+invokeGuardedCallbackDev @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4216
+invokeGuardedCallback @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4279
+invokeGuardedCallbackAndCatchFirstError @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:4294
+executeDispatch @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9043
+processDispatchQueueItemsInOrder @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9075
+processDispatchQueue @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9087
+dispatchEventsForPlugins @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9100
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9290
+batchedUpdates$1 @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:26142
+batchedUpdates @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:3993
+dispatchEventForPluginEventSystem @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:9289
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6467
+dispatchEvent @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6459
+dispatchDiscreteEvent @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\react-dom\cjs\react-dom.development.js:6432
+C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@expo\metro-runtime\build\HMRClient.js:228  Disconnected from Metro (1006: "").
+
+To reconnect:
+- Ensure that Metro is running and available on the same network
+- Reload this app (will trigger further help if Metro cannot be connected to)
+      
+setHMRUnavailableReason @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@expo\metro-runtime\build\HMRClient.js:228
+(anonymous) @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\@expo\metro-runtime\build\HMRClient.js:200
+emit @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\metro-runtime\src\modules\vendor\eventemitter3.js:81
+HMRClient._this._ws.onclose @ C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\metro-runtime\src\modules\HMRClient.js:35
+C:\Users\creationapplication\Appliconfirmer\Arefait\reussit\Loving\frontend\node_modules\axios\lib\adapters\xhr.js:200   POST http://localhost:5000/api/auth/login net::ERR_CONNECTION_REFUSED

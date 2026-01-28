@@ -1,7 +1,8 @@
 import axios from 'axios';
 import Constants from 'expo-constants';
+import * as SecureStore from 'expo-secure-store';
 
-const API_URL = Constants.expoConfig?.extra?.apiUrl || process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000/api';
+const API_URL = Constants.expoConfig?.extra?.apiUrl || process.env.EXPO_PUBLIC_API_URL || 'https://loving-backend.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -39,8 +40,7 @@ api.interceptors.response.use(
 // Fonction utilitaire pour récupérer le token (à implémenter avec SecureStore)
 const getStoredToken = async (): Promise<string | null> => {
   try {
-    const { getItemAsync } = await import('expo-secure-store');
-    return await getItemAsync('auth_token');
+    return await SecureStore.getItemAsync('auth_token');
   } catch {
     return null;
   }

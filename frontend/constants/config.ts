@@ -1,14 +1,14 @@
 import Constants from 'expo-constants';
 
 export const config = {
-  API_URL: Constants.expoConfig?.extra?.apiUrl || process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000/api',
-  SOCKET_URL: Constants.expoConfig?.extra?.socketUrl || process.env.EXPO_PUBLIC_SOCKET_URL || 'http://localhost:3000',
+  API_URL: Constants.expoConfig?.extra?.apiUrl || process.env.EXPO_PUBLIC_API_URL || 'https://loving-backend.onrender.com/api',
+  SOCKET_URL: Constants.expoConfig?.extra?.socketUrl || process.env.EXPO_PUBLIC_SOCKET_URL || 'https://loving-backend.onrender.com',
   APP_NAME: 'Loving',
   APP_DESCRIPTION: 'Plateforme d\'accompagnement social et événementiel',
 };
 
 export const colors = {
-  primary: '#6366f1',
+  primary: '#f163e5e1',
   primaryDark: '#4f46e5',
   secondary: '#8b5cf6',
   success: '#10b981',
