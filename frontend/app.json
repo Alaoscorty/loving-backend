@@ -45,7 +45,8 @@
       },
       "eas": {
         "projectId": "37039591-9011-4530-848c-0fd924b897de"
-      }
+      },
+      "apiUrl": "https://loving-backend.onrender.com/api"
     }
   }
 }

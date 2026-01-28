@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { User } from '../models/User.model';
 
-// Étendre l'interface Request pour inclure user
+// 🔹 Extension propre de Express.Request
 declare global {
   namespace Express {
     interface Request {
@@ -14,6 +14,11 @@ declare global {
   }
 }
 
+interface DecodedToken extends JwtPayload {
+  id: string;
+  role: string;
+}
+
 export const authenticate = async (
   req: Request,
   res: Response,
@@ -22,58 +27,60 @@ export const authenticate = async (
   try {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (!authHeader?.startsWith('Bearer ')) {
       res.status(401).json({
         success: false,
-        message: 'Token d\'authentification manquant',
+        message: "Token d'authentification manquant",
       });
       return;
     }
 
-    const token = authHeader.substring(7);
+    const token = authHeader.replace('Bearer ', '');
+
+    let decoded: DecodedToken;
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || '') as {
-        id: string;
-        role: string;
-      };
-
-      // Vérifier que l'utilisateur existe toujours
-      const user = await User.findById(decoded.id);
-
-      if (!user || !user.isActive) {
-        res.status(401).json({
-          success: false,
-          message: 'Utilisateur non trouvé ou désactivé',
-        });
-        return;
-      }
-
-      req.user = {
-        id: decoded.id,
-        role: decoded.role,
-      };
-
-      next();
-    } catch (error) {
+      decoded = jwt.verify(
+        token,
+        process.env.JWT_SECRET as string
+      ) as DecodedToken;
+    } catch {
       res.status(401).json({
         success: false,
         message: 'Token invalide ou expiré',
       });
       return;
     }
+
+    const user = await User.findById(decoded.id);
+
+    if (!user || !user.isActive) {
+      res.status(401).json({
+        success: false,
+        message: 'Utilisateur non trouvé ou désactivé',
+      });
+      return;
+    }
+
+    req.user = {
+      id: decoded.id,
+      role: decoded.role,
+    };
+
+    next();
   } catch (error) {
+    console.error('Auth middleware error:', error);
     res.status(500).json({
       success: false,
-      message: 'Erreur d\'authentification',
+      message: "Erreur interne d'authentification",
     });
-    return;
   }
 };
 
-// Middleware pour vérifier les rôles
-export const authorize = (...roles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
+// 🔒 Middleware de rôle
+export const authorize =
+  (...roles: string[]) =>
+  (req: Request, res: Response, next: NextFunction): void => {
     if (!req.user) {
       res.status(401).json({
         success: false,
@@ -92,4 +99,3 @@ export const authorize = (...roles: string[]) => {
 
     next();
   };
-};

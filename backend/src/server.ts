@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Application, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -7,89 +7,144 @@ import morgan from 'morgan';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import dotenv from 'dotenv';
+
 import { errorHandler } from './middlewares/errorHandler';
 import { logger } from './utils/logger';
 import { initializeSocket } from './sockets/socketHandler';
 import { generalLimiter } from './utils/rateLimiter';
-import './cron/jobs'; // Initialiser les tâches cron
+
+import './cron/jobs';
+
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import providerRoutes from './routes/provider.routes';
 import adminRoutes from './routes/admin.routes';
 
-// Charger les variables d'environnement
+// ========================
+// CONFIG ENV
+// ========================
 dotenv.config();
 
-const app = express();
+const app: Application = express();
 const httpServer = createServer(app);
+
+// ========================
+// SOCKET.IO
+// ========================
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.SOCKET_CORS_ORIGIN || process.env.FRONTEND_URL || '*',
+    origin:
+      process.env.SOCKET_CORS_ORIGIN ||
+      process.env.FRONTEND_URL ||
+      '*',
     methods: ['GET', 'POST'],
+    credentials: true,
   },
 });
 
-const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || '';
+// ========================
+// CONSTANTES
+// ========================
+const PORT = Number(process.env.PORT) || 3000;
+const MONGODB_URI = process.env.MONGODB_URI;
 
-// Middlewares de sécurité
+if (!MONGODB_URI) {
+  logger.error('❌ MONGODB_URI manquant dans les variables d’environnement');
+  process.exit(1);
+}
+
+// ========================
+// MIDDLEWARES SÉCURITÉ
+// ========================
 app.use(helmet());
 app.use(compression());
-app.use(morgan('combined', { stream: { write: (message) => logger.info(message.trim()) } }));
 
+app.use(
+  morgan('combined', {
+    stream: {
+      write: (message: string) => logger.info(message.trim()),
+    },
+  })
+);
+
+// ========================
 // CORS
+// ========================
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:8081',
+    origin: process.env.FRONTEND_URL || '*',
     credentials: true,
   })
 );
 
-// Body parser
+// ========================
+// BODY PARSER
+// ========================
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Rate limiting général
+// ========================
+// RATE LIMITING
+// ========================
 app.use('/api', generalLimiter);
 
-// Routes de santé
-app.get('/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+// ========================
+// HEALTH CHECK
+// ========================
+app.get('/health', (_req: Request, res: Response) => {
+  res.status(200).json({
+    status: 'OK',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+  });
 });
 
-// Routes API
+// ========================
+// ROUTES API
+// ========================
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/providers', providerRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Initialiser Socket.io
+// ========================
+// SOCKET INIT
+// ========================
 initializeSocket(io);
 
-// Gestion des erreurs
+// ========================
+// ERROR HANDLER (DOIT ÊTRE EN DERNIER)
+// ========================
 app.use(errorHandler);
 
-// Connexion à MongoDB
+// ========================
+// MONGODB + SERVER
+// ========================
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
-    logger.info('✅ Connexion à MongoDB réussie');
+    logger.info('✅ Connexion MongoDB réussie');
+
     httpServer.listen(PORT, () => {
       logger.info(`🚀 Serveur démarré sur le port ${PORT}`);
-      logger.info(`📱 Environnement: ${process.env.NODE_ENV || 'development'}`);
+      logger.info(`🌍 Environnement : ${process.env.NODE_ENV || 'development'}`);
     });
   })
   .catch((error) => {
-    logger.error('❌ Erreur de connexion à MongoDB:', error);
+    logger.error('❌ Connexion MongoDB échouée', error);
     process.exit(1);
   });
 
-// Gestion de l'arrêt propre
+// ========================
+// SHUTDOWN PROPRE
+// ========================
 process.on('SIGTERM', () => {
-  logger.info('SIGTERM reçu, arrêt du serveur...');
+  logger.info('🛑 SIGTERM reçu, arrêt du serveur...');
   httpServer.close(() => {
-    mongoose.connection.close();
-    process.exit(0);
+    mongoose.connection.close(false).then(() => {
+      logger.info('🔌 MongoDB déconnecté');
+      process.exit(0);
+    });
   });
 });
 
