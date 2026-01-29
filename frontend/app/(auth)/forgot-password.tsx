@@ -9,6 +9,7 @@ import {
   Platform,
   Alert,
   ActivityIndicator,
+  ImageBackground,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { authService } from '@/services/authService';
@@ -45,49 +46,56 @@ export default function ForgotPasswordScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
+    <ImageBackground
+        source={require("@/assets/fond.jpg")}
+        style={styles.Images}
+        resizeMode='cover'
     >
-      <View style={styles.content}>
-        <Text style={styles.title}>Mot de passe oublié</Text>
-        <Text style={styles.subtitle}>
-          Entrez votre email et nous vous enverrons un lien pour réinitialiser votre mot de passe
-        </Text>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        <View style={styles.content}>
+          <Text style={styles.title}>Mot de passe oublié</Text>
+          <Text style={styles.subtitle}>
+            Entrez votre email et nous vous enverrons un lien pour réinitialiser votre mot de passe
+          </Text>
 
-        <View style={styles.form}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#999"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoComplete="email"
-          />
+          <View style={styles.form}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor="#999"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoComplete="email"
+            />
 
-          <TouchableOpacity
-            style={[styles.button, loading && styles.buttonDisabled]}
-            onPress={handleSubmit}
-            disabled={loading}
-          >
-            {loading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <Text style={styles.buttonText}>Envoyer le lien</Text>
-            )}
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.button, loading && styles.buttonDisabled]}
+              onPress={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.buttonText}>Envoyer le lien</Text>
+              )}
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => router.back()}
-            style={styles.linkButton}
-          >
-            <Text style={styles.linkText}>Retour à la connexion</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => router.back()}
+              style={styles.linkButton}
+            >
+              <Text style={styles.linkText}>Retour à la connexion</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </ImageBackground>
+      
   );
 }
 
@@ -149,5 +157,10 @@ const styles = StyleSheet.create({
   linkText: {
     color: '#6366f1',
     fontSize: 14,
+  },
+  Images: {
+    flex:1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

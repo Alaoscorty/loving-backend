@@ -21,7 +21,7 @@ import { formatCurrency, formatRelativeTime } from '@/utils/formatters';
  */
 
 export default function UserHomeScreen() {
-  const { user } = React.useContext(AuthContext);
+  const { user } = React.useContext(AuthContext)!;
   const router = useRouter();
 
   // Récupérer les réservations récentes
@@ -42,7 +42,7 @@ export default function UserHomeScreen() {
     queryFn: () => bookingService.getUserStats(),
   });
 
-  const upcomingBookings = recentBookings.filter((b) =>
+  const upcomingBookings = recentBookings.filter((b: any) =>
     new Date(b.startDate) > new Date()
   );
 
@@ -119,8 +119,9 @@ export default function UserHomeScreen() {
             data={upcomingBookings.slice(0, 2)}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <Card style={[styles.bookingCard, { marginBottom: 12 }]}>
-                <View style={styles.bookingRow}>
+              <View style={{ marginBottom: 12 }}>
+                <Card style={styles.bookingCard}>
+                  <View style={styles.bookingRow}>
                   <View>
                     <Text style={styles.bookingProvider}>
                       {item.provider?.firstName} {item.provider?.lastName}
@@ -152,6 +153,7 @@ export default function UserHomeScreen() {
                   </TouchableOpacity>
                 </View>
               </Card>
+            </View>
             )}
           />
         </View>
@@ -162,31 +164,31 @@ export default function UserHomeScreen() {
         <Text style={styles.sectionTitle}>⚡ Actions Rapides</Text>
         <View style={styles.quickAccessGrid}>
           <TouchableOpacity
-            style={styles.quickButton}
+            style={[styles.quickButton, { backgroundColor: 'rgba(0, 122, 255, 0.1)' }]}
             onPress={() => router.push('/(user)/profiles-list')}
           >
             <MaterialCommunityIcons name="magnify" size={32} color="#007AFF" />
             <Text style={styles.quickButtonText}>Chercher</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.quickButton}
+            style={[styles.quickButton, { backgroundColor: 'rgba(76, 175, 80, 0.1)' }]}
             onPress={() => router.push('/(user)/conversations-list')}
           >
             <MaterialCommunityIcons name="chat" size={32} color="#4caf50" />
             <Text style={styles.quickButtonText}>Messages</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.quickButton}
+            style={[styles.quickButton, { backgroundColor: 'rgba(233, 30, 99, 0.1)' }]}
             onPress={() => router.push('/(user)/favorites')}
           >
             <MaterialCommunityIcons name="heart" size={32} color="#e91e63" />
             <Text style={styles.quickButtonText}>Favoris</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.quickButton}
+            style={[styles.quickButton, { backgroundColor: 'rgba(255, 193, 7, 0.1)' }]}
             onPress={() => router.push('/(user)/bookings')}
           >
-            <MaterialCommunityIcons name="calendar-multiple" size={32} color="#FFD700" />
+            <MaterialCommunityIcons name="calendar-multiple" size={32} color="#FFC107" />
             <Text style={styles.quickButtonText}>Réservations</Text>
           </TouchableOpacity>
         </View>

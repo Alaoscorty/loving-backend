@@ -12,6 +12,7 @@ import { errorHandler } from './middlewares/errorHandler';
 import { logger } from './utils/logger';
 import { initializeSocket } from './sockets/socketHandler';
 import { generalLimiter } from './utils/rateLimiter';
+import { initializeDefaultAdmins } from './utils/initializeAdmins';
 
 import './cron/jobs';
 
@@ -122,8 +123,11 @@ app.use(errorHandler);
 // ========================
 mongoose
   .connect(MONGODB_URI)
-  .then(() => {
+  .then(async () => {
     logger.info('✅ Connexion MongoDB réussie');
+
+    // Initialiser les comptes admin par défaut
+    await initializeDefaultAdmins();
 
     httpServer.listen(PORT, () => {
       logger.info(`🚀 Serveur démarré sur le port ${PORT}`);

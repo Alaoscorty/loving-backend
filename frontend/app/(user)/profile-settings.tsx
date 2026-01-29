@@ -48,18 +48,18 @@ interface UserProfile {
 
 export default function ProfileSettingsScreen() {
   const router = useRouter();
-  const { user, logout } = React.useContext(AuthContext);
-  const { addNotification } = React.useContext(NotificationContext);
+  const { user, logout } = React.useContext(AuthContext)! as any;
+  const { addNotification } = React.useContext(NotificationContext)! as any;
 
   const [editMode, setEditMode] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [formData, setFormData] = useState<Partial<UserProfile>>({
-    firstName: user?.firstName || '',
-    lastName: user?.lastName || '',
-    email: user?.email || '',
-    phone: user?.phone || '',
-    bio: user?.bio || '',
-    location: user?.location || '',
+    firstName: (user as any)?.firstName || '',
+    lastName: (user as any)?.lastName || '',
+    email: (user as any)?.email || '',
+    phone: (user as any)?.phone || '',
+    bio: (user as any)?.bio || '',
+    location: (user as any)?.location || '',
   });
 
   const [preferences, setPreferences] = useState({
@@ -70,43 +70,45 @@ export default function ProfileSettingsScreen() {
   });
 
   // Récupérer le profil complet
+  const userId = (user as any)?.id;
   const { data: profile, isLoading } = useQuery({
-    queryKey: ['userProfile', user?.id],
-    queryFn: () => profileService.getProfileById(user?.id || ''),
-    enabled: !!user?.id,
+    queryKey: ['userProfile', userId],
+    queryFn: () => profileService.getProfileById(userId || ''),
+    enabled: !!userId,
   });
 
   // Mutation pour mettre à jour le profil
   const { mutate: updateProfile, isPending } = useMutation({
-    mutationFn: (data: Partial<UserProfile>) => profileService.updateProfile(data),
+    mutationFn: (data: Partial<UserProfile>) => {
+      if (!userId) throw new Error('No user ID');
+      return profileService.updateProfile(userId, data);
+    },
     onSuccess: () => {
-      addNotification({
-        type: 'success',
-        message: 'Profil mis à jour avec succès',
-        duration: 2000,
-      });
+      addNotification('Profil mis à jour avec succès', 'success', 2000);
       setEditMode(false);
     },
-    onError: (error) => {
-      addNotification({
-        type: 'error',
-        message: `Erreur: ${error.message}`,
-        duration: 3000,
-      });
+    onError: (error: any) => {
+      addNotification(`Erreur: ${error?.message || 'Erreur inconnue'}`, 'error', 3000);
     },
   });
 
   // Mutation pour supprimer le compte
   const { mutate: deleteAccount, isPending: deleting } = useMutation({
-    mutationFn: () => profileService.deleteAccount(),
-    onSuccess: () => {
-      addNotification({
-        type: 'success',
-        message: 'Compte supprimé',
-        duration: 2000,
+    mutationFn: async () => {
+      if (!userId) throw new Error('No user ID');
+      // Appel API pour supprimer le compte
+      return fetch(`/api/users/${userId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
       });
+    },
+    onSuccess: () => {
+      addNotification('Compte supprimé', 'success', 2000);
       logout();
       router.push('/(auth)/login');
+    },
+    onError: (error: any) => {
+      addNotification(`Erreur: ${error?.message || 'Erreur inconnue'}`, 'error', 3000);
     },
   });
 

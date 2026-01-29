@@ -118,6 +118,26 @@ class ProfileService {
       throw error;
     }
   }
+
+  async getSuggestedProfiles(limit: number = 10) {
+    try {
+      const response = await apiClient.get('/profiles/suggested', {
+        params: { limit },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getUserStats(userId?: string) {
+    try {
+      const response = await apiClient.get(`/users/${userId || 'me'}/stats`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const profileService = new ProfileService();

@@ -1,0 +1,29 @@
+Je viens de générer l'apk du code front.. j'ai créer un compte utilisateur et la page home s'est afficher. Ensuite quand je clique sur l'avatar du profile, l'application crache automatiquement. Lorsque je clique sur message également.De plus la page profile list n'est pas responsive et également les utilisateurs ne s'affichent pas même quand je recharge la page.les stats ne marche pas.
+
+maitenant le profil du prestaire affiche des textes pas de donnés ni rien, et le prestataire ne peut accéder au données qui lui sont destinés, ni modifiés sont profile. 
+
+de plus j'aimerais que les chats puissent êtres envoyés entre les utilisateurs et providers comme ce que fais facebook.Du genre je veux que les users, puissent voir, consulter les profils des providers, les contacter par chat.les providers quant à eux verront les users qui les ont ajouter
+
+Sur la page home de l'utilisateur, je veux que les cartes de la sections actions rapides, aient un background la même couleur que les icones mais de faibles opacités.De plus je veux que l'utilisateur puisse avoir accès à ses réservations grâce à un bouton sur la, page de réservations.
+
+Sur le dashboard du provider, fais la Gestion du profil,Planning,Demandes de réservation,Revenus... sous forme d'icone mobile en haut de la page après le bienvenue comme celui de facebook
+
+implémente moi Page de paiement,Liste des conversations,Profil utilisateur,Détails d'une réservation, Liste des signalements, Gestion des utilisateurs et enrichit moi les Demandes de réservation ainsi que validate-profiles.tsx en faisant Validation/Rejet de profils. Et ajoute trois compte admin par défaut avec email:alaoscorty@gmail.com et mot de passe:123456. ensuite alaoservice1@gmail.com et alaoempire1@gmail.com Qui peut être changer depuis le profile de l'administrateur.
+
+fait moi maintenant :
+⏳ Page de réservation (formulaire de booking complet)
+2. ⏳ Page de paiement (intégration Stripe/Paiement)
+3. ⏳ Page de paiement - Confirmation et historique
+4. ⏳ Connexion WebSocket pour chat en temps réel
+5. ⏳ Détails d'une réservation (prestataire)
+⏳ Agenda personnel utilisateur
+6. ⏳ Profil utilisateur complet
+7. ⏳ Liste des conversations
+8. ⏳ Paramètres de sécurité (prestataire)
+9. ⏳ Gestion des signalements (admin)
+10. ⏳ Notifications push
+11. ⏳ Historique complet des transactions
+12. ⏳ Statistiques avancées (admin)
+13. ⏳ Système de recommandations
+
+fais moi tous ce qu'il y à dans HEKLIST.md

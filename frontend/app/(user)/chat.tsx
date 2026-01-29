@@ -10,23 +10,25 @@ import {
 import { useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { chatService } from '@/services/chatService';
-import { Card, Input, Button, LoadingSpinner } from '@/components';
+import { Card, Input, LoadingSpinner } from '@/components';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useChat } from '@/contexts/ChatContext';
 
 export default function ChatScreen() {
   const params = useLocalSearchParams();
   const providerId = params.providerId as string;
-  const { messages, addMessage, sendMessage, isLoading } = useChat();
+  const chat = useChat();
+  const { messages = [], sendMessage, isLoading } = (chat || {}) as any;
   const [messageText, setMessageText] = useState('');
 
-  const { data: conversation, refetch } = useQuery({
+  const { refetch } = useQuery({
     queryKey: ['conversation', providerId],
     queryFn: () => chatService.getConversation(providerId),
+    enabled: false,
   });
 
   const handleSendMessage = async () => {
-    if (messageText.trim()) {
+    if (messageText.trim() && sendMessage) {
       await sendMessage(messageText);
       setMessageText('');
       refetch();
@@ -42,46 +44,34 @@ export default function ChatScreen() {
       <ScrollView
         style={styles.messagesContainer}
         refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+          <RefreshControl refreshing={!!isLoading} onRefresh={() => refetch()} />
         }
       >
         {messages.length === 0 ? (
           <View style={styles.emptyState}>
-            <MaterialCommunityIcons
-              name="chat-outline"
-              size={48}
-              color="#d1d5db"
-            />
+            <MaterialCommunityIcons name="chat-outline" size={48} color="#d1d5db" />
             <Text style={styles.emptyText}>Aucun message</Text>
-            <Text style={styles.emptySubtext}>
-              Commencez une conversation
-            </Text>
+            <Text style={styles.emptySubtext}>Commencez une conversation</Text>
           </View>
         ) : (
-          messages.map((message) => (
+          messages.map((message: any) => (
             <View
               key={message.id}
               style={[
                 styles.messageRow,
-                message.user._id === 'currentUserId'
-                  ? styles.sentMessage
-                  : styles.receivedMessage,
+                message.user?._id === 'currentUserId' ? styles.sentMessage : styles.receivedMessage,
               ]}
             >
               <Card
                 style={[
                   styles.messageBubble,
-                  message.user._id === 'currentUserId'
-                    ? styles.sentBubble
-                    : styles.receivedBubble,
-                ]}
+                  message.user?._id === 'currentUserId' ? styles.sentBubble : styles.receivedBubble,
+                ] as any}
               >
                 <Text
                   style={[
                     styles.messageText,
-                    message.user._id === 'currentUserId'
-                      ? styles.sentText
-                      : styles.receivedText,
+                    message.user?._id === 'currentUserId' ? styles.sentText : styles.receivedText,
                   ]}
                 >
                   {message.text}

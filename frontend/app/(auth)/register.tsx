@@ -10,6 +10,7 @@ import {
   Alert,
   ActivityIndicator,
   ScrollView,
+  ImageBackground,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { authService } from '@/services/authService';
@@ -74,137 +75,144 @@ export default function RegisterScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
+    <ImageBackground
+        source={require("@/assets/fond.jpg")}
+        style={styles.Images}
+        resizeMode='cover'
     >
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.content}>
-          <Text style={styles.title}>Créer un compte</Text>
-          <Text style={styles.subtitle}>Rejoignez notre communauté</Text>
+          <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <View style={styles.content}>
+            <Text style={styles.title}>Créer un compte</Text>
+            <Text style={styles.subtitle}>Rejoignez notre communauté</Text>
 
-          <View style={styles.roleSelector}>
-            <TouchableOpacity
-              style={[
-                styles.roleButton,
-                formData.role === 'user' && styles.roleButtonActive,
-              ]}
-              onPress={() => setFormData({ ...formData, role: 'user' })}
-            >
-              <Text
+            <View style={styles.roleSelector}>
+              <TouchableOpacity
                 style={[
-                  styles.roleButtonText,
-                  formData.role === 'user' && styles.roleButtonTextActive,
+                  styles.roleButton,
+                  formData.role === 'user' && styles.roleButtonActive,
                 ]}
+                onPress={() => setFormData({ ...formData, role: 'user' })}
               >
-                Utilisateur
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.roleButton,
-                formData.role === 'provider' && styles.roleButtonActive,
-              ]}
-              onPress={() => setFormData({ ...formData, role: 'provider' })}
-            >
-              <Text
+                <Text
+                  style={[
+                    styles.roleButtonText,
+                    formData.role === 'user' && styles.roleButtonTextActive,
+                  ]}
+                >
+                  Utilisateur
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={[
-                  styles.roleButtonText,
-                  formData.role === 'provider' && styles.roleButtonTextActive,
+                  styles.roleButton,
+                  formData.role === 'provider' && styles.roleButtonActive,
                 ]}
+                onPress={() => setFormData({ ...formData, role: 'provider' })}
               >
-                Prestataire
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.form}>
-            <View style={styles.nameRow}>
-              <TextInput
-                style={[styles.input, styles.inputHalf]}
-                placeholder="Prénom"
-                placeholderTextColor="#999"
-                value={formData.firstName}
-                onChangeText={(text) => setFormData({ ...formData, firstName: text })}
-              />
-              <TextInput
-                style={[styles.input, styles.inputHalf]}
-                placeholder="Nom"
-                placeholderTextColor="#999"
-                value={formData.lastName}
-                onChangeText={(text) => setFormData({ ...formData, lastName: text })}
-              />
+                <Text
+                  style={[
+                    styles.roleButtonText,
+                    formData.role === 'provider' && styles.roleButtonTextActive,
+                  ]}
+                >
+                  Prestataire
+                </Text>
+              </TouchableOpacity>
             </View>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              placeholderTextColor="#999"
-              value={formData.email}
-              onChangeText={(text) => setFormData({ ...formData, email: text })}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoComplete="email"
-            />
+            <View style={styles.form}>
+              <View style={styles.nameRow}>
+                <TextInput
+                  style={[styles.input, styles.inputHalf]}
+                  placeholder="Prénom"
+                  placeholderTextColor="#999"
+                  value={formData.firstName}
+                  onChangeText={(text) => setFormData({ ...formData, firstName: text })}
+                />
+                <TextInput
+                  style={[styles.input, styles.inputHalf]}
+                  placeholder="Nom"
+                  placeholderTextColor="#999"
+                  value={formData.lastName}
+                  onChangeText={(text) => setFormData({ ...formData, lastName: text })}
+                />
+              </View>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Téléphone"
-              placeholderTextColor="#999"
-              value={formData.phone}
-              onChangeText={(text) => setFormData({ ...formData, phone: text })}
-              keyboardType="phone-pad"
-            />
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                placeholderTextColor="#999"
+                value={formData.email}
+                onChangeText={(text) => setFormData({ ...formData, email: text })}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoComplete="email"
+              />
 
-            <TextInput
-              style={styles.input}
-              placeholder="Mot de passe"
-              placeholderTextColor="#999"
-              value={formData.password}
-              onChangeText={(text) => setFormData({ ...formData, password: text })}
-              secureTextEntry
-              autoCapitalize="none"
-            />
+              <TextInput
+                style={styles.input}
+                placeholder="Téléphone"
+                placeholderTextColor="#999"
+                value={formData.phone}
+                onChangeText={(text) => setFormData({ ...formData, phone: text })}
+                keyboardType="phone-pad"
+              />
 
-            <TextInput
-              style={styles.input}
-              placeholder="Confirmer le mot de passe"
-              placeholderTextColor="#999"
-              value={formData.confirmPassword}
-              onChangeText={(text) => setFormData({ ...formData, confirmPassword: text })}
-              secureTextEntry
-              autoCapitalize="none"
-            />
+              <TextInput
+                style={styles.input}
+                placeholder="Mot de passe"
+                placeholderTextColor="#999"
+                value={formData.password}
+                onChangeText={(text) => setFormData({ ...formData, password: text })}
+                secureTextEntry
+                autoCapitalize="none"
+              />
 
-            <TouchableOpacity
-              style={[styles.button, loading && styles.buttonDisabled]}
-              onPress={handleRegister}
-              disabled={loading}
-            >
-              {loading ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <Text style={styles.buttonText}>S'inscrire</Text>
-              )}
-            </TouchableOpacity>
+              <TextInput
+                style={styles.input}
+                placeholder="Confirmer le mot de passe"
+                placeholderTextColor="#999"
+                value={formData.confirmPassword}
+                onChangeText={(text) => setFormData({ ...formData, confirmPassword: text })}
+                secureTextEntry
+                autoCapitalize="none"
+              />
 
-            <TouchableOpacity
-              onPress={() => router.back()}
-              style={styles.linkButton}
-            >
-              <Text style={styles.linkText}>Déjà un compte ? Se connecter</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.button, loading && styles.buttonDisabled]}
+                onPress={handleRegister}
+                disabled={loading}
+              >
+                {loading ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text style={styles.buttonText}>S'inscrire</Text>
+                )}
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => router.back()}
+                style={styles.linkButton}
+              >
+                <Text style={styles.linkText}>Déjà un compte ? Se connecter</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </ImageBackground>
+      
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff54',
   },
   scrollContent: {
     flexGrow: 1,
@@ -293,5 +301,10 @@ const styles = StyleSheet.create({
   linkText: {
     color: '#6366f1',
     fontSize: 14,
+  },
+  Images: {
+    flex:1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

@@ -99,6 +99,38 @@ class BookingService {
       throw error;
     }
   }
+
+  async getRecentBookings(options?: { limit?: number; status?: string }) {
+    try {
+      const response = await apiClient.get('/bookings/recent', {
+        params: { limit: options?.limit || 5, status: options?.status },
+      });
+      return response?.data || response || [];
+    } catch (error) {
+      console.error('Erreur lors du chargement des réservations récentes:', error);
+      return [];
+    }
+  }
+
+  async getUserStats() {
+    try {
+      const response = await apiClient.get('/users/me/stats');
+      return response?.data || {
+        favoriteCount: 0,
+        averageRating: 0,
+        reviewCount: 0,
+        totalBookings: 0,
+      };
+    } catch (error) {
+      console.error('Erreur lors du chargement des stats:', error);
+      return {
+        favoriteCount: 0,
+        averageRating: 0,
+        reviewCount: 0,
+        totalBookings: 0,
+      };
+    }
+  }
 }
 
 export const bookingService = new BookingService();

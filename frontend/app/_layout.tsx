@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { ChatProvider } from '@/contexts/ChatContext';
+import { NotificationProvider } from '@/contexts/NotificationContext';
 
 // ⚠️ Notifications UNIQUEMENT sur mobile
 if (Platform.OS !== 'web') {
@@ -35,17 +37,21 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: '#fff' },
-          }}
-        >
-          <Stack.Screen name="(auth)" />
-          <Stack.Screen name="(user)" />
-          <Stack.Screen name="(provider)" />
-          <Stack.Screen name="(admin)" />
-        </Stack>
+        <ChatProvider>
+          <NotificationProvider>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: '#fff' },
+              }}
+            >
+              <Stack.Screen name="(auth)" />
+              <Stack.Screen name="(user)" />
+              <Stack.Screen name="(provider)" />
+              <Stack.Screen name="(admin)" />
+            </Stack>
+          </NotificationProvider>
+        </ChatProvider>
       </AuthProvider>
     </QueryClientProvider>
   );

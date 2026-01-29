@@ -44,8 +44,10 @@ export default function ConversationsListScreen() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredConversations, setFilteredConversations] = useState<Conversation[]>([]);
-  const { currentConversationId, setCurrentConversationId } = React.useContext(ChatContext);
-  const { addNotification } = React.useContext(NotificationContext);
+  const chatCtx = React.useContext(ChatContext)!;
+  const { currentConversationId, setCurrentConversation } = chatCtx;
+  const notificationCtx = React.useContext(NotificationContext)!;
+  const { addNotification } = notificationCtx;
 
   // Récupérer les conversations
   const { data: conversations = [], isLoading, refetch } = useQuery({
@@ -56,7 +58,7 @@ export default function ConversationsListScreen() {
   // Filtrer les conversations
   React.useEffect(() => {
     if (searchQuery.trim()) {
-      const filtered = conversations.filter((conv) =>
+        const filtered = conversations.filter((conv: Conversation) =>
         conv.participantName.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setFilteredConversations(filtered);
@@ -71,8 +73,8 @@ export default function ConversationsListScreen() {
     }
   }, [searchQuery, conversations]);
 
-  const handleOpenConversation = (conversation: Conversation) => {
-    setCurrentConversationId(conversation.id);
+  const handleOpenConversation = async (conversation: Conversation) => {
+    await setCurrentConversation(conversation.id);
     router.push({
       pathname: '/(user)/chat',
       params: { conversationId: conversation.id },
@@ -81,29 +83,17 @@ export default function ConversationsListScreen() {
 
   const handlePinConversation = (conversationId: string, isPinned: boolean) => {
     // Logique pour épingler/dépingler
-    addNotification({
-      type: 'success',
-      message: isPinned ? 'Conversation épinglée' : 'Conversation dépinglée',
-      duration: 2000,
-    });
+    addNotification(isPinned ? 'Conversation dépinglée' : 'Conversation épinglée', 'success', 2000);
     refetch();
   };
 
   const handleArchiveConversation = (conversationId: string) => {
-    addNotification({
-      type: 'success',
-      message: 'Conversation archivée',
-      duration: 2000,
-    });
+    addNotification('Conversation archivée', 'success', 2000);
     refetch();
   };
 
   const handleDeleteConversation = (conversationId: string) => {
-    addNotification({
-      type: 'success',
-      message: 'Conversation supprimée',
-      duration: 2000,
-    });
+    addNotification('Conversation supprimée', 'success', 2000);
     refetch();
   };
 

@@ -74,10 +74,3 @@
 
 ---
 
-## 📞 Support
-
-Pour toute question ou problème :
-1. Consultez [NAVIGATION.md](NAVIGATION.md) pour la structure
-2. Lisez [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md) pour des exemples
-3. Vérifiez [DEPENDENCIES.md](DEPENDENCIES.md) pour les dépendances
-4. Consultez le code source avec les commentaires
