@@ -1,3 +1,11 @@
+import 'react-native-get-random-values';
+import { Buffer } from 'buffer';
+// Ensure Buffer is available globally for browser shims
+if (typeof globalThis.Buffer === 'undefined') {
+  // @ts-ignore
+  globalThis.Buffer = Buffer;
+}
+
 import { Stack } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect } from 'react';

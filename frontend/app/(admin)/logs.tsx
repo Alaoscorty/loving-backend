@@ -14,18 +14,38 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 type LogType = 'security' | 'actions' | 'errors' | 'all';
+type LogLevel = 'info' | 'warning' | 'error' | 'all';
+
+interface Log {
+  _id: string;
+  level: string;
+  message: string;
+  timestamp: string | Date;
+  userId?: string;
+  action?: string;
+  ip?: string;
+  details?: Record<string, any>;
+}
 
 export default function LogsScreen() {
   const [filter, setFilter] = useState<LogType>('all');
-  const [level, setLevel] = useState<'info' | 'warning' | 'error' | 'all'>('all');
+  const [level, setLevel] = useState<LogLevel>('all');
 
-  const { data: logs, isLoading, refetch } = useQuery({
+  const { data: logs = [], isLoading, error, refetch } = useQuery({
     queryKey: ['admin-logs', filter, level],
-    queryFn: () => adminService.getLogs(filter, level),
+    queryFn: () => adminService.getLogs(
+      filter === 'all' ? undefined : filter,
+      level === 'all' ? undefined : level
+    ),
+    staleTime: 30000,
+    retry: 2,
+    onError: (err) => {
+      console.error('Error fetching logs:', err);
+    },
   });
 
-  const getLevelColor = (logLevel: string) => {
-    switch (logLevel) {
+  const getLevelColor = (logLevel: string): string => {
+    switch (logLevel?.toLowerCase()) {
       case 'error':
         return '#ef4444';
       case 'warning':
@@ -36,6 +56,49 @@ export default function LogsScreen() {
         return '#6b7280';
     }
   };
+
+  const formatTimestamp = (timestamp: string | Date): string => {
+    try {
+      const date = typeof timestamp === 'string' ? new Date(timestamp) : timestamp;
+      if (isNaN(date.getTime())) {
+        return 'Date invalide';
+      }
+      return format(date, 'dd MMM yyyy HH:mm', { locale: fr });
+    } catch (err) {
+      console.error('Error formatting timestamp:', err);
+      return 'Date invalide';
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Logs & Audit</Text>
+        </View>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#ef4444" />
+          <Text style={styles.loadingText}>Chargement des logs...</Text>
+        </View>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Logs & Audit</Text>
+        </View>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>Erreur lors du chargement des logs</Text>
+          <TouchableOpacity style={styles.retryButton} onPress={() => refetch()}>
+            <Text style={styles.retryText}>Réessayer</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -89,14 +152,14 @@ export default function LogsScreen() {
 
       <ScrollView
         style={styles.list}
-        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}
+        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={() => refetch()} />}
       >
-        {logs?.length === 0 ? (
+        {!logs || logs.length === 0 ? (
           <View style={styles.empty}>
             <Text style={styles.emptyText}>Aucun log</Text>
           </View>
         ) : (
-          logs?.map((log: any) => (
+          logs.map((log: Log) => (
             <View key={log._id} style={styles.logCard}>
               <View style={styles.logHeader}>
                 <View
@@ -105,14 +168,16 @@ export default function LogsScreen() {
                     { backgroundColor: getLevelColor(log.level) },
                   ]}
                 >
-                  <Text style={styles.levelBadgeText}>{log.level.toUpperCase()}</Text>
+                  <Text style={styles.levelBadgeText}>
+                    {log.level?.toUpperCase() || 'INFO'}
+                  </Text>
                 </View>
                 <Text style={styles.logDate}>
-                  {format(new Date(log.timestamp), 'dd MMM yyyy HH:mm', { locale: fr })}
+                  {formatTimestamp(log.timestamp)}
                 </Text>
               </View>
 
-              <Text style={styles.logMessage}>{log.message}</Text>
+              <Text style={styles.logMessage}>{log.message || 'N/A'}</Text>
 
               {log.userId && (
                 <Text style={styles.logUser}>Utilisateur: {log.userId}</Text>
@@ -126,7 +191,9 @@ export default function LogsScreen() {
 
               {log.details && (
                 <View style={styles.logDetails}>
-                  <Text style={styles.logDetailsText}>{JSON.stringify(log.details, null, 2)}</Text>
+                  <Text style={styles.logDetailsText}>
+                    {JSON.stringify(log.details, null, 2)}
+                  </Text>
                 </View>
               )}
             </View>
@@ -151,6 +218,37 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: 14,
+    color: '#666',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  errorText: {
+    fontSize: 16,
+    color: '#ef4444',
+    marginBottom: 16,
+  },
+  retryButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: '#ef4444',
+    borderRadius: 8,
+  },
+  retryText: {
+    color: '#fff',
+    fontWeight: '600',
   },
   filters: {
     maxHeight: 60,
