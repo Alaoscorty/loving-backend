@@ -9,7 +9,7 @@ config.resolver.alias = {
   axios: require.resolve('axios/dist/browser/axios.cjs'),
 };
 
-// ⚠️ Polyfills Node (optionnels, gardés si déjà utilisés ailleurs)
+// ⚠️ Polyfills Node (pour axios et autres modules)
 config.resolver.extraNodeModules = {
   ...config.resolver.extraNodeModules,
   crypto: require.resolve('crypto-browserify'),
@@ -17,6 +17,10 @@ config.resolver.extraNodeModules = {
   buffer: require.resolve('buffer'),
   assert: require.resolve('assert'),
   util: require.resolve('util/'),
+  url: require.resolve('url/'),
+  http: require.resolve('http-browserify'),
+  https: require.resolve('https-browserify'),
+  zlib: require.resolve('browserify-zlib'),
 };
 
 // 👀 Pour les modules liés / monorepo (ok de garder)
