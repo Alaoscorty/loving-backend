@@ -1,112 +1,99 @@
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios, { InternalAxiosRequestConfig } from 'axios';
+import * as SecureStore from 'expo-secure-store';
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@/contexts/AuthContext';
 
-const API_BASE_URL = 'https://loving-backend.onrender.com/api'; // <-- change avec ton backend réel
+const API_BASE_URL = 'https://loving-backend.onrender.com/api';
 
-// Création d'une instance Axios
 const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
-// Intercepteur pour ajouter le token à chaque requête
-api.interceptors.request.use(async (config) => {
-  const token = await AsyncStorage.getItem('accessToken');
-  if (token) {
-    config.headers = {
-      ...config.headers,
-      Authorization: `Bearer ${token}`,
-    };
+/** 🔐 Ajouter le token aux requêtes */
+api.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
+  const token = await SecureStore.getItemAsync(ACCESS_TOKEN_KEY);
+
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
 });
 
-// Intercepteur pour gérer le refresh token automatiquement
+/** 🔁 Refresh token automatique */
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const refreshToken = await AsyncStorage.getItem('refreshToken');
-      if (refreshToken) {
-        try {
-          const response = await axios.post(`${API_BASE_URL}/auth/refresh`, {
-            token: refreshToken,
-          });
-          const newToken = response.data.accessToken;
-          await AsyncStorage.setItem('accessToken', newToken);
-          originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
-          return api(originalRequest);
-        } catch (refreshError) {
-          console.error('Erreur lors du refresh token', refreshError);
-          // Ici tu peux rediriger vers login si le refresh échoue
-        }
+
+      const refreshToken = await SecureStore.getItemAsync(REFRESH_TOKEN_KEY);
+
+      if (!refreshToken) {
+        return Promise.reject(error);
+      }
+
+      try {
+        const response = await axios.post(`${API_BASE_URL}/auth/refresh`, {
+          refreshToken,
+        });
+
+        const newAccessToken = response.data.accessToken;
+
+        await SecureStore.setItemAsync(
+          ACCESS_TOKEN_KEY,
+          newAccessToken
+        );
+
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return api(originalRequest);
+      } catch (refreshError) {
+        console.error('❌ Refresh token échoué', refreshError);
+        return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   }
 );
 
 export const userService = {
-  /** ---------------- USER FAVORITES ---------------- **/
+  /** -------- FAVORIS -------- */
+  getFavorites: () => api.get('/favorites').then(res => res.data),
+  addFavorite: (providerId: string) =>
+    api.post('/favorites', { providerId }).then(res => res.data),
+  removeFavorite: (providerId: string) =>
+    api.delete(`/favorites/${providerId}`).then(res => res.data),
 
-  getFavorites: async () => {
-    const response = await api.get('/favorites');
-    return response.data;
-  },
+  /** -------- PROFIL -------- */
+  getProfile: (userId?: string) =>
+    api.get(userId ? `/users/${userId}` : '/users/me').then(res => res.data),
 
-  addFavorite: async (providerId: string) => {
-    const response = await api.post('/favorites', { providerId });
-    return response.data;
-  },
+  updateProfile: (data: any) =>
+    api.put('/users/me', data).then(res => res.data),
 
-  removeFavorite: async (providerId: string) => {
-    const response = await api.delete(`/favorites/${providerId}`);
-    return response.data;
-  },
+  /** -------- BOOKINGS -------- */
+  getBookings: () => api.get('/bookings').then(res => res.data),
+  createBooking: (data: any) =>
+    api.post('/bookings', data).then(res => res.data),
+  cancelBooking: (bookingId: string) =>
+    api.delete(`/bookings/${bookingId}`).then(res => res.data),
 
-  /** ---------------- USER PROFILE ---------------- **/
-
-  getProfile: async (userId?: string) => {
-    const endpoint = userId ? `/users/${userId}` : '/users/me';
-    const response = await api.get(endpoint);
-    return response.data;
-  },
-
-  updateProfile: async (data: any) => {
-    const response = await api.put('/users/me', data);
-    return response.data;
-  },
-
-  /** ---------------- BOOKINGS / RESERVATIONS ---------------- **/
-
-  getBookings: async () => {
-    const response = await api.get('/bookings');
-    return response.data;
-  },
-
-  createBooking: async (bookingData: any) => {
-    const response = await api.post('/bookings', bookingData);
-    return response.data;
-  },
-
-  cancelBooking: async (bookingId: string) => {
-    const response = await api.delete(`/bookings/${bookingId}`);
-    return response.data;
-  },
-
-  /** ---------------- AUTH ---------------- **/
-
+  /** -------- AUTH -------- */
   login: async (email: string, password: string) => {
     const response = await api.post('/auth/login', { email, password });
-    const { accessToken, refreshToken } = response.data;
-    await AsyncStorage.setItem('accessToken', accessToken);
-    await AsyncStorage.setItem('refreshToken', refreshToken);
-    return response.data.user;
+
+    const { accessToken, refreshToken, user } = response.data;
+
+    await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, accessToken);
+    await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, refreshToken);
+
+    return user;
   },
 
   logout: async () => {
-    await AsyncStorage.removeItem('accessToken');
-    await AsyncStorage.removeItem('refreshToken');
+    await SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY);
+    await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
   },
 };

@@ -19,7 +19,12 @@ interface AuthContextType {
   token: string | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (token: string, user: User) => Promise<void>;
+  login: (
+  accessToken: string,
+  refreshToken: string,
+  user: User
+) => Promise<void>;
+
   logout: () => Promise<void>;
   updateUser: (user: User) => void;
   refreshToken: () => Promise<void>;
@@ -27,7 +32,9 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const TOKEN_KEY = 'auth_token';
+export const ACCESS_TOKEN_KEY = 'token';
+export const REFRESH_TOKEN_KEY = 'refreshToken';
+
 const USER_KEY = 'user_data';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -41,7 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loadAuthData = async () => {
     try {
-      const storedToken = await SecureStore.getItemAsync(TOKEN_KEY);
+      const storedToken = await SecureStore.getItemAsync(ACCESS_TOKEN_KEY);
       const storedUser = await AsyncStorage.getItem(USER_KEY);
 
       if (storedToken && storedUser) {
@@ -63,28 +70,48 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const login = async (newToken: string, newUser: User) => {
+  const login = async (
+    accessToken: string,
+    refreshToken: string,
+    newUser: User
+  ) => {
+    // Vérifier que les tokens sont des strings valides
+    if (!accessToken || typeof accessToken !== 'string') {
+      throw new Error('accessToken invalide ou manquant');
+    }
+
+    if (!refreshToken || typeof refreshToken !== 'string') {
+      throw new Error('refreshToken invalide ou manquant');
+    }
+
+    // S'assurer que les valeurs sont bien des strings pour SecureStore
+    const tokenString = String(accessToken);
+    const refreshTokenString = String(refreshToken);
+
     try {
-      await SecureStore.setItemAsync(TOKEN_KEY, newToken);
+      await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, tokenString);
+      await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, refreshTokenString);
       await AsyncStorage.setItem(USER_KEY, JSON.stringify(newUser));
-      setToken(newToken);
+
+      setToken(tokenString);
       setUser(newUser);
     } catch (error) {
-      console.error('Erreur lors de la connexion:', error);
-      throw error;
+      console.error('Erreur lors du stockage des tokens:', error);
+      throw new Error('Erreur lors de la sauvegarde des données d\'authentification');
     }
   };
 
+
+
   const logout = async () => {
-    try {
-      await SecureStore.deleteItemAsync(TOKEN_KEY);
-      await AsyncStorage.removeItem(USER_KEY);
-      setToken(null);
-      setUser(null);
-    } catch (error) {
-      console.error('Erreur lors de la déconnexion:', error);
-    }
-  };
+  await SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY);
+  await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
+  await AsyncStorage.removeItem(USER_KEY);
+
+  setToken(null);
+  setUser(null);
+};
+
 
   const updateUser = (updatedUser: User) => {
     setUser(updatedUser);
@@ -93,15 +120,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const refreshToken = async () => {
     try {
-      if (!token) return;
-      const response = await authService.refreshToken(token);
-      await SecureStore.setItemAsync(TOKEN_KEY, response.token);
-      setToken(response.token);
+      const storedRefreshToken = await SecureStore.getItemAsync(REFRESH_TOKEN_KEY);
+      if (!storedRefreshToken) return;
+
+      const response = await authService.refreshToken(storedRefreshToken);
+      // Le backend retourne { success: true, data: { token, refreshToken } }
+      const data = response.data || response;
+      const newToken = String(data.token);
+      const newRefreshToken = String(data.refreshToken || storedRefreshToken);
+
+      await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, newToken);
+      if (data.refreshToken) {
+        await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, newRefreshToken);
+      }
+      setToken(newToken);
     } catch (error) {
-      console.error('Erreur lors du rafraîchissement du token:', error);
+      console.error('Erreur refresh token', error);
       await logout();
     }
   };
+
 
   const value: AuthContextType = {
     user,

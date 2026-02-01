@@ -1,8 +1,10 @@
 import axios from 'axios';
 import Constants from 'expo-constants';
 import * as SecureStore from 'expo-secure-store';
+import { ACCESS_TOKEN_KEY } from '@/contexts/AuthContext';
 
-const API_URL = Constants.expoConfig?.extra?.apiUrl || process.env.EXPO_PUBLIC_API_URL || 'https://loving-backend.onrender.com/api';
+
+const API_URL = process.env.EXPO_PUBLIC_API_URL!;
 
 const api = axios.create({
   baseURL: API_URL,
@@ -40,7 +42,7 @@ api.interceptors.response.use(
 // Fonction utilitaire pour récupérer le token (à implémenter avec SecureStore)
 const getStoredToken = async (): Promise<string | null> => {
   try {
-    return await SecureStore.getItemAsync('auth_token');
+    return await SecureStore.getItemAsync(ACCESS_TOKEN_KEY);
   } catch {
     return null;
   }
@@ -56,7 +58,7 @@ export interface RegisterData {
 }
 
 export interface LoginResponse {
-  token: string;
+  accessToken: string;
   refreshToken: string;
   user: {
     _id: string;
@@ -71,13 +73,35 @@ export interface LoginResponse {
 
 export const authService = {
   async register(data: RegisterData) {
-    const response = await api.post('/auth/register', data);
-    return response.data;
+    try {
+      const response = await api.post('/auth/register', data);
+      return response.data;
+    } catch (error: any) {
+      // Améliorer la gestion des erreurs de validation
+      if (error.response?.status === 400) {
+        const errorData = error.response.data;
+        if (errorData.errors && Array.isArray(errorData.errors)) {
+          const errorMessages = errorData.errors.map((err: any) => err.msg || err.message).join(', ');
+          throw new Error(errorMessages || errorData.message || 'Erreur de validation');
+        }
+        throw new Error(errorData.message || 'Erreur de validation');
+      }
+      throw error;
+    }
   },
 
   async login(email: string, password: string): Promise<LoginResponse> {
     const response = await api.post('/auth/login', { email, password });
-    return response.data;
+    // Le backend retourne { success: true, data: { token, refreshToken, user } }
+    const data = response.data.data || response.data;
+    if (!data.token || !data.refreshToken || !data.user) {
+      throw new Error('Réponse invalide du serveur');
+    }
+    return {
+      accessToken: String(data.token),
+      refreshToken: String(data.refreshToken),
+      user: data.user,
+    };
   },
 
   async verifyToken(token: string) {

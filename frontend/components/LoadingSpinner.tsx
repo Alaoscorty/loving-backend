@@ -18,7 +18,7 @@ interface LoadingSpinnerProps {
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'large',
-  color = '#6366f1',
+  color = '#4043ee',
   style,
   fullScreen = false,
 }) => {
@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff13',
   },
   lovingText: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#00f0ff', // bleu néon
+    color: '#2f00ff', // bleu néon
     marginBottom: 20,
     textShadowColor: '#00f0ff',
     textShadowOffset: { width: 0, height: 0 },

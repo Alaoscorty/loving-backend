@@ -1,22 +1,17 @@
 import { useEffect } from 'react';
 import { Redirect } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
-import { View, ActivityIndicator, StyleSheet, ImageBackground } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 export default function Index() {
   const { isAuthenticated, user, isLoading } = useAuth();
 
   if (isLoading) {
     return (
-      <ImageBackground
-          source={require("@/assets/vue.jpg")}
-          style={styles.Images}
-          resizeMode='cover'
-          >
+      
           <View style={styles.container}>
             <ActivityIndicator size="large" color="#6366f1" />
           </View>
-      </ImageBackground>
       
     );
   }
@@ -42,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#c8bcf7f3',
   },
   Images: {
     flex:1,

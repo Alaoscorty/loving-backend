@@ -31,7 +31,7 @@ export default function LoginScreen() {
     setLoading(true);
     try {
       const response = await authService.login(email, password);
-      await login(response.token, response.user);
+      await login(response.accessToken, response.refreshToken, response.user);
       // Redirection basée sur le rôle
       if (response.user.role === 'provider') {
         router.replace('/(provider)/dashboard');
@@ -41,7 +41,8 @@ export default function LoginScreen() {
         router.replace('/(user)/home');
       }
     } catch (error: any) {
-      Alert.alert('Erreur de connexion', error.message || 'Une erreur est survenue');
+      const errorMessage = error.response?.data?.message || error.message || 'Une erreur est survenue';
+      Alert.alert('Erreur de connexion', errorMessage);
     } finally {
       setLoading(false);
     }
@@ -49,9 +50,9 @@ export default function LoginScreen() {
 
   return (
     <ImageBackground
-    source={require("@/assets/fond.jpg")}
-    style={styles.Images}
-    resizeMode='cover'
+      source={require("@/assets/fond.jpg")}
+      style={styles.Images}
+      resizeMode='cover'
     >
         <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -127,7 +128,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff75',
   },
   content: {
     flex: 1,
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   Images: {
-    flex:1,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },

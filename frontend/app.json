@@ -47,6 +47,12 @@
         "projectId": "37039591-9011-4530-848c-0fd924b897de"
       },
       "apiUrl": "https://loving-backend.onrender.com/api"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/37039591-9011-4530-848c-0fd924b897de"
     }
   }
 }

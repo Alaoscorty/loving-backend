@@ -49,17 +49,18 @@ export default function RegisterScreen() {
 
     setLoading(true);
     try {
-      await authService.register({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
+      const response = await authService.register({
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim().toLowerCase(),
+        phone: formData.phone.trim(),
         password: formData.password,
         role: formData.role,
       });
+      
       Alert.alert(
         'Inscription réussie',
-        'Un email de vérification a été envoyé. Veuillez vérifier votre boîte mail.',
+        response.message || 'Un email de vérification a été envoyé. Veuillez vérifier votre boîte mail.',
         [
           {
             text: 'OK',
@@ -68,7 +69,8 @@ export default function RegisterScreen() {
         ]
       );
     } catch (error: any) {
-      Alert.alert('Erreur d\'inscription', error.message || 'Une erreur est survenue');
+      const errorMessage = error.response?.data?.message || error.message || 'Une erreur est survenue lors de l\'inscription';
+      Alert.alert('Erreur d\'inscription', errorMessage);
     } finally {
       setLoading(false);
     }
