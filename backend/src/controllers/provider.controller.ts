@@ -1,19 +1,19 @@
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { Profile } from '../models/Profile.model';
-import { User } from '../models/User.model';
 
 const ObjectId = mongoose.Types.ObjectId;
 
 export async function getProviderProfile(req: Request, res: Response) {
   try {
     const userId = req.user!.id;
+
     let profile = await Profile.findOne({ userId: new ObjectId(userId) })
       .populate('userId', 'firstName lastName')
-      .lean();
+      .lean<any>();
 
     if (!profile) {
-      profile = await Profile.create({
+      const created = await Profile.create({
         userId: new ObjectId(userId),
         photos: [],
         services: [],
@@ -21,43 +21,42 @@ export async function getProviderProfile(req: Request, res: Response) {
         status: 'pending',
         isActive: true,
       });
-      profile = await Profile.findById(profile._id)
+
+      profile = await Profile.findById(created._id)
         .populate('userId', 'firstName lastName')
-        .lean();
+        .lean<any>();
     }
 
-    const p = profile as any;
-    const user = p.userId || {};
-    const hourlyRate = Array.isArray(p.services) && p.services[0] ? p.services[0].basePrice : 0;
-    const locationStr = p.location
-      ? [p.location.city, p.location.country].filter(Boolean).join(', ')
-      : '';
+    const hourlyRate =
+      Array.isArray(profile.services) && profile.services[0]
+        ? profile.services[0].basePrice
+        : 0;
 
     res.json({
       success: true,
       data: {
-        _id: p._id,
-        userId: p.userId?._id || p.userId,
-        firstName: user.firstName || p.displayName || '',
-        lastName: user.lastName || '',
-        displayName: p.displayName,
-        bio: p.bio,
-        location: locationStr || p.location,
-        photos: p.photos || [],
-        rating: p.rating ?? 0,
-        reviewCount: p.reviewCount ?? 0,
-        isVerified: !!p.isVerified,
+        _id: profile._id,
+        userId: profile.userId?._id || profile.userId,
+        firstName: profile.userId?.firstName || profile.displayName || '',
+        lastName: profile.userId?.lastName || '',
+        displayName: profile.displayName,
+        bio: profile.bio,
+        location: profile.location,
+        photos: profile.photos,
+        rating: profile.rating ?? 0,
+        reviewCount: profile.reviewCount ?? 0,
+        isVerified: !!profile.isVerified,
         rates: { hourly: hourlyRate, daily: hourlyRate * 8 },
-        services: p.services || [],
-        availability: p.availability,
-        age: p.age,
-        status: p.status,
-        isActive: p.isActive,
+        services: profile.services,
+        availability: profile.availability,
+        age: profile.age,
+        status: profile.status,
+        isActive: profile.isActive,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('getProviderProfile:', error);
-    res.status(500).json({ success: false, message: 'Erreur lors du chargement du profil' });
+    res.status(500).json({ success: false, message: 'Erreur serveur' });
   }
 }
 

@@ -8,9 +8,8 @@ export interface IConversation extends Document {
   blockedBy?: mongoose.Types.ObjectId;
   blockedAt?: Date;
   // Statistiques
-  unreadCount: {
-    [userId: string]: number;
-  };
+  unreadCount: Map<string, number>;
+
   createdAt: Date;
   updatedAt: Date;
 }
@@ -37,7 +36,7 @@ const ConversationSchema = new Schema<IConversation>(
     unreadCount: {
       type: Map,
       of: Number,
-      default: {},
+      default: () => new Map<string, number>(),
     },
   },
   {
