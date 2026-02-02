@@ -186,7 +186,7 @@ export default function UserHomeScreen() {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.quickButton, { backgroundColor: 'rgba(255, 193, 7, 0.1)' }]}
-            onPress={() => router.push('/(user)/bookings')}
+            onPress={() => router.push('/(user)/reservation')}
           >
             <MaterialCommunityIcons name="calendar-multiple" size={32} color="#FFC107" />
             <Text style={styles.quickButtonText}>Réservations</Text>

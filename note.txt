@@ -1,32 +1,4 @@
-Je viens de générer l'apk du code front.. j'ai créer un compte utilisateur et la page home s'est afficher. Ensuite quand je clique sur l'avatar du profile, l'application crache automatiquement. Lorsque je clique sur message également.De plus la page profile list n'est pas responsive et également les utilisateurs ne s'affichent pas même quand je recharge la page.les stats ne marche pas.
 
-maitenant le profil du prestaire affiche des textes pas de donnés ni rien, et le prestataire ne peut accéder au données qui lui sont destinés, ni modifiés sont profile. 
-
-de plus j'aimerais que les chats puissent êtres envoyés entre les utilisateurs et providers comme ce que fais facebook.Du genre je veux que les users, puissent voir, consulter les profils des providers, les contacter par chat.les providers quant à eux verront les users qui les ont ajouter
-
-Sur la page home de l'utilisateur, je veux que les cartes de la sections actions rapides, aient un background la même couleur que les icones mais de faibles opacités.De plus je veux que l'utilisateur puisse avoir accès à ses réservations grâce à un bouton sur la, page de réservations.
-
-Sur le dashboard du provider, fais la Gestion du profil,Planning,Demandes de réservation,Revenus... sous forme d'icone mobile en haut de la page après le bienvenue comme celui de facebook
-
-implémente moi Page de paiement,Liste des conversations,Profil utilisateur,Détails d'une réservation, Liste des signalements, Gestion des utilisateurs et enrichit moi les Demandes de réservation ainsi que validate-profiles.tsx en faisant Validation/Rejet de profils. Et ajoute trois compte admin par défaut avec email:alaoscorty@gmail.com et mot de passe:123456. ensuite alaoservice1@gmail.com et alaoempire1@gmail.com Qui peut être changer depuis le profile de l'administrateur.
-
-fait moi maintenant :
-⏳ Page de réservation (formulaire de booking complet)
-2. ⏳ Page de paiement (intégration Stripe/Paiement)
-3. ⏳ Page de paiement - Confirmation et historique
-4. ⏳ Connexion WebSocket pour chat en temps réel
-5. ⏳ Détails d'une réservation (prestataire)
-⏳ Agenda personnel utilisateur
-6. ⏳ Profil utilisateur complet
-7. ⏳ Liste des conversations
-8. ⏳ Paramètres de sécurité (prestataire)
-9. ⏳ Gestion des signalements (admin)
-10. ⏳ Notifications push
-11. ⏳ Historique complet des transactions
-12. ⏳ Statistiques avancées (admin)
-13. ⏳ Système de recommandations
-
-fais moi tous ce qu'il y à dans HEKLIST.md
 
 # dev
 git commit -m "fix auth"
@@ -35,4 +7,13 @@ git commit -m "fix auth"
 eas update --branch preview --message "fix auth"
 
 
-Je viens de générer mon application avec eas expo et après l'installation j'ai essayé de me connecter. MAis je reçoit l'erreur "Invalid value provided to SecureStore Value must be strings; consider JSON-encoding your values if they are serializable." lors de la connexionn  et lors de l'inzscription, je reçoit "Request failed with status code 400"  
+
+eas update --branch preview --message "mise a jour du code"
+
+Je veux que tu ajoute un assistant IA GEMINI_API_KEY=AIzaSyAbq98gLSns1OPvy_oWJ9naQi3QeAIxwIw qui aura pour but de consiller les utilisateurs et les providers un peu comme ce que fais meta Ai. De plus je veux que tu fasse en sorte que les utilisteurs et les providers puissent s'échanger des images et que leur conversations s'affiche avec un look plus moderne. De plus certains écrans vont jusqu'au niveau de la barre du téléphone ou s'affiche la charge, la date et les notifications donc refait leur dimensions.Et fais également les favories. 
+
+
+
+Lorsque je crée un compte prestataire, j'ai l'alerte "Inscription réussi. Un email 
+de vérification à été envoyé." Mais l'email n'a jamais été reçue et la page reviens sur le login au lieu d'accéder directement au dashboard du prestaire, de plus lorsque j'entre les informations du prestataire sur la page de login, l'application s'arrete automatiquement et quand j'essaie de rentrer à nouveau. la même chose se passe. Mais quand j'éteins la connexion et que je clique sur l'appliaction, la page de connexion s'affiche.
+ Lorsque je veux créer un compte administrateur, j'ai l'erreur "JSON Parse error : Unexpected character:<".

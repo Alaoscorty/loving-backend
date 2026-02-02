@@ -15,7 +15,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Button, Input, Card, LoadingSpinner, Toast } from '@/components';
 import { bookingService, profileService } from '@/services';
 import { NotificationContext } from '@/contexts';
-import { validateEmail, validatePhone } from '@/utils/validators';
+import { useNotification } from '@/contexts/NotificationContext';
+import { validateEmail, validatePhoneNumber } from '@/utils/validators';
 
 // 👇 Import conditionnel DateTimePicker pour mobile uniquement
 let DateTimePicker: any = null;
@@ -28,15 +29,25 @@ interface ReservationFormData {
   startDate: Date;
   endDate: Date;
   startTime: string;
-  notes: string;
-  serviceType?: string;
+  notes?: string;
   quantity?: number;
 }
+
+interface BookingRequest {
+  providerId: string;
+  startDate: string; // ISO
+  endDate: string;   // ISO
+  startTime: string;
+  notes?: string;
+  quantity?: number;
+  totalAmount: number;
+}
+
 
 export default function ReservationScreen() {
   const router = useRouter();
   const { providerId } = useLocalSearchParams();
-  const { addNotification } = React.useContext(NotificationContext);
+  const { addNotification } = useNotification();
 
   const [formData, setFormData] = useState<Partial<ReservationFormData>>({
     providerId: providerId as string,
@@ -57,26 +68,36 @@ export default function ReservationScreen() {
   });
 
   const { mutate: createReservation, isPending } = useMutation({
-    mutationFn: (data: ReservationFormData) => bookingService.createBooking(data),
-    onSuccess: (booking) => {
-      addNotification({
-        type: 'success',
-        message: 'Réservation créée! Passage au paiement...',
-        duration: 2000,
-      });
+    mutationFn: (data: BookingRequest) =>
+      bookingService.createBooking(data),
+    onSuccess: (booking: any) => {
+      addNotification(
+        'Réservation créée ! Passage au paiement...',
+        'success',
+        2000
+      );
+  
       router.push({
         pathname: '/(user)/payment',
-        params: { bookingId: booking.id, amount: booking.totalPrice },
+        params: {
+          bookingId: booking?.id || booking?._id,
+          amount: String(
+            booking?.totalPrice ??
+            booking?.totalAmount ??
+            0
+          ),
+        },
       });
     },
-    onError: (error) => {
-      addNotification({
-        type: 'error',
-        message: `Erreur: ${error.message}`,
-        duration: 3000,
-      });
+    onError: (error: any) => {
+      addNotification(
+        `Erreur: ${error.message}`,
+        'error',
+        3000
+      );
     },
   });
+  
 
   const handleStartDateChange = (event: any, selectedDate?: Date) => {
     setShowStartDatePicker(false);
@@ -122,10 +143,28 @@ export default function ReservationScreen() {
   };
 
   const handleSubmit = () => {
-    if (validateForm()) {
-      createReservation(formData as ReservationFormData);
-    }
+    if (!validateForm()) return;
+  
+    const hours = Math.ceil(
+      (formData.endDate!.getTime() - formData.startDate!.getTime()) /
+      (1000 * 60 * 60)
+    );
+  
+    const totalAmount = hours * 1600; // 💰 1600 FCFA / heure
+  
+    const payload: BookingRequest = {
+      providerId: providerId as string,
+      startDate: formData.startDate!.toISOString(),
+      endDate: formData.endDate!.toISOString(),
+      startTime: formData.startTime!,
+      notes: formData.notes,
+      quantity: formData.quantity,
+      totalAmount,
+    };
+  
+    createReservation(payload);
   };
+  
 
   if (providerLoading) return <LoadingSpinner />;
 
@@ -146,15 +185,17 @@ export default function ReservationScreen() {
           <View style={styles.providerInfo}>
             <View>
               <Text style={styles.providerName}>{provider.firstName} {provider.lastName}</Text>
-              <Text style={styles.providerService}>{provider.services?.[0] || 'Service'}</Text>
+              <Text style={styles.providerService}>
+                {typeof provider.services?.[0] === 'object' ? (provider.services[0] as any)?.name : provider.services?.[0] || 'Service'}
+              </Text>
               <View style={styles.ratingContainer}>
                 <MaterialCommunityIcons name="star" size={16} color="#FFD700" />
                 <Text style={styles.rating}>
-                  {provider.averageRating?.toFixed(1) || 'N/A'} ({provider.reviewCount || 0} avis)
+                  {(typeof provider.rating === 'number' ? provider.rating : 0)?.toFixed?.(1) || 'N/A'} ({provider.reviewCount || 0} avis)
                 </Text>
               </View>
             </View>
-            <Text style={styles.price}>{provider.hourlyRate}€/h</Text>
+            <Text style={styles.price}>{(provider.rates?.hourly ?? provider.hourlyRate ?? 0)}€/h</Text>
           </View>
         </Card>
       )}
@@ -290,7 +331,7 @@ export default function ReservationScreen() {
         <Card style={styles.summaryCard}>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Tarif horaire</Text>
-            <Text style={styles.summaryValue}>{provider?.hourlyRate}€</Text>
+            <Text style={styles.summaryValue}>{provider?.rates?.hourly ?? provider?.hourlyRate ?? 0}€</Text>
           </View>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Durée estimée</Text>
@@ -304,7 +345,7 @@ export default function ReservationScreen() {
           <View style={styles.summaryRow}>
             <Text style={styles.totalLabel}>Prix total</Text>
             <Text style={styles.totalValue}>
-              {((provider?.hourlyRate || 0) * (formData.endDate && formData.startDate
+              {((provider?.rates?.hourly ?? provider?.hourlyRate ?? 0) * (formData.endDate && formData.startDate
                 ? Math.ceil((formData.endDate.getTime() - formData.startDate.getTime()) / (1000*60*60))
                 : 0)).toFixed(2)} €
             </Text>

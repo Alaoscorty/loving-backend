@@ -117,6 +117,13 @@ export default function LoginScreen() {
                 Pas encore de compte ? <Text style={styles.registerBold}>S'inscrire</Text>
               </Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => router.push('/(auth)/register-admin')}
+              style={styles.adminLink}
+            >
+              <Text style={styles.adminLinkText}>Se connecter en tant qu'administrateur</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -128,7 +135,6 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff75',
   },
   content: {
     flex: 1,
@@ -208,6 +214,14 @@ const styles = StyleSheet.create({
   registerBold: {
     color: '#6366f1',
     fontWeight: '600',
+  },
+  adminLink: {
+    marginTop: 16,
+    alignItems: 'center',
+  },
+  adminLinkText: {
+    color: '#6b7280',
+    fontSize: 13,
   },
   Images: {
     flex: 1,

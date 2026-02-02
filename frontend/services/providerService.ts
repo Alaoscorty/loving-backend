@@ -22,7 +22,7 @@ export interface ProviderStats {
 class ProviderService {
   async getProviderProfile() {
     try {
-      const response = await apiClient.get('/provider/profile');
+      const response = await apiClient.get('/providers/profile');
       return response.data;
     } catch (error) {
       throw error;
@@ -31,7 +31,7 @@ class ProviderService {
 
   async updateProviderProfile(data: any) {
     try {
-      const response = await apiClient.put('/provider/profile', data);
+      const response = await apiClient.put('/providers/profile', data);
       return response.data;
     } catch (error) {
       throw error;
@@ -40,7 +40,7 @@ class ProviderService {
 
   async getAvailability(startDate: string, endDate: string) {
     try {
-      const response = await apiClient.get('/provider/availability', {
+      const response = await apiClient.get('/providers/availability', {
         params: { startDate, endDate },
       });
       return response.data;
@@ -51,7 +51,7 @@ class ProviderService {
 
   async setAvailability(dates: string[], recurring: boolean = false) {
     try {
-      const response = await apiClient.post('/provider/availability', {
+      const response = await apiClient.post('/providers/availability', {
         dates,
         recurring,
       });
@@ -63,7 +63,7 @@ class ProviderService {
 
   async getEarnings(period: 'week' | 'month' | 'year' | 'all' = 'month') {
     try {
-      const response = await apiClient.get('/provider/earnings', {
+      const response = await apiClient.get('/providers/earnings', {
         params: { period },
       });
       return response.data;
@@ -74,7 +74,7 @@ class ProviderService {
 
   async getEarningsDetail(page: number = 1, limit: number = 10) {
     try {
-      const response = await apiClient.get('/provider/earnings/detail', {
+      const response = await apiClient.get('/providers/earnings/detail', {
         params: { page, limit },
       });
       return response.data;
@@ -85,7 +85,7 @@ class ProviderService {
 
   async requestPayout(amount: number) {
     try {
-      const response = await apiClient.post('/provider/payout', { amount });
+      const response = await apiClient.post('/providers/payout', { amount });
       return response.data;
     } catch (error) {
       throw error;
@@ -94,7 +94,7 @@ class ProviderService {
 
   async getPayoutHistory(page: number = 1, limit: number = 10) {
     try {
-      const response = await apiClient.get('/provider/payout-history', {
+      const response = await apiClient.get('/providers/payout-history', {
         params: { page, limit },
       });
       return response.data;
@@ -105,7 +105,7 @@ class ProviderService {
 
   async getStats() {
     try {
-      const response = await apiClient.get('/provider/stats');
+      const response = await apiClient.get('/providers/stats');
       return response.data as ProviderStats;
     } catch (error) {
       throw error;
@@ -114,7 +114,7 @@ class ProviderService {
 
   async blockUser(userId: string, reason?: string) {
     try {
-      const response = await apiClient.post('/provider/block-user', {
+      const response = await apiClient.post('/providers/block-user', {
         userId,
         reason,
       });
@@ -126,7 +126,7 @@ class ProviderService {
 
   async getBlockedUsers() {
     try {
-      const response = await apiClient.get('/provider/blocked-users');
+      const response = await apiClient.get('/providers/blocked-users');
       return response.data;
     } catch (error) {
       throw error;
@@ -135,7 +135,7 @@ class ProviderService {
 
   async unblockUser(userId: string) {
     try {
-      const response = await apiClient.delete(`/provider/blocked-users/${userId}`);
+      const response = await apiClient.delete(`/providers/blocked-users/${userId}`);
       return response.data;
     } catch (error) {
       throw error;

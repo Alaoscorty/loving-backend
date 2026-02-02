@@ -1,5 +1,6 @@
 import express from 'express';
 import { authenticate, authorize } from '../middlewares/auth.middleware';
+import { getProviderProfile, updateProviderProfile } from '../controllers/provider.controller';
 
 const router = express.Router();
 
@@ -10,13 +11,8 @@ router.use(authorize('provider', 'admin'));
 // ========================
 // PROFIL
 // ========================
-router.get('/profile', (req, res) => {
-  res.json({ message: 'Profil prestataire' });
-});
-
-router.put('/profile', (req, res) => {
-  res.json({ message: 'Mise à jour profil prestataire' });
-});
+router.get('/profile', getProviderProfile);
+router.put('/profile', updateProviderProfile);
 
 // ========================
 // STATS & DASHBOARD

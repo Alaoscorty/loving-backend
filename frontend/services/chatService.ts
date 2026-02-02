@@ -29,66 +29,58 @@ class ChatService {
       const response = await apiClient.get('/chat/conversations', {
         params: { page, limit },
       });
-      return response.data;
+      const body = response.data as any;
+      return body?.data ?? body ?? [];
     } catch (error) {
-      throw error;
+      console.error('getConversations error:', error);
+      return [];
     }
   }
 
   async getConversation(conversationId: string, page: number = 1, limit: number = 50) {
     try {
       const response = await apiClient.get(
-        `/chat/conversations/${conversationId}`,
-        {
-          params: { page, limit },
-        }
+        `/chat/conversations/${conversationId}/messages`,
+        { params: { page, limit } }
       );
-      return response.data;
+      const body = response.data as any;
+      return { messages: body?.data?.messages ?? body?.messages ?? [] };
+    } catch (error) {
+      console.error('getConversation error:', error);
+      return { messages: [] };
+    }
+  }
+
+  async createOrGetConversation(participantId: string) {
+    try {
+      const response = await apiClient.post('/chat/conversations', {
+        participantId,
+      });
+      const body = response.data as any;
+      return body?.data ?? body;
     } catch (error) {
       throw error;
     }
   }
 
   async createConversation(userId: string) {
-    try {
-      const response = await apiClient.post('/chat/conversations', {
-        participantId: userId,
-      });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    return this.createOrGetConversation(userId);
   }
 
   async sendMessage(
     conversationId: string,
     content: string,
     type: 'text' | 'image' | 'file' = 'text',
-    fileData?: any
+    _fileData?: any
   ) {
     try {
-      const formData = new FormData();
-      formData.append('content', content);
-      formData.append('type', type);
-
-      if (fileData) {
-        formData.append('file', {
-          uri: fileData.uri,
-          type: fileData.type,
-          name: fileData.name,
-        } as any);
-      }
-
       const response = await apiClient.post(
         `/chat/conversations/${conversationId}/messages`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
+        { content },
+        { headers: { 'Content-Type': 'application/json' } }
       );
-      return response.data;
+      const body = response.data as any;
+      return body?.data ?? body;
     } catch (error) {
       throw error;
     }

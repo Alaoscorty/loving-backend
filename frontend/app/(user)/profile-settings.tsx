@@ -7,14 +7,16 @@ import {
   TouchableOpacity,
   Switch,
   Alert,
-  ActivityIndicator,
+  Image,
+  Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import * as ImagePicker from 'expo-image-picker';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { Button, Input, Card, LoadingSpinner, Modal } from '@/components';
-import { profileService } from '@/services';
+import { Button, Input, Card, LoadingSpinner } from '@/components';
+import { userService } from '@/services/userService';
 import { AuthContext, NotificationContext } from '@/contexts';
 import { validateEmail } from '@/utils/validators';
 
@@ -69,20 +71,31 @@ export default function ProfileSettingsScreen() {
     showProfile: true,
   });
 
-  // Récupérer le profil complet
-  const userId = (user as any)?.id;
-  const { data: profile, isLoading } = useQuery({
-    queryKey: ['userProfile', userId],
-    queryFn: () => profileService.getProfileById(userId || ''),
-    enabled: !!userId,
+  const { data: profileResponse, isLoading } = useQuery({
+    queryKey: ['userProfile', (user as any)?._id],
+    queryFn: () => userService.getProfile(),
+    enabled: !!user,
   });
+
+  const profile = (profileResponse as any)?.data ?? profileResponse;
+
+  React.useEffect(() => {
+    if (profile) {
+      setFormData({
+        firstName: (profile as any).firstName ?? '',
+        lastName: (profile as any).lastName ?? '',
+        email: (profile as any).email ?? '',
+        phone: (profile as any).phone ?? '',
+        bio: (profile as any).bio ?? '',
+        location: (profile as any).location ?? '',
+        avatar: (profile as any).avatar,
+      });
+    }
+  }, [profile]);
 
   // Mutation pour mettre à jour le profil
   const { mutate: updateProfile, isPending } = useMutation({
-    mutationFn: (data: Partial<UserProfile>) => {
-      if (!userId) throw new Error('No user ID');
-      return profileService.updateProfile(userId, data);
-    },
+    mutationFn: (data: Partial<UserProfile>) => userService.updateProfile(data),
     onSuccess: () => {
       addNotification('Profil mis à jour avec succès', 'success', 2000);
       setEditMode(false);
@@ -129,6 +142,29 @@ export default function ProfileSettingsScreen() {
   const handleSaveProfile = () => {
     if (validateForm()) {
       updateProfile(formData);
+    }
+  };
+
+  const pickImage = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permission refusée', 'Autorisez l\'accès à la galerie pour ajouter une photo.');
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.7,
+      base64: true,
+    });
+    if (!result.canceled && result.assets[0]) {
+      const asset = result.assets[0];
+      const uri = asset.uri;
+      const base64 = asset.base64;
+      const avatarValue = base64 ? `data:image/jpeg;base64,${base64}` : uri;
+      setFormData((prev) => ({ ...prev, avatar: avatarValue }));
+      updateProfile({ ...formData, avatar: avatarValue });
     }
   };
 
@@ -192,13 +228,17 @@ export default function ProfileSettingsScreen() {
       {/* Avatar et infos de base */}
       <View style={styles.profileSection}>
         <View style={styles.avatarContainer}>
-          <View style={styles.avatar}>
-            <Text style={styles.avatarText}>
-              {formData.firstName?.[0]?.toUpperCase() || 'U'}
-            </Text>
-          </View>
+          {formData.avatar ? (
+            <Image source={{ uri: formData.avatar }} style={styles.avatarImage} />
+          ) : (
+            <View style={styles.avatar}>
+              <Text style={styles.avatarText}>
+                {formData.firstName?.[0]?.toUpperCase() || 'U'}
+              </Text>
+            </View>
+          )}
           {editMode && (
-            <TouchableOpacity style={styles.editAvatarButton}>
+            <TouchableOpacity style={styles.editAvatarButton} onPress={pickImage}>
               <MaterialCommunityIcons name="camera" size={16} color="#fff" />
             </TouchableOpacity>
           )}
@@ -469,6 +509,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#007AFF',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  avatarImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
   },
   avatarText: {
     fontSize: 32,

@@ -28,20 +28,19 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const loadConversation = useCallback(async (conversationId: string) => {
     try {
       setIsLoading(true);
-      const conversation = await chatService.getConversation(conversationId);
-      
-      if (conversation.messages) {
-        setMessages(
-          conversation.messages.map((msg: any) => ({
-            id: msg.id,
-            text: msg.content,
-            user: { _id: msg.senderId, name: msg.senderName },
-            createdAt: new Date(msg.createdAt),
+      const { messages: list } = await chatService.getConversation(conversationId);
+      const msgs = Array.isArray(list)
+        ? list.map((msg: any) => ({
+            id: msg.id || msg._id,
+            text: msg.content || msg.text,
+            user: { _id: msg.senderId || msg.senderId?._id, name: msg.senderName || 'Utilisateur' },
+            createdAt: msg.createdAt ? new Date(msg.createdAt) : new Date(),
           }))
-        );
-      }
+        : [];
+      setMessages(msgs);
     } catch (error) {
       console.error('Failed to load conversation:', error);
+      setMessages([]);
     } finally {
       setIsLoading(false);
     }
@@ -55,22 +54,29 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     [loadConversation]
   );
 
+  const addMessage = useCallback((message: ChatMessage) => {
+    setMessages((prev) => [...prev, message]);
+  }, []);
+
   const sendMessage = useCallback(
     async (text: string) => {
       if (!currentConversationId) return;
-
       try {
-        await chatService.sendMessage(currentConversationId, text);
+        const sent = await chatService.sendMessage(currentConversationId, text);
+        if (sent && (sent.id || sent._id)) {
+          addMessage({
+            id: sent.id || sent._id,
+            text: sent.content || text,
+            user: { _id: sent.senderId, name: sent.senderName || 'Moi' },
+            createdAt: sent.createdAt ? new Date(sent.createdAt) : new Date(),
+          });
+        }
       } catch (error) {
         console.error('Failed to send message:', error);
       }
     },
-    [currentConversationId]
+    [currentConversationId, addMessage]
   );
-
-  const addMessage = useCallback((message: ChatMessage) => {
-    setMessages((prev) => [...prev, message]);
-  }, []);
 
   const clearMessages = useCallback(() => {
     setMessages([]);

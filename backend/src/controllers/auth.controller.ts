@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { User, IUser } from '../models/User.model';
+import { Profile } from '../models/Profile.model';
 import { generateToken, generateRefreshToken } from '../utils/jwt';
 import { sendVerificationEmail, sendPasswordResetEmail } from '../utils/email';
 import crypto from 'crypto';
@@ -39,6 +40,26 @@ export const register = async (req: Request, res: Response) => {
     });
 
     await user.save();
+
+    // Créer un profil provider si le rôle est provider (pour apparaître dans la liste des profils)
+    if (user.role === 'provider') {
+      try {
+        const existingProfile = await Profile.findOne({ userId: user._id });
+        if (!existingProfile) {
+          await Profile.create({
+            userId: user._id,
+            photos: [],
+            services: [],
+            availability: { daysOfWeek: [], timeSlots: [] },
+            status: 'pending',
+            isActive: true,
+          });
+        }
+      } catch (profileError: any) {
+        logger.error('Création profil provider:', profileError);
+        // Ne pas bloquer l\'inscription
+      }
+    }
 
     // Envoyer l'email de vérification
     try {
@@ -381,6 +402,87 @@ export const resetPassword = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Erreur lors de la réinitialisation',
+    });
+  }
+};
+
+/** Code par défaut pour créer un compte administrateur */
+const ADMIN_REGISTER_CODE = '20025';
+
+/** Inscription administrateur (nécessite le code 20025) */
+export const registerAdmin = async (req: Request, res: Response) => {
+  try {
+    const { code, firstName, lastName, email, phone, password } = req.body;
+
+    if (!code || String(code).trim() !== ADMIN_REGISTER_CODE) {
+      return res.status(403).json({
+        success: false,
+        message: 'Code d\'administration incorrect',
+      });
+    }
+
+    if (!firstName?.trim() || !lastName?.trim() || !email?.trim() || !phone?.trim() || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Tous les champs (prénom, nom, email, téléphone, mot de passe) sont requis',
+      });
+    }
+    if (String(password).length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'Le mot de passe doit contenir au moins 6 caractères',
+      });
+    }
+
+    const existingUser = await User.findOne({
+      $or: [{ email: (email || '').toLowerCase().trim() }, { phone: (phone || '').trim() }],
+    });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: 'Un utilisateur avec cet email ou téléphone existe déjà',
+      });
+    }
+
+    const user = new User({
+      firstName: (firstName || '').trim(),
+      lastName: (lastName || '').trim(),
+      email: (email || '').toLowerCase().trim(),
+      phone: (phone || '').trim(),
+      password: password || '',
+      role: 'admin',
+      isVerified: true,
+    });
+    await user.save();
+
+    const token = generateToken(user._id.toString(), user.role);
+    const refreshToken = generateRefreshToken(user._id.toString());
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Compte administrateur créé avec succès.',
+      data: {
+        token,
+        refreshToken,
+        user: {
+          _id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phone: user.phone,
+          role: user.role,
+          isVerified: user.isVerified,
+        },
+      },
+    });
+  } catch (error: any) {
+    logger.error('Erreur registerAdmin:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erreur lors de la création du compte administrateur',
+      error: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined,
     });
   }
 };

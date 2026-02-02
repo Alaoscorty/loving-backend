@@ -1,5 +1,6 @@
 import express from 'express';
 import { authenticate } from '../middlewares/auth.middleware';
+import { getMe, updateMe } from '../controllers/user.controller';
 
 const router = express.Router();
 
@@ -7,11 +8,10 @@ const router = express.Router();
 router.use(authenticate);
 
 // ========================
-// PROFIL
+// PROFIL (doit être avant /:id)
 // ========================
-router.get('/me', (req, res) => {
-  res.json({ message: 'Profil utilisateur courant' });
-});
+router.get('/me', getMe);
+router.put('/me', updateMe);
 
 router.get('/:id', (req, res) => {
   res.json({ message: 'Profil utilisateur' });

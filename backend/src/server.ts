@@ -20,6 +20,9 @@ import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import providerRoutes from './routes/provider.routes';
 import adminRoutes from './routes/admin.routes';
+import profilesRoutes from './routes/profiles.routes';
+import chatRoutes from './routes/chat.routes';
+import bookingRoutes from './routes/booking.routes';
 
 // ========================
 // CONFIG ENV
@@ -106,6 +109,9 @@ app.get('/health', (_req: Request, res: Response) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/providers', providerRoutes);
+app.use('/api/profiles', profilesRoutes);
+app.use('/api/chat', chatRoutes);
+app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
 
 // ========================

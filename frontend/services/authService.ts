@@ -135,4 +135,13 @@ export const authService = {
     const response = await api.post('/auth/resend-verification');
     return response.data;
   },
+
+  async registerAdmin(payload: { code: string; firstName: string; lastName: string; email: string; phone: string; password: string }) {
+    const response = await api.post('/auth/register-admin', payload);
+    const data = response.data?.data || response.data;
+    if (!data?.token || !data?.refreshToken || !data?.user) {
+      throw new Error(response.data?.message || 'Réponse invalide du serveur');
+    }
+    return { accessToken: data.token, refreshToken: data.refreshToken, user: data.user };
+  },
 };

@@ -2,6 +2,7 @@ import express from 'express';
 import {
   register,
   login,
+  registerAdmin,
   verifyToken,
   refreshToken,
   verifyEmail,
@@ -17,6 +18,7 @@ const router = express.Router();
 
 // Routes publiques avec rate limiting
 router.post('/register', authLimiter, validateRegister, register);
+router.post('/register-admin', authLimiter, registerAdmin);
 router.post('/login', authLimiter, validateLogin, login);
 router.post('/refresh', refreshToken);
 router.post('/verify-email', verifyEmail);
