@@ -1,10 +1,6 @@
 # Documentation API - Loving
 
-## Base URL
 
-```
-http://localhost:3000/api
-```
 
 ## Authentification
 

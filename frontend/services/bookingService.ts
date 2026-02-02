@@ -43,6 +43,11 @@ class BookingService {
     }
   }
 
+  // Alias plus simple utilisé par certains écrans
+  async getBooking(bookingId: string) {
+    return this.getBookingById(bookingId);
+  }
+
   async getBookingById(bookingId: string) {
     try {
       const response = await apiClient.get(`/bookings/${bookingId}`);
@@ -55,6 +60,21 @@ class BookingService {
   async createBooking(data: BookingRequest) {
     try {
       const response = await apiClient.post('/bookings', data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async acceptBooking(bookingId: string) {
+    return this.updateBookingStatus(bookingId, 'accepted');
+  }
+
+  async rejectBooking(bookingId: string, reason?: string) {
+    try {
+      const response = await apiClient.post(`/bookings/${bookingId}/reject`, {
+        reason,
+      });
       return response.data;
     } catch (error) {
       throw error;
@@ -80,6 +100,18 @@ class BookingService {
       const response = await apiClient.post(`/bookings/${bookingId}/cancel`, {
         reason,
       });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async submitReview(
+    bookingId: string,
+    data: { rating: number; comment: string; categories?: Record<string, number> }
+  ) {
+    try {
+      const response = await apiClient.post(`/bookings/${bookingId}/reviews`, data);
       return response.data;
     } catch (error) {
       throw error;

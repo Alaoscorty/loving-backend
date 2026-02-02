@@ -14,7 +14,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { Button, Input, Card, LoadingSpinner } from '@/components';
 import { paymentService, bookingService } from '@/services';
-import { NotificationContext } from '@/contexts';
+import { useNotification } from '@/contexts';
 import { formatCurrency } from '@/utils/formatters';
 
 /**
@@ -39,7 +39,7 @@ interface PaymentMethod {
 export default function PaymentScreen() {
   const router = useRouter();
   const { bookingId, amount } = useLocalSearchParams();
-  const { addNotification } = React.useContext(NotificationContext);
+  const { addNotification } = useNotification();
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('');
   const [showAddMethod, setShowAddMethod] = useState(false);
@@ -70,48 +70,50 @@ export default function PaymentScreen() {
 
   // Mutation pour ajouter une méthode de paiement
   const { mutate: addPaymentMethod, isPending: addingMethod } = useMutation({
-    mutationFn: (data: any) => paymentService.addPaymentMethod(data),
+    mutationFn: (data: {
+      cardNumber: string;
+      cardholderName: string;
+      expiryDate: string;
+      cvv: string;
+    }) => paymentService.addPaymentMethod(data),
     onSuccess: () => {
-      addNotification({
-        type: 'success',
-        message: 'Méthode de paiement ajoutée',
-        duration: 2000,
-      });
+      addNotification('Méthode de paiement ajoutée', 'success', 2000);
       setShowAddMethod(false);
-      setCardData({ cardNumber: '', cardholderName: '', expiryDate: '', cvv: '' });
+      setCardData({
+        cardNumber: '',
+        cardholderName: '',
+        expiryDate: '',
+        cvv: '',
+      });
     },
   });
 
   // Mutation pour traiter le paiement
   const { mutate: processPayment, isPending: processing } = useMutation({
-    mutationFn: (data: any) => paymentService.processPayment(data),
-    onSuccess: (payment) => {
-      addNotification({
-        type: 'success',
-        message: 'Paiement effectué avec succès!',
-        duration: 2000,
-      });
+    mutationFn: (data: {
+      bookingId: string | string[] | undefined;
+      amount: number;
+      paymentMethodId: string;
+    }) => paymentService.processPayment(data as any),
+    onSuccess: (payment: any) => {
+      addNotification('Paiement effectué avec succès!', 'success', 2000);
       router.push({
         pathname: '/(user)/payment-receipt',
         params: { paymentId: payment.id },
       });
     },
-    onError: (error) => {
-      addNotification({
-        type: 'error',
-        message: `Erreur: ${error.message}`,
-        duration: 3000,
-      });
+    onError: (error: any) => {
+      addNotification(
+        `Erreur: ${error?.message || 'Erreur inconnue'}`,
+        'error',
+        3000
+      );
     },
   });
 
   const handleAddPaymentMethod = () => {
     if (!cardData.cardNumber || !cardData.cardholderName || !cardData.expiryDate || !cardData.cvv) {
-      addNotification({
-        type: 'error',
-        message: 'Veuillez remplir tous les champs',
-        duration: 2000,
-      });
+      addNotification('Veuillez remplir tous les champs', 'error', 2000);
       return;
     }
 
@@ -120,11 +122,11 @@ export default function PaymentScreen() {
 
   const handleProcessPayment = () => {
     if (!selectedPaymentMethod) {
-      addNotification({
-        type: 'error',
-        message: 'Veuillez sélectionner une méthode de paiement',
-        duration: 2000,
-      });
+      addNotification(
+        'Veuillez sélectionner une méthode de paiement',
+        'error',
+        2000
+      );
       return;
     }
 

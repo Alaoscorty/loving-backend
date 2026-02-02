@@ -333,6 +333,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f9fafb',
+    paddingTop: 20,
   },
   center: {
     flex: 1,

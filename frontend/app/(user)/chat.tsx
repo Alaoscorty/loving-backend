@@ -15,8 +15,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useChat } from '@/contexts/ChatContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { chatService } from '@/services/chatService';
+import { useRouter } from 'expo-router';
+
 
 const CHAT_CACHE_KEY = 'chat_messages_cache';
+const router = useRouter();
 
 export default function ChatScreen() {
   const params = useLocalSearchParams();
@@ -163,12 +166,21 @@ export default function ChatScreen() {
           </TouchableOpacity>
         </View>
       </View>
+
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => router.push('/(user)/conversation-list')}
+      >
+        <MaterialCommunityIcons name="arrow-left" size={20} color="#6366f1" />
+        <Text style={styles.backButtonText}>Retour aux conversations</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f9fafb' },
+  container: { flex: 1, backgroundColor: '#f9fafb', paddingTop: 20, },
   messagesList: { padding: 16, flexGrow: 1 },
   emptyState: {
     flex: 1,
@@ -196,4 +208,20 @@ const styles = StyleSheet.create({
   inputRow: { flexDirection: 'row', alignItems: 'flex-end', gap: 8 },
   inputField: { flex: 1, marginBottom: 0 },
   sendButton: { padding: 8, justifyContent: 'center', alignItems: 'center' },
+  backButton: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingVertical: 14,
+  borderTopWidth: 1,
+  borderTopColor: '#e5e7eb',
+  backgroundColor: '#fff',
+},
+backButtonText: {
+  marginLeft: 8,
+  fontSize: 14,
+  fontWeight: '600',
+  color: '#6366f1',
+},
+
 });

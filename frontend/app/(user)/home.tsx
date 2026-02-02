@@ -172,7 +172,7 @@ export default function UserHomeScreen() {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.quickButton, { backgroundColor: 'rgba(76, 175, 80, 0.1)' }]}
-            onPress={() => router.push('/(user)/conversations-list')}
+            onPress={() => router.push('/(user)/chat')}
           >
             <MaterialCommunityIcons name="chat" size={32} color="#4caf50" />
             <Text style={styles.quickButtonText}>Messages</Text>
@@ -271,6 +271,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8',
+    paddingTop: 20,
   },
   header: {
     flexDirection: 'row',

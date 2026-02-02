@@ -108,4 +108,45 @@ router.delete('/blocked-users/:userId', (req, res) => {
   res.json({ message: 'Utilisateur débloqué' });
 });
 
+// ========================
+// SIGNALER UN UTILISATEUR
+// ========================
+router.post('/report-user', (req, res) => {
+  const { userId, reason } = req.body || {};
+  res.json({
+    success: true,
+    message: 'Utilisateur signalé (simulation)',
+    data: { userId, reason },
+  });
+});
+
+// ========================
+// PREMIUM
+// ========================
+router.get('/premium/status', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      isPremium: false,
+      planId: null,
+      expiresAt: null,
+    },
+  });
+});
+
+router.post('/premium/subscribe', (req, res) => {
+  const { planId } = req.body || {};
+  const expiresAt = new Date();
+  expiresAt.setMonth(expiresAt.getMonth() + (planId === 'yearly' ? 12 : 1));
+  res.json({
+    success: true,
+    message: 'Abonnement premium activé (simulation)',
+    data: {
+      isPremium: true,
+      planId,
+      expiresAt: expiresAt.toISOString(),
+    },
+  });
+});
+
 export default router;

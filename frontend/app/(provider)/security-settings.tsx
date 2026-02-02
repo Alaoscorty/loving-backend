@@ -15,7 +15,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { Button, Input, Card, LoadingSpinner, Modal } from '@/components';
 import { profileService } from '@/services';
-import { AuthContext, NotificationContext } from '@/contexts';
+import { useAuth, useNotification } from '@/contexts';
 import { validatePassword } from '@/utils/validators';
 
 /**
@@ -38,8 +38,8 @@ interface SecuritySettings {
 
 export default function SecuritySettingsScreen() {
   const router = useRouter();
-  const { user } = React.useContext(AuthContext);
-  const { addNotification } = React.useContext(NotificationContext);
+  const { user } = useAuth();
+  const { addNotification } = useNotification();
 
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [show2FAModal, setShow2FAModal] = useState(false);
@@ -61,20 +61,20 @@ export default function SecuritySettingsScreen() {
 
   // Récupérer les paramètres de sécurité
   const { data: securitySettings, isLoading } = useQuery({
-    queryKey: ['securitySettings', user?.id],
-    queryFn: () => profileService.getSecuritySettings(user?.id || ''),
-    enabled: !!user?.id,
+    queryKey: ['securitySettings', user?._id],
+    queryFn: () => profileService.getSecuritySettings(user?._id || ''),
+    enabled: !!user?._id,
   });
 
   // Mutation pour changer le mot de passe
   const { mutate: changePassword, isPending: changingPassword } = useMutation({
-    mutationFn: (data: any) => profileService.changePassword(data),
+    mutationFn: (data: {
+      currentPassword: string;
+      newPassword: string;
+      confirmPassword: string;
+    }) => profileService.changePassword(data),
     onSuccess: () => {
-      addNotification({
-        type: 'success',
-        message: 'Mot de passe changé avec succès',
-        duration: 2000,
-      });
+      addNotification('Mot de passe changé avec succès', 'success', 2000);
       setShowPasswordModal(false);
       setPasswordData({
         currentPassword: '',
@@ -82,24 +82,21 @@ export default function SecuritySettingsScreen() {
         confirmPassword: '',
       });
     },
-    onError: (error) => {
-      addNotification({
-        type: 'error',
-        message: `Erreur: ${error.message}`,
-        duration: 3000,
-      });
+    onError: (error: any) => {
+      addNotification(
+        `Erreur: ${error?.message || 'Erreur inconnue'}`,
+        'error',
+        3000
+      );
     },
   });
 
   // Mutation pour activer 2FA
   const { mutate: enable2FA, isPending: enabling2FA } = useMutation({
-    mutationFn: (data: any) => profileService.enable2FA(data),
+    mutationFn: (data: { method: string; verificationCode: string }) =>
+      profileService.enable2FA(data),
     onSuccess: () => {
-      addNotification({
-        type: 'success',
-        message: 'Authentification 2FA activée',
-        duration: 2000,
-      });
+      addNotification('Authentification 2FA activée', 'success', 2000);
       setShow2FAModal(false);
       setVerificationCode('');
     },

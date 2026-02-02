@@ -13,6 +13,49 @@ router.use(authenticate);
 router.get('/me', getMe);
 router.put('/me', updateMe);
 
+// Paramètres de sécurité pour l'écran provider security-settings
+router.get('/me/security-settings', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      twoFactorEnabled: false,
+      twoFactorMethod: 'sms',
+      phoneVerified: false,
+      emailVerified: true,
+    },
+  });
+});
+
+// Changement de mot de passe (stub, à sécuriser en prod)
+router.post('/change-password', (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({
+      success: false,
+      message: 'Mot de passe actuel et nouveau mot de passe requis',
+    });
+  }
+  return res.json({
+    success: true,
+    message: 'Mot de passe changé (simulation)',
+  });
+});
+
+// Activation 2FA (stub)
+router.post('/2fa/enable', (req, res) => {
+  const { method, verificationCode } = req.body;
+  if (!method || !verificationCode) {
+    return res.status(400).json({
+      success: false,
+      message: 'Méthode et code de vérification requis',
+    });
+  }
+  return res.json({
+    success: true,
+    message: '2FA activée (simulation)',
+  });
+});
+
 router.get('/:id', (req, res) => {
   res.json({ message: 'Profil utilisateur' });
 });

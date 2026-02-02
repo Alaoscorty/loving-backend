@@ -138,6 +138,39 @@ class ProfileService {
       throw error;
     }
   }
+
+  async getSecuritySettings(userId?: string) {
+    try {
+      const response = await apiClient.get(
+        `/users/${userId || 'me'}/security-settings`
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async changePassword(data: {
+    currentPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+  }) {
+    try {
+      const response = await apiClient.post('/users/change-password', data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async enable2FA(data: { method: string; verificationCode: string }) {
+    try {
+      const response = await apiClient.post('/users/2fa/enable', data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const profileService = new ProfileService();

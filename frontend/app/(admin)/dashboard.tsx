@@ -6,10 +6,12 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function AdminDashboardScreen() {
   const { user } = useAuth();
+  const router = useRouter();
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -33,11 +35,26 @@ export default function AdminDashboardScreen() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Gestion de la plateforme</Text>
 
-        <AdminButton title="Valider les profils prestataires" />
-        <AdminButton title="Gérer les utilisateurs" />
-        <AdminButton title="Gérer les réservations" />
-        <AdminButton title="Modération & signalements" />
-        <AdminButton title="Statistiques détaillées" />
+        <AdminButton
+          title="Valider les profils prestataires"
+          onPress={() => router.push('/(admin)/validate-profiles')}
+        />
+        <AdminButton
+          title="Gérer les utilisateurs"
+          onPress={() => router.push('/(admin)/user-management')}
+        />
+        <AdminButton
+          title="Gérer les réservations"
+          onPress={() => router.push('/(admin)/advanced-dashboard')}
+        />
+        <AdminButton
+          title="Modération & signalements"
+          onPress={() => router.push('/(admin)/reports')}
+        />
+        <AdminButton
+          title="Statistiques détaillées"
+          onPress={() => router.push('/(admin)/advanced-dashboard')}
+        />
       </View>
 
       {/* SÉCURITÉ */}
@@ -74,18 +91,17 @@ function StatCard({
 function AdminButton({
   title,
   danger,
+  onPress,
 }: {
   title: string;
   danger?: boolean;
+  onPress?: () => void;
 }) {
   return (
     <TouchableOpacity
       style={[styles.button, danger && styles.dangerButton]}
       activeOpacity={0.8}
-      onPress={() => {
-        // navigation future
-        console.log(title);
-      }}
+      onPress={onPress}
     >
       <Text style={[styles.buttonText, danger && styles.dangerText]}>
         {title}

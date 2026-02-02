@@ -33,15 +33,13 @@ export default function LogsScreen() {
 
   const { data: logs = [], isLoading, error, refetch } = useQuery({
     queryKey: ['admin-logs', filter, level],
-    queryFn: () => adminService.getLogs(
-      filter === 'all' ? undefined : filter,
-      level === 'all' ? undefined : level
-    ),
+    queryFn: () =>
+      adminService.getLogs(
+        filter === 'all' ? undefined : filter,
+        level === 'all' ? undefined : level
+      ),
     staleTime: 30000,
     retry: 2,
-    onError: (err) => {
-      console.error('Error fetching logs:', err);
-    },
   });
 
   const getLevelColor = (logLevel: string): string => {

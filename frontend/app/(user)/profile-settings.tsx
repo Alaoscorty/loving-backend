@@ -17,7 +17,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { Button, Input, Card, LoadingSpinner } from '@/components';
 import { userService } from '@/services/userService';
-import { AuthContext, NotificationContext } from '@/contexts';
+import { useAuth, useNotification } from '@/contexts';
 import { validateEmail } from '@/utils/validators';
 
 /**
@@ -50,8 +50,8 @@ interface UserProfile {
 
 export default function ProfileSettingsScreen() {
   const router = useRouter();
-  const { user, logout } = React.useContext(AuthContext)! as any;
-  const { addNotification } = React.useContext(NotificationContext)! as any;
+  const { user, logout } = useAuth();
+  const { addNotification } = useNotification();
 
   const [editMode, setEditMode] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -72,7 +72,7 @@ export default function ProfileSettingsScreen() {
   });
 
   const { data: profileResponse, isLoading } = useQuery({
-    queryKey: ['userProfile', (user as any)?._id],
+    queryKey: ['userProfile', user?._id],
     queryFn: () => userService.getProfile(),
     enabled: !!user,
   });
@@ -101,13 +101,18 @@ export default function ProfileSettingsScreen() {
       setEditMode(false);
     },
     onError: (error: any) => {
-      addNotification(`Erreur: ${error?.message || 'Erreur inconnue'}`, 'error', 3000);
+      addNotification(
+        `Erreur: ${error?.message || 'Erreur inconnue'}`,
+        'error',
+        3000
+      );
     },
   });
 
   // Mutation pour supprimer le compte
   const { mutate: deleteAccount, isPending: deleting } = useMutation({
     mutationFn: async () => {
+      const userId = (user as any)?._id;
       if (!userId) throw new Error('No user ID');
       // Appel API pour supprimer le compte
       return fetch(`/api/users/${userId}`, {
@@ -463,6 +468,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8',
+    paddingTop: 20,
   },
   header: {
     flexDirection: 'row',

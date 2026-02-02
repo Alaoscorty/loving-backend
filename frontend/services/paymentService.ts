@@ -64,11 +64,23 @@ class PaymentService {
     }
   }
 
-  async addPaymentMethod(paymentMethodId: string) {
+  async addPaymentMethod(
+    data:
+      | string
+      | {
+          cardNumber: string;
+          cardholderName: string;
+          expiryDate: string;
+          cvv: string;
+        }
+  ) {
     try {
-      const response = await apiClient.post('/payments/methods', {
-        paymentMethodId,
-      });
+      const payload =
+        typeof data === 'string'
+          ? { paymentMethodId: data }
+          : { card: data };
+
+      const response = await apiClient.post('/payments/methods', payload);
       return response.data;
     } catch (error) {
       throw error;
@@ -89,6 +101,15 @@ class PaymentService {
       const response = await apiClient.post(`/payments/${paymentId}/refund`, {
         amount,
       });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async processPayment(request: PaymentRequest) {
+    try {
+      const response = await apiClient.post('/payments/process', request);
       return response.data;
     } catch (error) {
       throw error;

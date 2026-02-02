@@ -57,29 +57,20 @@ export default function RegisterAdminScreen() {
 
     setLoading(true);
     try {
-      const apiUrl = process.env.EXPO_PUBLIC_API_URL || 'https://loving-backend.onrender.com/api';
-      const response = await fetch(`${apiUrl}/auth/register-admin`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          code: ADMIN_CODE,
-          firstName: formData.firstName.trim(),
-          lastName: formData.lastName.trim(),
-          email: formData.email.trim().toLowerCase(),
-          phone: formData.phone.trim(),
-          password: formData.password,
-        }),
+      const data = await authService.registerAdmin({
+        code: ADMIN_CODE,
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim().toLowerCase(),
+        phone: formData.phone.trim(),
+        password: formData.password,
       });
-      const data = await response.json();
 
-      if (!data.success) {
-        Alert.alert('Erreur', data.message || 'Impossible de créer le compte administrateur');
-        setLoading(false);
-        return;
-      }
+      const accessToken = String(data.accessToken);
+      const refreshToken = String(data.refreshToken);
+      const user = data.user;
 
-      const { token, refreshToken, user } = data.data;
-      await login(token, refreshToken, user);
+      await login(accessToken, refreshToken, user);
       Alert.alert('Compte créé', 'Compte administrateur créé avec succès.', [
         { text: 'OK', onPress: () => router.replace('/(admin)/dashboard') },
       ]);

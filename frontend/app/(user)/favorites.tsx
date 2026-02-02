@@ -12,6 +12,7 @@ import {
 import { useRouter } from 'expo-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { userService } from '@/services/userService';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export default function FavoritesScreen() {
   const router = useRouter();
@@ -30,11 +31,7 @@ export default function FavoritesScreen() {
   });
 
   if (isLoading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color="#6366f1" />
-      </View>
-    );
+    return <LoadingSpinner fullScreen />;
   }
 
   return (

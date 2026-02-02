@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { authService } from '@/services/authService';
+import { useAuth } from '@/contexts/AuthContext';
 
 type UserRole = 'user' | 'provider';
 
@@ -29,6 +30,7 @@ export default function RegisterScreen() {
   });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { login } = useAuth();
 
   const handleRegister = async () => {
     // Validation
@@ -57,17 +59,45 @@ export default function RegisterScreen() {
         password: formData.password,
         role: formData.role,
       });
-      
-      Alert.alert(
-        'Inscription réussie',
-        response.message || 'Un email de vérification a été envoyé. Veuillez vérifier votre boîte mail.',
-        [
-          {
-            text: 'OK',
-            onPress: () => router.replace('/(auth)/login'),
-          },
-        ]
-      );
+
+      const data = response.data || response;
+
+      // Si le backend renvoie les tokens, on connecte directement l'utilisateur
+      if (data?.data?.token && data?.data?.refreshToken && data?.data?.user) {
+        await login(
+          String(data.data.token),
+          String(data.data.refreshToken),
+          data.data.user
+        );
+
+        // Navigation basée sur le rôle
+        if (data.data.user.role === 'provider') {
+          router.replace('/(provider)/dashboard');
+        } else if (data.data.user.role === 'admin') {
+          router.replace('/(admin)/dashboard');
+        } else {
+          router.replace('/(user)/home');
+        }
+
+        Alert.alert(
+          'Inscription réussie',
+          data.message ||
+            "Votre compte a été créé. Un email de vérification a été envoyé."
+        );
+      } else {
+        // Fallback : on renvoie vers la page de connexion
+        Alert.alert(
+          'Inscription réussie',
+          data.message ||
+            "Un email de vérification a été envoyé. Veuillez vérifier votre boîte mail.",
+          [
+            {
+              text: 'OK',
+              onPress: () => router.replace('/(auth)/login'),
+            },
+          ]
+        );
+      }
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || error.message || 'Une erreur est survenue lors de l\'inscription';
       Alert.alert('Erreur d\'inscription', errorMessage);

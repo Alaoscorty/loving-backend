@@ -33,6 +33,13 @@ export const formatCurrency = (amount: number, currency: string = 'EUR') => {
   }).format(amount);
 };
 
+// Formate un nombre avec séparateurs de milliers
+export const formatNumber = (value: number) => {
+  return new Intl.NumberFormat('fr-FR', {
+    maximumFractionDigits: 0,
+  }).format(value);
+};
+
 export const formatPrice = (price: number) => {
   return `${price.toFixed(2)}€`;
 };

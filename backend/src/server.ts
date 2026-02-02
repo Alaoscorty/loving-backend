@@ -23,6 +23,7 @@ import adminRoutes from './routes/admin.routes';
 import profilesRoutes from './routes/profiles.routes';
 import chatRoutes from './routes/chat.routes';
 import bookingRoutes from './routes/booking.routes';
+import paymentRoutes from './routes/payment.routes';
 
 // ========================
 // CONFIG ENV
@@ -113,6 +114,7 @@ app.use('/api/profiles', profilesRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // ========================
 // SOCKET INIT

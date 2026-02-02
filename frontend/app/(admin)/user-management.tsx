@@ -15,7 +15,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { Button, Card, LoadingSpinner, Modal } from '@/components';
 import { adminService } from '@/services';
-import { NotificationContext } from '@/contexts';
+import { useNotification } from '@/contexts';
 
 /**
  * Écran Gestion des Utilisateurs (Admin)
@@ -42,7 +42,7 @@ interface User {
 
 export default function UserManagementScreen() {
   const router = useRouter();
-  const { addNotification } = React.useContext(NotificationContext);
+  const { addNotification } = useNotification();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [filterRole, setFilterRole] = useState<string>('all');
@@ -53,18 +53,19 @@ export default function UserManagementScreen() {
   // Récupérer la liste des utilisateurs
   const { data: users = [], isLoading, refetch } = useQuery({
     queryKey: ['users', filterRole, searchQuery],
-    queryFn: () => adminService.getUsers({ role: filterRole, search: searchQuery }),
+    queryFn: () =>
+      adminService.getUsers({ role: filterRole, search: searchQuery }),
   });
 
   // Mutation pour changer le statut
   const { mutate: changeUserStatus, isPending } = useMutation({
-    mutationFn: (data: any) => adminService.updateUserStatus(data),
+    mutationFn: (data: {
+      userId: string;
+      status: 'active' | 'suspended' | 'blocked';
+      reason?: string;
+    }) => adminService.updateUserStatus(data),
     onSuccess: () => {
-      addNotification({
-        type: 'success',
-        message: 'Utilisateur mis à jour',
-        duration: 2000,
-      });
+      addNotification('Utilisateur mis à jour', 'success', 2000);
       setShowActionModal(false);
       refetch();
     },

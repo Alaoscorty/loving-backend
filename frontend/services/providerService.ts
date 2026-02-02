@@ -38,7 +38,7 @@ class ProviderService {
     }
   }
 
-  async getAvailability(startDate: string, endDate: string) {
+  async getAvailability(startDate?: string, endDate?: string) {
     try {
       const response = await apiClient.get('/providers/availability', {
         params: { startDate, endDate },
@@ -59,6 +59,11 @@ class ProviderService {
     } catch (error) {
       throw error;
     }
+  }
+
+  // Alias pour correspondre aux appels `updateAvailability` dans les écrans
+  async updateAvailability(dates: string[], recurring: boolean = false) {
+    return this.setAvailability(dates, recurring);
   }
 
   async getEarnings(period: 'week' | 'month' | 'year' | 'all' = 'month') {
@@ -117,6 +122,38 @@ class ProviderService {
       const response = await apiClient.post('/providers/block-user', {
         userId,
         reason,
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async reportUser(userId: string, reason?: string) {
+    try {
+      const response = await apiClient.post('/providers/report-user', {
+        userId,
+        reason,
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getPremiumStatus() {
+    try {
+      const response = await apiClient.get('/providers/premium/status');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async subscribePremium(planId: string) {
+    try {
+      const response = await apiClient.post('/providers/premium/subscribe', {
+        planId,
       });
       return response.data;
     } catch (error) {

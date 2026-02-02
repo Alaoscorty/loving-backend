@@ -16,7 +16,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { Button, Card, LoadingSpinner, Modal } from '@/components';
 import { adminService } from '@/services';
-import { NotificationContext } from '@/contexts';
+import { useNotification } from '@/contexts';
 
 /**
  * Écran Gestion des Signalements (Admin)
@@ -45,7 +45,7 @@ interface Report {
 
 export default function ReportsScreen() {
   const router = useRouter();
-  const { addNotification } = React.useContext(NotificationContext);
+  const { addNotification } = useNotification();
 
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -62,13 +62,13 @@ export default function ReportsScreen() {
 
   // Mutation pour mettre à jour le statut
   const { mutate: updateReportStatus, isPending } = useMutation({
-    mutationFn: (data: any) => adminService.updateReportStatus(data),
+    mutationFn: (data: {
+      reportId: string;
+      status: string;
+      resolution?: string;
+    }) => adminService.updateReportStatus(data),
     onSuccess: () => {
-      addNotification({
-        type: 'success',
-        message: 'Signalement mis à jour',
-        duration: 2000,
-      });
+      addNotification('Signalement mis à jour', 'success', 2000);
       setShowActionModal(false);
       refetch();
     },

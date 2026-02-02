@@ -13,7 +13,1089 @@ eas update --branch preview --message "mise a jour du code"
 Je veux que tu ajoute un assistant IA GEMINI_API_KEY=AIzaSyAbq98gLSns1OPvy_oWJ9naQi3QeAIxwIw qui aura pour but de consiller les utilisateurs et les providers un peu comme ce que fais meta Ai. De plus je veux que tu fasse en sorte que les utilisteurs et les providers puissent s'échanger des images et que leur conversations s'affiche avec un look plus moderne. De plus certains écrans vont jusqu'au niveau de la barre du téléphone ou s'affiche la charge, la date et les notifications donc refait leur dimensions.Et fais également les favories. 
 
 
-
-Lorsque je crée un compte prestataire, j'ai l'alerte "Inscription réussi. Un email 
+Prend connaissance de tous mon code et corrige moi les erreurs qui font que lorsque je crée un compte prestataire, j'ai l'alerte "Inscription réussi. Un email 
 de vérification à été envoyé." Mais l'email n'a jamais été reçue et la page reviens sur le login au lieu d'accéder directement au dashboard du prestaire, de plus lorsque j'entre les informations du prestataire sur la page de login, l'application s'arrete automatiquement et quand j'essaie de rentrer à nouveau. la même chose se passe. Mais quand j'éteins la connexion et que je clique sur l'appliaction, la page de connexion s'affiche.
  Lorsque je veux créer un compte administrateur, j'ai l'erreur "JSON Parse error : Unexpected character:<".
+
+ Sur la page (admin)/dashboard , il faut rendre dynamique <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Gestion de la plateforme</Text>
+
+        <AdminButton title="Valider les profils prestataires" />
+        <AdminButton title="Gérer les utilisateurs" />
+        <AdminButton title="Gérer les réservations" />
+        <AdminButton title="Modération & signalements" />
+        <AdminButton title="Statistiques détaillées" />
+      </View>
+    
+    Et j'ai les erreurs "[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
+	"owner": "typescript",
+	"code": "2305",
+	"severity": 8,
+	"message": "Le module '\"@/utils/formatters\"' n'a aucun membre exporté 'formatNumber'.",
+	"source": "ts",
+	"startLineNumber": 18,
+	"startColumn": 26,
+	"endLineNumber": 18,
+	"endColumn": 38,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getDashboardStats' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 49,
+	"startColumn": 33,
+	"endLineNumber": 49,
+	"endColumn": 50,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getChartData' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 55,
+	"startColumn": 33,
+	"endLineNumber": 55,
+	"endColumn": 45,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getAlerts' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 61,
+	"startColumn": 33,
+	"endLineNumber": 61,
+	"endColumn": 42,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getUrgentActions' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 67,
+	"startColumn": 33,
+	"endLineNumber": 67,
+	"endColumn": 49,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
+	"owner": "typescript",
+	"code": "2322",
+	"severity": 8,
+	"message": "Impossible d'assigner le type '\"users\"' au type '\"symbol\" | \"function\" | \"select\" | \"solid\" | \"card\" | \"map\" | \"filter\" | \"at\" | \"repeat\" | \"anchor\" | \"link\" | \"details\" | \"head\" | \"label\" | \"menu\" | \"script\" | \"table\" | \"video\" | ... 6578 more ... | undefined'.",
+	"source": "ts",
+	"startLineNumber": 127,
+	"startColumn": 39,
+	"endLineNumber": 127,
+	"endColumn": 43,
+	"relatedInformation": [
+		{
+			"startLineNumber": 17,
+			"startColumn": 5,
+			"endLineNumber": 17,
+			"endColumn": 9,
+			"message": "Le type attendu provient de la propriété 'name', qui est déclarée ici sur le type 'IntrinsicAttributes & IntrinsicClassAttributes<Component<IconProps<\"symbol\" | \"function\" | \"select\" | \"solid\" | \"card\" | \"map\" | \"filter\" | \"at\" | \"repeat\" | \"anchor\" | \"link\" | \"details\" | ... 6583 more ... | \"blank\">, {}, any>> & Pick<...> & InexactPartial<...> & InexactPartial<...>'",
+			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/@expo/vector-icons/build/createIconSet.d.ts"
+		}
+	],
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
+	"owner": "typescript",
+	"code": "2769",
+	"severity": 8,
+	"message": "Aucune surcharge ne correspond à cet appel.\n  La surcharge 1 sur 2, '(props: AbstractChartProps & BarChartProps): BarChart', a généré l'erreur suivante.\n    Le type '{ data: any; width: number; height: number; chartConfig: { backgroundColor: string; backgroundGradientFrom: string; backgroundGradientTo: string; decimalPlaces: number; color: (opacity?: number) => string; labelColor: (opacity?: number) => string; }; style: { ...; }; withHorizontalLabels: true; }' n'a pas les propriétés suivantes du type 'Readonly<AbstractChartProps & BarChartProps>': yAxisLabel, yAxisSuffix\n  La surcharge 2 sur 2, '(props: AbstractChartProps & BarChartProps, context: any): BarChart', a généré l'erreur suivante.\n    Le type '{ data: any; width: number; height: number; chartConfig: { backgroundColor: string; backgroundGradientFrom: string; backgroundGradientTo: string; decimalPlaces: number; color: (opacity?: number) => string; labelColor: (opacity?: number) => string; }; style: { ...; }; withHorizontalLabels: true; }' n'a pas les propriétés suivantes du type 'Readonly<AbstractChartProps & BarChartProps>': yAxisLabel, yAxisSuffix",
+	"source": "ts",
+	"startLineNumber": 209,
+	"startColumn": 14,
+	"endLineNumber": 209,
+	"endColumn": 22,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
+	"owner": "typescript",
+	"code": "2559",
+	"severity": 8,
+	"message": "Le type '({ padding: number; } | { marginBottom: number; })[]' n'a aucune propriété en commun avec le type 'ViewStyle'.",
+	"source": "ts",
+	"startLineNumber": 237,
+	"startColumn": 21,
+	"endLineNumber": 237,
+	"endColumn": 26,
+	"relatedInformation": [
+		{
+			"startLineNumber": 12,
+			"startColumn": 3,
+			"endLineNumber": 12,
+			"endColumn": 8,
+			"message": "Le type attendu provient de la propriété 'style', qui est déclarée ici sur le type 'IntrinsicAttributes & CardProps'",
+			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/components/Card.tsx"
+		}
+	],
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
+	"owner": "typescript",
+	"code": "2559",
+	"severity": 8,
+	"message": "Le type '({ padding: number; } | { marginBottom: number; })[]' n'a aucune propriété en commun avec le type 'ViewStyle'.",
+	"source": "ts",
+	"startLineNumber": 273,
+	"startColumn": 21,
+	"endLineNumber": 273,
+	"endColumn": 26,
+	"relatedInformation": [
+		{
+			"startLineNumber": 12,
+			"startColumn": 3,
+			"endLineNumber": 12,
+			"endColumn": 8,
+			"message": "Le type attendu provient de la propriété 'style', qui est déclarée ici sur le type 'IntrinsicAttributes & CardProps'",
+			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/components/Card.tsx"
+		}
+	],
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/logs.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "L'argument de type '\"error\" | \"info\" | \"warning\" | undefined' n'est pas attribuable au paramètre de type 'number | undefined'.\n  Impossible d'assigner le type 'string' au type 'number'.",
+	"source": "ts",
+	"startLineNumber": 38,
+	"startColumn": 7,
+	"endLineNumber": 38,
+	"endColumn": 42,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/logs.tsx",
+	"owner": "typescript",
+	"code": "2769",
+	"severity": 8,
+	"message": "Aucune surcharge ne correspond à cet appel.\n  La surcharge 1 sur 3, '(options: DefinedInitialDataOptions<unknown, Error, unknown, string[]>, queryClient?: QueryClient | undefined): DefinedUseQueryResult<unknown, Error>', a généré l'erreur suivante.\n    Un littéral d'objet peut uniquement spécifier des propriétés connues, et 'onError' n'existe pas dans le type 'DefinedInitialDataOptions<unknown, Error, unknown, string[]>'.\n  La surcharge 2 sur 3, '(options: UndefinedInitialDataOptions<any, Error, any, string[]>, queryClient?: QueryClient | undefined): UseQueryResult<any, Error>', a généré l'erreur suivante.\n    Un littéral d'objet peut uniquement spécifier des propriétés connues, et 'onError' n'existe pas dans le type 'UndefinedInitialDataOptions<any, Error, any, string[]>'.\n  La surcharge 3 sur 3, '(options: UseQueryOptions<any, Error, any, string[]>, queryClient?: QueryClient | undefined): UseQueryResult<any, Error>', a généré l'erreur suivante.\n    Un littéral d'objet peut uniquement spécifier des propriétés connues, et 'onError' n'existe pas dans le type 'UseQueryOptions<any, Error, any, string[]>'.",
+	"source": "ts",
+	"startLineNumber": 42,
+	"startColumn": 5,
+	"endLineNumber": 42,
+	"endColumn": 12,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/logs.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'err' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 42,
+	"startColumn": 15,
+	"endLineNumber": 42,
+	"endColumn": 18,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/logs.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'length' n'existe pas sur le type '{}'.",
+	"source": "ts",
+	"startLineNumber": 157,
+	"startColumn": 24,
+	"endLineNumber": 157,
+	"endColumn": 30,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/logs.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'map' n'existe pas sur le type '{}'.",
+	"source": "ts",
+	"startLineNumber": 162,
+	"startColumn": 16,
+	"endLineNumber": 162,
+	"endColumn": 19,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'addNotification' n'existe pas sur le type 'NotificationContextType | undefined'.",
+	"source": "ts",
+	"startLineNumber": 48,
+	"startColumn": 11,
+	"endLineNumber": 48,
+	"endColumn": 26,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "L'argument de type '{ status: string; }' n'est pas attribuable au paramètre de type 'string'.",
+	"source": "ts",
+	"startLineNumber": 60,
+	"startColumn": 44,
+	"endLineNumber": 60,
+	"endColumn": 68,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'updateReportStatus' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 65,
+	"startColumn": 45,
+	"endLineNumber": 65,
+	"endColumn": 63,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'report' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 145,
+	"startColumn": 43,
+	"endLineNumber": 145,
+	"endColumn": 49,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'r' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 175,
+	"startColumn": 30,
+	"endLineNumber": 175,
+	"endColumn": 31,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'r' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 181,
+	"startColumn": 30,
+	"endLineNumber": 181,
+	"endColumn": 31,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'r' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 187,
+	"startColumn": 30,
+	"endLineNumber": 187,
+	"endColumn": 31,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'r' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 193,
+	"startColumn": 30,
+	"endLineNumber": 193,
+	"endColumn": 31,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'evidence' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 334,
+	"startColumn": 43,
+	"endLineNumber": 334,
+	"endColumn": 51,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'index' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 334,
+	"startColumn": 53,
+	"endLineNumber": 334,
+	"endColumn": 58,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/user-management.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'addNotification' n'existe pas sur le type 'NotificationContextType | undefined'.",
+	"source": "ts",
+	"startLineNumber": 45,
+	"startColumn": 11,
+	"endLineNumber": 45,
+	"endColumn": 26,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/user-management.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "L'argument de type '{ role: string; search: string; }' n'est pas attribuable au paramètre de type 'number'.",
+	"source": "ts",
+	"startLineNumber": 56,
+	"startColumn": 42,
+	"endLineNumber": 56,
+	"endColumn": 83,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/user-management.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'updateUserStatus' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 61,
+	"startColumn": 45,
+	"endLineNumber": 61,
+	"endColumn": 61,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/user-management.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'user' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 116,
+	"startColumn": 39,
+	"endLineNumber": 116,
+	"endColumn": 43,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/booking-details.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'addNotification' n'existe pas sur le type 'NotificationContextType | undefined'.",
+	"source": "ts",
+	"startLineNumber": 51,
+	"startColumn": 11,
+	"endLineNumber": 51,
+	"endColumn": 26,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/booking-details.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "L'argument de type '\"confirmed\"' n'est pas attribuable au paramètre de type '\"rejected\" | \"completed\" | \"cancelled\" | \"accepted\"'.",
+	"source": "ts",
+	"startLineNumber": 65,
+	"startColumn": 79,
+	"endLineNumber": 65,
+	"endColumn": 90,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/booking-details.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "L'argument de type '{ reason: string; }' n'est pas attribuable au paramètre de type 'string'.",
+	"source": "ts",
+	"startLineNumber": 79,
+	"startColumn": 57,
+	"endLineNumber": 79,
+	"endColumn": 81,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/booking-details.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'msg' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 242,
+	"startColumn": 48,
+	"endLineNumber": 242,
+	"endColumn": 51,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/booking-details.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'index' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 242,
+	"startColumn": 53,
+	"endLineNumber": 242,
+	"endColumn": 58,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/premium.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getPremiumStatus' n'existe pas sur le type 'ProviderService'.",
+	"source": "ts",
+	"startLineNumber": 18,
+	"startColumn": 36,
+	"endLineNumber": 18,
+	"endColumn": 52,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/premium.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'subscribePremium' n'existe pas sur le type 'ProviderService'.",
+	"source": "ts",
+	"startLineNumber": 22,
+	"startColumn": 53,
+	"endLineNumber": 22,
+	"endColumn": 69,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/profile.tsx",
+	"owner": "typescript",
+	"code": "2769",
+	"severity": 8,
+	"message": "Aucune surcharge ne correspond à cet appel.\n  La surcharge 1 sur 3, '(options: DefinedInitialDataOptions<unknown, Error, unknown, string[]>, queryClient?: QueryClient | undefined): DefinedUseQueryResult<unknown, Error>', a généré l'erreur suivante.\n    Un littéral d'objet peut uniquement spécifier des propriétés connues, et 'onSuccess' n'existe pas dans le type 'DefinedInitialDataOptions<unknown, Error, unknown, string[]>'.\n  La surcharge 2 sur 3, '(options: UndefinedInitialDataOptions<any, Error, any, string[]>, queryClient?: QueryClient | undefined): UseQueryResult<any, Error>', a généré l'erreur suivante.\n    Un littéral d'objet peut uniquement spécifier des propriétés connues, et 'onSuccess' n'existe pas dans le type 'UndefinedInitialDataOptions<any, Error, any, string[]>'.\n  La surcharge 3 sur 3, '(options: UseQueryOptions<any, Error, any, string[]>, queryClient?: QueryClient | undefined): UseQueryResult<any, Error>', a généré l'erreur suivante.\n    Un littéral d'objet peut uniquement spécifier des propriétés connues, et 'onSuccess' n'existe pas dans le type 'UseQueryOptions<any, Error, any, string[]>'.",
+	"source": "ts",
+	"startLineNumber": 24,
+	"startColumn": 5,
+	"endLineNumber": 24,
+	"endColumn": 14,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/profile.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'data' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 24,
+	"startColumn": 17,
+	"endLineNumber": 24,
+	"endColumn": 21,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/security-settings.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'user' n'existe pas sur le type 'AuthContextType | undefined'.",
+	"source": "ts",
+	"startLineNumber": 41,
+	"startColumn": 11,
+	"endLineNumber": 41,
+	"endColumn": 15,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/security-settings.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'addNotification' n'existe pas sur le type 'NotificationContextType | undefined'.",
+	"source": "ts",
+	"startLineNumber": 42,
+	"startColumn": 11,
+	"endLineNumber": 42,
+	"endColumn": 26,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/security-settings.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getSecuritySettings' n'existe pas sur le type 'ProfileService'.",
+	"source": "ts",
+	"startLineNumber": 65,
+	"startColumn": 35,
+	"endLineNumber": 65,
+	"endColumn": 54,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/security-settings.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'changePassword' n'existe pas sur le type 'ProfileService'.",
+	"source": "ts",
+	"startLineNumber": 71,
+	"startColumn": 47,
+	"endLineNumber": 71,
+	"endColumn": 61,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/security-settings.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'enable2FA' n'existe pas sur le type 'ProfileService'.",
+	"source": "ts",
+	"startLineNumber": 96,
+	"startColumn": 47,
+	"endLineNumber": 96,
+	"endColumn": 56,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/C:/Users/Louk's Tech/Downloads/loving-backend-main/loving-backend-main/backend/src/server.ts",
+	"owner": "typescript",
+	"code": "7016",
+	"severity": 8,
+	"message": "Le fichier de déclaration du module 'express' est introuvable. 'c:/Users/Louk's Tech/node_modules/express/index.js' a implicitement un type 'any'.\n  Essayez 'npm i --save-dev @types/express' s'il existe, ou ajoutez un nouveau fichier de déclaration (.d.ts) contenant 'declare module 'express';'",
+	"source": "ts",
+	"startLineNumber": 1,
+	"startColumn": 57,
+	"endLineNumber": 1,
+	"endColumn": 66,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/C:/Users/Louk's Tech/Downloads/loving-backend-main/loving-backend-main/backend/src/server.ts",
+	"owner": "typescript",
+	"code": "7016",
+	"severity": 8,
+	"message": "Le fichier de déclaration du module 'cors' est introuvable. 'c:/Users/Louk's Tech/node_modules/cors/lib/index.js' a implicitement un type 'any'.\n  Essayez 'npm i --save-dev @types/cors' s'il existe, ou ajoutez un nouveau fichier de déclaration (.d.ts) contenant 'declare module 'cors';'",
+	"source": "ts",
+	"startLineNumber": 3,
+	"startColumn": 18,
+	"endLineNumber": 3,
+	"endColumn": 24,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/C:/Users/Louk's Tech/Downloads/loving-backend-main/loving-backend-main/backend/src/server.ts",
+	"owner": "typescript",
+	"code": "2307",
+	"severity": 8,
+	"message": "Impossible de localiser le module 'helmet' ou les déclarations de type correspondantes.",
+	"source": "ts",
+	"startLineNumber": 4,
+	"startColumn": 20,
+	"endLineNumber": 4,
+	"endColumn": 28,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/C:/Users/Louk's Tech/Downloads/loving-backend-main/loving-backend-main/backend/src/server.ts",
+	"owner": "typescript",
+	"code": "7016",
+	"severity": 8,
+	"message": "Le fichier de déclaration du module 'compression' est introuvable. 'c:/Users/Louk's Tech/node_modules/compression/index.js' a implicitement un type 'any'.\n  Essayez 'npm i --save-dev @types/compression' s'il existe, ou ajoutez un nouveau fichier de déclaration (.d.ts) contenant 'declare module 'compression';'",
+	"source": "ts",
+	"startLineNumber": 5,
+	"startColumn": 25,
+	"endLineNumber": 5,
+	"endColumn": 38,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/C:/Users/Louk's Tech/Downloads/loving-backend-main/loving-backend-main/backend/src/server.ts",
+	"owner": "typescript",
+	"code": "2307",
+	"severity": 8,
+	"message": "Impossible de localiser le module 'morgan' ou les déclarations de type correspondantes.",
+	"source": "ts",
+	"startLineNumber": 6,
+	"startColumn": 20,
+	"endLineNumber": 6,
+	"endColumn": 28,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/C:/Users/Louk's Tech/Downloads/loving-backend-main/loving-backend-main/backend/src/server.ts",
+	"owner": "typescript",
+	"code": "2307",
+	"severity": 8,
+	"message": "Impossible de localiser le module 'socket.io' ou les déclarations de type correspondantes.",
+	"source": "ts",
+	"startLineNumber": 8,
+	"startColumn": 24,
+	"endLineNumber": 8,
+	"endColumn": 35,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+}]
+
+
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/moderation.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getModerationItems' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 25,
+	"startColumn": 33,
+	"endLineNumber": 25,
+	"endColumn": 51,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/moderation.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'approveModerationItem' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 29,
+	"startColumn": 46,
+	"endLineNumber": 29,
+	"endColumn": 67,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/moderation.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'rejectModerationItem' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 37,
+	"startColumn": 46,
+	"endLineNumber": 37,
+	"endColumn": 66,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+}]
+
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/commissions.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getCommissions' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 25,
+	"startColumn": 33,
+	"endLineNumber": 25,
+	"endColumn": 47,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/commissions.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'updateCommissionRate' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 29,
+	"startColumn": 48,
+	"endLineNumber": 29,
+	"endColumn": 68,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+}]
+
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/profiles.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getProfiles' n'existe pas sur le type 'AdminService'.",
+	"source": "ts",
+	"startLineNumber": 23,
+	"startColumn": 33,
+	"endLineNumber": 23,
+	"endColumn": 44,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+}]
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/availability.tsx",
+	"owner": "typescript",
+	"code": "2554",
+	"severity": 8,
+	"message": "2 arguments attendus, mais 0 reçus.",
+	"source": "ts",
+	"startLineNumber": 25,
+	"startColumn": 36,
+	"endLineNumber": 25,
+	"endColumn": 51,
+	"relatedInformation": [
+		{
+			"startLineNumber": 41,
+			"startColumn": 25,
+			"endLineNumber": 41,
+			"endColumn": 42,
+			"message": "Aucun argument pour 'startDate' n'a été fourni.",
+			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/services/providerService.ts"
+		}
+	],
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/availability.tsx",
+	"owner": "typescript",
+	"code": "2551",
+	"severity": 8,
+	"message": "La propriété 'updateAvailability' n'existe pas sur le type 'ProviderService'. Est-ce qu'il ne s'agit pas plutôt de 'getAvailability' ?",
+	"source": "ts",
+	"startLineNumber": 29,
+	"startColumn": 48,
+	"endLineNumber": 29,
+	"endColumn": 66,
+	"relatedInformation": [
+		{
+			"startLineNumber": 41,
+			"startColumn": 9,
+			"endLineNumber": 41,
+			"endColumn": 24,
+			"message": "'getAvailability' est déclaré ici.",
+			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/services/providerService.ts"
+		}
+	],
+	"modelVersionId": 1,
+	"origin": "extHost1"
+}]
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/block-user.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'reportUser' n'existe pas sur le type 'ProviderService'.",
+	"source": "ts",
+	"startLineNumber": 36,
+	"startColumn": 23,
+	"endLineNumber": 36,
+	"endColumn": 33,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+}]
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/bookings.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'acceptBooking' n'existe pas sur le type 'BookingService'.",
+	"source": "ts",
+	"startLineNumber": 31,
+	"startColumn": 55,
+	"endLineNumber": 31,
+	"endColumn": 68,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/bookings.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'rejectBooking' n'existe pas sur le type 'BookingService'.",
+	"source": "ts",
+	"startLineNumber": 39,
+	"startColumn": 22,
+	"endLineNumber": 39,
+	"endColumn": 35,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+}]
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/premium.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getPremiumStatus' n'existe pas sur le type 'ProviderService'.",
+	"source": "ts",
+	"startLineNumber": 18,
+	"startColumn": 36,
+	"endLineNumber": 18,
+	"endColumn": 52,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(provider)/premium.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'subscribePremium' n'existe pas sur le type 'ProviderService'.",
+	"source": "ts",
+	"startLineNumber": 22,
+	"startColumn": 53,
+	"endLineNumber": 22,
+	"endColumn": 69,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+}]
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/calendar.tsx",
+	"owner": "typescript",
+	"code": "7006",
+	"severity": 8,
+	"message": "Le paramètre 'day' possède implicitement un type 'any'.",
+	"source": "ts",
+	"startLineNumber": 65,
+	"startColumn": 22,
+	"endLineNumber": 65,
+	"endColumn": 25,
+	"modelVersionId": 3,
+	"origin": "extHost1"
+}]
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/cancel-booking.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getBooking' n'existe pas sur le type 'BookingService'.",
+	"source": "ts",
+	"startLineNumber": 26,
+	"startColumn": 35,
+	"endLineNumber": 26,
+	"endColumn": 45,
+	"modelVersionId": 3,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/cancel-booking.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "L'argument de type '{ reason: string; }' n'est pas attribuable au paramètre de type 'string'.",
+	"source": "ts",
+	"startLineNumber": 31,
+	"startColumn": 81,
+	"endLineNumber": 31,
+	"endColumn": 85,
+	"modelVersionId": 3,
+	"origin": "extHost1"
+}]
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'addNotification' n'existe pas sur le type 'NotificationContextType | undefined'.",
+	"source": "ts",
+	"startLineNumber": 42,
+	"startColumn": 11,
+	"endLineNumber": 42,
+	"endColumn": 26,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'processPayment' n'existe pas sur le type 'PaymentService'.",
+	"source": "ts",
+	"startLineNumber": 87,
+	"startColumn": 47,
+	"endLineNumber": 87,
+	"endColumn": 61,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'payment' est de type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 96,
+	"startColumn": 30,
+	"endLineNumber": 96,
+	"endColumn": 37,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'label' n'existe pas sur le type 'PaymentMethod'.",
+	"source": "ts",
+	"startLineNumber": 272,
+	"startColumn": 58,
+	"endLineNumber": 272,
+	"endColumn": 63,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'lastDigits' n'existe pas sur le type 'PaymentMethod'.",
+	"source": "ts",
+	"startLineNumber": 273,
+	"startColumn": 25,
+	"endLineNumber": 273,
+	"endColumn": 35,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'lastDigits' n'existe pas sur le type 'PaymentMethod'.",
+	"source": "ts",
+	"startLineNumber": 274,
+	"startColumn": 67,
+	"endLineNumber": 274,
+	"endColumn": 77,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
+	"owner": "typescript",
+	"code": "2559",
+	"severity": 8,
+	"message": "Le type '({ padding: number; } | { marginBottom: number; })[]' n'a aucune propriété en commun avec le type 'ViewStyle'.",
+	"source": "ts",
+	"startLineNumber": 295,
+	"startColumn": 21,
+	"endLineNumber": 295,
+	"endColumn": 26,
+	"relatedInformation": [
+		{
+			"startLineNumber": 12,
+			"startColumn": 3,
+			"endLineNumber": 12,
+			"endColumn": 8,
+			"message": "Le type attendu provient de la propriété 'style', qui est déclarée ici sur le type 'IntrinsicAttributes & CardProps'",
+			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/components/Card.tsx"
+		}
+	],
+	"modelVersionId": 1,
+	"origin": "extHost1"
+}]
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/profile-settings.tsx",
+	"owner": "typescript",
+	"code": "2552",
+	"severity": 8,
+	"message": "Le nom 'userId' est introuvable. Est-ce qu'il ne s'agit pas plutôt de 'user' ?",
+	"source": "ts",
+	"startLineNumber": 111,
+	"startColumn": 12,
+	"endLineNumber": 111,
+	"endColumn": 18,
+	"relatedInformation": [
+		{
+			"startLineNumber": 53,
+			"startColumn": 11,
+			"endLineNumber": 53,
+			"endColumn": 15,
+			"message": "'user' est déclaré ici.",
+			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/profile-settings.tsx"
+		}
+	],
+	"modelVersionId": 3,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/profile-settings.tsx",
+	"owner": "typescript",
+	"code": "2552",
+	"severity": 8,
+	"message": "Le nom 'userId' est introuvable. Est-ce qu'il ne s'agit pas plutôt de 'user' ?",
+	"source": "ts",
+	"startLineNumber": 113,
+	"startColumn": 34,
+	"endLineNumber": 113,
+	"endColumn": 40,
+	"relatedInformation": [
+		{
+			"startLineNumber": 53,
+			"startColumn": 11,
+			"endLineNumber": 53,
+			"endColumn": 15,
+			"message": "'user' est déclaré ici.",
+			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/profile-settings.tsx"
+		}
+	],
+	"modelVersionId": 3,
+	"origin": "extHost1"
+}]
+[{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/reviews.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'getBooking' n'existe pas sur le type 'BookingService'.",
+	"source": "ts",
+	"startLineNumber": 32,
+	"startColumn": 35,
+	"endLineNumber": 32,
+	"endColumn": 45,
+	"modelVersionId": 3,
+	"origin": "extHost1"
+},{
+	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/reviews.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "La propriété 'submitReview' n'existe pas sur le type 'BookingService'.",
+	"source": "ts",
+	"startLineNumber": 37,
+	"startColumn": 47,
+	"endLineNumber": 37,
+	"endColumn": 59,
+	"modelVersionId": 3,
+	"origin": "extHost1"
+}]

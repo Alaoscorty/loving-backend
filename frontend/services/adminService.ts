@@ -35,21 +35,74 @@ export interface Report {
 }
 
 class AdminService {
+  // Stats simples du dashboard admin
   async getStats() {
     try {
       const response = await apiClient.get('/admin/stats');
-      return response.data as AdminStats;
+      const data = response.data?.data || response.data;
+      return data as AdminStats;
     } catch (error) {
       throw error;
     }
   }
 
+  // Stats avancées pour le dashboard (période jour/semaine/mois/année)
+  async getDashboardStats(params?: { period?: string }) {
+    try {
+      const response = await apiClient.get('/admin/dashboard', {
+        params,
+      });
+      return response.data?.data || response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Données pour les graphiques du dashboard.
+  // L'API backend n'est pas encore finalisée, on renvoie donc
+  // une structure compatible avec `react-native-chart-kit`.
+  async getChartData(_params?: { period?: string }) {
+    // TODO: brancher sur de vraies données backend quand l'API sera prête
+    const fallbackLabels = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+    return {
+      revenueData: {
+        labels: fallbackLabels,
+        datasets: [
+          {
+            data: [120, 90, 140, 80, 160, 200, 130],
+          },
+        ],
+      },
+      bookingData: {
+        labels: fallbackLabels,
+        datasets: [
+          {
+            data: [5, 8, 4, 10, 7, 9, 6],
+          },
+        ],
+      },
+    };
+  }
+
+  // Alertes affichées dans le dashboard avancé
+  async getAlerts() {
+    // À terme : appeler un endpoint `/admin/alerts`
+    return [];
+  }
+
+  // Actions urgentes affichées dans le dashboard avancé
+  async getUrgentActions() {
+    // À terme : appeler un endpoint `/admin/urgent-actions`
+    return [];
+  }
+
   async getPendingProfiles(page: number = 1, limit: number = 10) {
     try {
-      const response = await apiClient.get('/admin/pending-profiles', {
+      const response = await apiClient.get('/admin/profiles/pending', {
         params: { page, limit },
       });
-      return response.data;
+      const data = response.data?.data || response.data || [];
+      return Array.isArray(data) ? data : data.items || [];
     } catch (error) {
       throw error;
     }
@@ -79,15 +132,58 @@ class AdminService {
     }
   }
 
-  async getUsers(page: number = 1, limit: number = 10, search?: string) {
+  // Récupère la liste des utilisateurs.
+  // Accepte soit (page, limit, search), soit un objet d'options.
+  async getUsers(
+    optionsOrPage:
+      | { page?: number; limit?: number; search?: string; role?: string }
+      | number = 1,
+    limit: number = 10,
+    search?: string
+  ) {
     try {
+      let page: number;
+      let params: Record<string, unknown>;
+
+      if (typeof optionsOrPage === 'number') {
+        page = optionsOrPage;
+        params = { page, limit, search };
+      } else {
+        page = optionsOrPage.page ?? 1;
+        params = {
+          page,
+          limit: optionsOrPage.limit ?? limit,
+          search: optionsOrPage.search,
+          role: optionsOrPage.role,
+        };
+      }
+
       const response = await apiClient.get('/admin/users', {
-        params: { page, limit, search },
+        params,
       });
-      return response.data;
+      const data = response.data?.data || response.data || [];
+      return Array.isArray(data) ? data : data.items || [];
     } catch (error) {
       throw error;
     }
+  }
+
+  // Met à jour le statut d'un utilisateur (actif/suspendu/bloqué).
+  // Cette méthode est un wrapper autour de `deactivateUser` / `reactivateUser`.
+  async updateUserStatus(payload: {
+    userId: string;
+    status: 'active' | 'suspended' | 'blocked';
+    reason?: string;
+  }) {
+    const { userId, status, reason } = payload;
+
+    if (status === 'active') {
+      return this.reactivateUser(userId);
+    }
+
+    // Pour l'instant, on utilise le même endpoint pour "suspended" et "blocked".
+    // La logique plus fine pourra être ajoutée côté backend plus tard.
+    return this.deactivateUser(userId, reason);
   }
 
   async deactivateUser(userId: string, reason?: string) {
@@ -113,12 +209,17 @@ class AdminService {
     }
   }
 
-  async getReports(status?: string, page: number = 1, limit: number = 10) {
+  async getReports(options?: { status?: string; page?: number; limit?: number }) {
     try {
       const response = await apiClient.get('/admin/reports', {
-        params: { status, page, limit },
+        params: {
+          status: options?.status,
+          page: options?.page ?? 1,
+          limit: options?.limit ?? 20,
+        },
       });
-      return response.data;
+      const data = response.data?.data || response.data || [];
+      return Array.isArray(data) ? data : data.items || [];
     } catch (error) {
       throw error;
     }
@@ -134,6 +235,16 @@ class AdminService {
     } catch (error) {
       throw error;
     }
+  }
+
+  // Wrapper utilisé par l'écran `reports.tsx`
+  async updateReportStatus(payload: {
+    reportId: string;
+    status: string;
+    resolution?: string;
+  }) {
+    const { reportId, status, resolution } = payload;
+    return this.resolveReport(reportId, status, resolution);
   }
 
   async getReviews(status?: string, page: number = 1, limit: number = 10) {
@@ -196,7 +307,8 @@ class AdminService {
       const response = await apiClient.get('/admin/logs', {
         params: { type, page, limit },
       });
-      return response.data;
+      const data = response.data?.data || response.data || [];
+      return Array.isArray(data) ? data : data.items || [];
     } catch (error) {
       throw error;
     }
