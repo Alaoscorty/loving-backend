@@ -30,8 +30,11 @@ import paymentRoutes from './routes/payment.routes';
 // ========================
 dotenv.config();
 
+
 const app: Application = express();
 const httpServer = createServer(app);
+
+app.set('trust proxy', 1);
 
 // ========================
 // SOCKET.IO
