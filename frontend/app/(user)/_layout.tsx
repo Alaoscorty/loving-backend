@@ -21,14 +21,18 @@ export default function UserLayout() {
       }}
     >
       <Stack.Screen name="home" />
-      <Stack.Screen name="profile" />
-      <Stack.Screen name="booking" />
+      <Stack.Screen name="profile-settings" />
+      <Stack.Screen name="reservation" />
       <Stack.Screen name="bookings" />
       <Stack.Screen name="calendar" />
       <Stack.Screen name="favorites" />
       <Stack.Screen name="reviews" />
       <Stack.Screen name="cancel-booking" />
       <Stack.Screen name="chat" />
+      <Stack.Screen name="conversations-list" />
+      <Stack.Screen name="profile-detail" />
+      <Stack.Screen name="profiles-list" />
+      <Stack.Screen name="payment" />
     </Stack>
   );
 }

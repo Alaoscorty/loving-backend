@@ -79,24 +79,15 @@ export default function RegisterScreen() {
           router.replace('/(user)/home');
         }
 
-        Alert.alert(
-          'Inscription réussie',
-          data.message ||
-            "Votre compte a été créé. Un email de vérification a été envoyé."
-        );
+        Alert.alert('Inscription réussie', "Votre compte a été créé.");
       } else {
         // Fallback : on renvoie vers la page de connexion
-        Alert.alert(
-          'Inscription réussie',
-          data.message ||
-            "Un email de vérification a été envoyé. Veuillez vérifier votre boîte mail.",
-          [
-            {
-              text: 'OK',
-              onPress: () => router.replace('/(auth)/login'),
-            },
-          ]
-        );
+        Alert.alert('Inscription réussie', "Votre compte a été créé.", [
+          {
+            text: 'OK',
+            onPress: () => router.replace('/(auth)/login'),
+          },
+        ]);
       }
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || error.message || 'Une erreur est survenue lors de l\'inscription';

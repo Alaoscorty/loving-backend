@@ -8,20 +8,17 @@ import {
   RefreshControl,
   FlatList,
 } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card, Input, LoadingSpinner } from '@/components';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useChat } from '@/contexts/ChatContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { chatService } from '@/services/chatService';
-import { useRouter } from 'expo-router';
-
-
 const CHAT_CACHE_KEY = 'chat_messages_cache';
-const router = useRouter();
 
 export default function ChatScreen() {
+  const router = useRouter();
   const params = useLocalSearchParams();
   const conversationId = (params.conversationId as string) || undefined;
   const providerId = (params.providerId as string) || undefined;

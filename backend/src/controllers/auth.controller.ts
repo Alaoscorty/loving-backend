@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { User, IUser } from '../models/User.model';
 import { Profile } from '../models/Profile.model';
 import { generateToken, generateRefreshToken } from '../utils/jwt';
-import { sendVerificationEmail, sendPasswordResetEmail } from '../utils/email';
+import { sendPasswordResetEmail, sendVerificationEmail } from '../utils/email';
 import crypto from 'crypto';
 import { logger } from '../utils/logger';
 
@@ -23,11 +23,7 @@ export const register = async (req: Request, res: Response) => {
       });
     }
 
-    // Générer un token de vérification
-    const verificationToken = crypto.randomBytes(32).toString('hex');
-    const verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 heures
-
-    // Créer l'utilisateur
+    // Créer l'utilisateur (sans vérification d'email)
     const user = new User({
       firstName,
       lastName,
@@ -35,8 +31,7 @@ export const register = async (req: Request, res: Response) => {
       phone,
       password,
       role: role || 'user',
-      verificationToken,
-      verificationTokenExpiry,
+      isVerified: true,
     });
 
     await user.save();
@@ -61,14 +56,6 @@ export const register = async (req: Request, res: Response) => {
       }
     }
 
-    // Envoyer l'email de vérification
-    try {
-      await sendVerificationEmail(user.email, verificationToken);
-    } catch (emailError) {
-      logger.error('Erreur lors de l\'envoi de l\'email:', emailError);
-      // Ne pas bloquer l'inscription si l'email échoue
-    }
-
     // Générer les tokens
     const token = generateToken(user._id.toString(), user.role);
     const refreshToken = generateRefreshToken(user._id.toString());
@@ -79,7 +66,7 @@ export const register = async (req: Request, res: Response) => {
 
     res.status(201).json({
       success: true,
-      message: 'Inscription réussie. Un email de vérification a été envoyé.',
+      message: 'Inscription réussie.',
       data: {
         token,
         refreshToken,

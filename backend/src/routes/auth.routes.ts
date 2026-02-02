@@ -18,7 +18,8 @@ const router = express.Router();
 
 // Routes publiques avec rate limiting
 router.post('/register', authLimiter, validateRegister, register);
-router.post('/register-admin', authLimiter, registerAdmin);
+// On enlève le rate limit pour l'inscription admin afin d'éviter les 429 côté app
+router.post('/register-admin', registerAdmin);
 router.post('/login', authLimiter, validateLogin, login);
 router.post('/refresh', refreshToken);
 router.post('/verify-email', verifyEmail);
