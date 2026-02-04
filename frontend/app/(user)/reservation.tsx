@@ -166,7 +166,7 @@ export default function ReservationScreen() {
   };
   
 
-  if (providerLoading) return <LoadingSpinner />;
+  if (providerLoading) return <LoadingSpinner fullScreen />;
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>

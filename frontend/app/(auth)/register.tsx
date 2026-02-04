@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import {
   View,
   Text,
@@ -9,12 +9,13 @@ import {
   Platform,
   Alert,
   ActivityIndicator,
-  ScrollView,
   ImageBackground,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { authService } from '@/services/authService';
 import { useAuth } from '@/contexts/AuthContext';
+import BottomSheet from '@gorhom/bottom-sheet';
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
 type UserRole = 'user' | 'provider';
 
@@ -28,13 +29,22 @@ export default function RegisterScreen() {
     confirmPassword: '',
     role: 'user' as UserRole,
   });
+
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { login } = useAuth();
 
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ['65%', '90%'], []);
+
   const handleRegister = async () => {
-    // Validation
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone || !formData.password) {
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.password
+    ) {
       Alert.alert('Erreur', 'Veuillez remplir tous les champs');
       return;
     }
@@ -62,7 +72,6 @@ export default function RegisterScreen() {
 
       const data = response.data || response;
 
-      // Si le backend renvoie les tokens, on connecte directement l'utilisateur
       if (data?.data?.token && data?.data?.refreshToken && data?.data?.user) {
         await login(
           String(data.data.token),
@@ -70,28 +79,22 @@ export default function RegisterScreen() {
           data.data.user
         );
 
-        // Navigation basée sur le rôle
         if (data.data.user.role === 'provider') {
           router.replace('/(provider)/dashboard');
-        } else if (data.data.user.role === 'admin') {
-          router.replace('/(admin)/dashboard');
         } else {
           router.replace('/(user)/home');
         }
-
-        Alert.alert('Inscription réussie', "Votre compte a été créé.");
       } else {
-        // Fallback : on renvoie vers la page de connexion
-        Alert.alert('Inscription réussie', "Votre compte a été créé.", [
-          {
-            text: 'OK',
-            onPress: () => router.replace('/(auth)/login'),
-          },
+        Alert.alert('Inscription réussie', 'Votre compte a été créé.', [
+          { text: 'OK', onPress: () => router.replace('/(auth)/login') },
         ]);
       }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message || 'Une erreur est survenue lors de l\'inscription';
-      Alert.alert('Erreur d\'inscription', errorMessage);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Une erreur est survenue lors de l'inscription";
+      Alert.alert('Erreur', errorMessage);
     } finally {
       setLoading(false);
     }
@@ -99,110 +102,119 @@ export default function RegisterScreen() {
 
   return (
     <ImageBackground
-        source={require("@/assets/fond.jpg")}
-        style={styles.Images}
-        resizeMode='cover'
+      source={require('@/assets/fond.jpg')}
+      style={styles.background}
+      resizeMode="cover"
     >
-          <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
+      <View style={styles.overlay} />
+
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        enableContentPanningGesture={true} 
+        keyboardBehavior="interactive"   
+        backgroundStyle={styles.sheetBackground}
+        handleIndicatorStyle={styles.indicator}
       >
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          <View style={styles.content}>
-            <Text style={styles.title}>Créer un compte</Text>
-            <Text style={styles.subtitle}>Rejoignez notre communauté</Text>
+        <BottomSheetScrollView
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="interactive"
+          style={{ flex: 1 }}                  
+  contentContainerStyle={[styles.sheetContent, { flexGrow: 1 }]}
+        >
+          {/* IMPORTANT : wrapper flex */}
+          <View style={{ flex: 1 }}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+              keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
+              style={{ flex: 1 }}
+            >
+              <Text style={styles.title}>Créer un compte</Text>
+              <Text style={styles.subtitle}>Rejoignez la communauté Loving</Text>
 
-            <View style={styles.roleSelector}>
-              <TouchableOpacity
-                style={[
-                  styles.roleButton,
-                  formData.role === 'user' && styles.roleButtonActive,
-                ]}
-                onPress={() => setFormData({ ...formData, role: 'user' })}
-              >
-                <Text
-                  style={[
-                    styles.roleButtonText,
-                    formData.role === 'user' && styles.roleButtonTextActive,
-                  ]}
-                >
-                  Utilisateur
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.roleButton,
-                  formData.role === 'provider' && styles.roleButtonActive,
-                ]}
-                onPress={() => setFormData({ ...formData, role: 'provider' })}
-              >
-                <Text
-                  style={[
-                    styles.roleButtonText,
-                    formData.role === 'provider' && styles.roleButtonTextActive,
-                  ]}
-                >
-                  Prestataire
-                </Text>
-              </TouchableOpacity>
-            </View>
+              {/* ROLE */}
+              <View style={styles.roleSelector}>
+                {(['user', 'provider'] as UserRole[]).map((role) => (
+                  <TouchableOpacity
+                    key={role}
+                    style={[
+                      styles.roleButton,
+                      formData.role === role && styles.roleButtonActive,
+                    ]}
+                    onPress={() => setFormData({ ...formData, role })}
+                  >
+                    <Text
+                      style={[
+                        styles.roleButtonText,
+                        formData.role === role && styles.roleButtonTextActive,
+                      ]}
+                    >
+                      {role === 'user' ? 'Utilisateur' : 'Prestataire'}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
 
-            <View style={styles.form}>
+              {/* FORM */}
               <View style={styles.nameRow}>
                 <TextInput
                   style={[styles.input, styles.inputHalf]}
                   placeholder="Prénom"
-                  placeholderTextColor="#999"
                   value={formData.firstName}
-                  onChangeText={(text) => setFormData({ ...formData, firstName: text })}
+                  onChangeText={(text) =>
+                    setFormData({ ...formData, firstName: text })
+                  }
                 />
                 <TextInput
                   style={[styles.input, styles.inputHalf]}
                   placeholder="Nom"
-                  placeholderTextColor="#999"
                   value={formData.lastName}
-                  onChangeText={(text) => setFormData({ ...formData, lastName: text })}
+                  onChangeText={(text) =>
+                    setFormData({ ...formData, lastName: text })
+                  }
                 />
               </View>
 
               <TextInput
                 style={styles.input}
                 placeholder="Email"
-                placeholderTextColor="#999"
-                value={formData.email}
-                onChangeText={(text) => setFormData({ ...formData, email: text })}
                 keyboardType="email-address"
                 autoCapitalize="none"
-                autoComplete="email"
+                value={formData.email}
+                onChangeText={(text) =>
+                  setFormData({ ...formData, email: text })
+                }
               />
 
               <TextInput
                 style={styles.input}
                 placeholder="Téléphone"
-                placeholderTextColor="#999"
-                value={formData.phone}
-                onChangeText={(text) => setFormData({ ...formData, phone: text })}
                 keyboardType="phone-pad"
+                value={formData.phone}
+                onChangeText={(text) =>
+                  setFormData({ ...formData, phone: text })
+                }
               />
 
               <TextInput
                 style={styles.input}
                 placeholder="Mot de passe"
-                placeholderTextColor="#999"
-                value={formData.password}
-                onChangeText={(text) => setFormData({ ...formData, password: text })}
                 secureTextEntry
-                autoCapitalize="none"
+                value={formData.password}
+                onChangeText={(text) =>
+                  setFormData({ ...formData, password: text })
+                }
               />
 
               <TextInput
                 style={styles.input}
                 placeholder="Confirmer le mot de passe"
-                placeholderTextColor="#999"
-                value={formData.confirmPassword}
-                onChangeText={(text) => setFormData({ ...formData, confirmPassword: text })}
                 secureTextEntry
-                autoCapitalize="none"
+                value={formData.confirmPassword}
+                onChangeText={(text) =>
+                  setFormData({ ...formData, confirmPassword: text })
+                }
               />
 
               <TouchableOpacity
@@ -218,115 +230,105 @@ export default function RegisterScreen() {
               </TouchableOpacity>
 
               <TouchableOpacity
+                style={{ marginTop: 16 }}
                 onPress={() => router.back()}
-                style={styles.linkButton}
               >
-                <Text style={styles.linkText}>Déjà un compte ? Se connecter</Text>
+                <Text style={styles.linkText}>
+                  Déjà un compte ? Se connecter
+                </Text>
               </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </BottomSheetScrollView>
+      </BottomSheet>
     </ImageBackground>
-      
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
+  background: { flex: 1 },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.35)',
   },
-  scrollContent: {
-    flexGrow: 1,
+  sheetBackground: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
   },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
+  indicator: {
+    width: 60,
+    backgroundColor: '#ccc',
+  },
+  sheetContent: {
+    padding: 24,
+    paddingBottom: 40,
   },
   title: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#1f2937',
+    color: '#6366f1',
     textAlign: 'center',
-    marginBottom: 8,
   },
   subtitle: {
-    fontSize: 16,
-    color: '#666',
     textAlign: 'center',
+    color: '#666',
     marginBottom: 24,
   },
   roleSelector: {
     flexDirection: 'row',
-    marginBottom: 24,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
+    backgroundColor: '#f4f4f5',
+    borderRadius: 14,
     padding: 4,
+    marginBottom: 20,
   },
   roleButton: {
     flex: 1,
     padding: 12,
-    borderRadius: 8,
+    borderRadius: 10,
     alignItems: 'center',
   },
   roleButtonActive: {
     backgroundColor: '#6366f1',
   },
   roleButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
     color: '#666',
+    fontWeight: '600',
   },
   roleButtonTextActive: {
     color: '#fff',
   },
-  form: {
-    width: '100%',
-  },
   nameRow: {
     flexDirection: 'row',
     gap: 12,
-    marginBottom: 16,
   },
   input: {
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
+    backgroundColor: '#f4f4f5',
+    borderRadius: 14,
     padding: 16,
-    fontSize: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#e5e5e5',
+    marginBottom: 14,
+    fontSize: 15,
   },
   inputHalf: {
     flex: 1,
   },
   button: {
     backgroundColor: '#6366f1',
-    borderRadius: 12,
     padding: 16,
+    borderRadius: 14,
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 10,
   },
   buttonDisabled: {
     opacity: 0.6,
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
     fontWeight: '600',
-  },
-  linkButton: {
-    marginTop: 16,
-    alignItems: 'center',
+    fontSize: 16,
   },
   linkText: {
+    textAlign: 'center',
     color: '#6366f1',
-    fontSize: 14,
-  },
-  Images: {
-    flex:1,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });

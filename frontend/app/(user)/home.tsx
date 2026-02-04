@@ -81,7 +81,7 @@ export default function UserHomeScreen() {
             <MaterialCommunityIcons name="calendar-check" size={24} color="#007AFF" />
             <View style={{ marginLeft: 12 }}>
               <Text style={styles.statValue}>{upcomingBookings.length}</Text>
-              <Text style={styles.statLabel}>Réservations</Text>
+              <Text style={styles.statLabel}>Réserver</Text>
             </View>
           </View>
         </Card>
@@ -172,7 +172,7 @@ export default function UserHomeScreen() {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.quickButton, { backgroundColor: 'rgba(76, 175, 80, 0.1)' }]}
-            onPress={() => router.push('/(user)/chat')}
+            onPress={() => router.push('/(user)/conversations-list')}
           >
             <MaterialCommunityIcons name="chat" size={32} color="#4caf50" />
             <Text style={styles.quickButtonText}>Messages</Text>
@@ -186,7 +186,7 @@ export default function UserHomeScreen() {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.quickButton, { backgroundColor: 'rgba(255, 193, 7, 0.1)' }]}
-            onPress={() => router.push('/(user)/reservation')}
+            onPress={() => router.push('/(user)/bookings')}
           >
             <MaterialCommunityIcons name="calendar-multiple" size={32} color="#FFC107" />
             <Text style={styles.quickButtonText}>Réservations</Text>
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8',
-    paddingTop: 20,
+    marginTop: 40,
   },
   header: {
     flexDirection: 'row',
@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
   },
   section: {
     paddingHorizontal: 16,
-    marginBottom: 24,
+    marginBottom: 34,
   },
   sectionHeader: {
     flexDirection: 'row',

@@ -39,6 +39,21 @@ interface DashboardStats {
   averageRating: number;
 }
 
+interface UrgentAction {
+  id: string;
+  title: string;
+  description: string;
+  severity: 'high' | 'medium' | 'low';
+}
+
+interface DashboardAlert {
+  id: string;
+  message: string;
+  timestamp: string;
+  color: string;
+  icon: keyof typeof MaterialCommunityIcons.glyphMap;
+}
+
 export default function AdvancedDashboardScreen() {
   const router = useRouter();
   const [dateRange, setDateRange] = useState('month'); // 'week', 'month', 'year'
@@ -56,13 +71,13 @@ export default function AdvancedDashboardScreen() {
   });
 
   // Récupérer les alertes
-  const { data: alerts = [] } = useQuery({
+  const { data: alerts = [] } = useQuery<DashboardAlert[]>({
     queryKey: ['adminAlerts'],
     queryFn: () => adminService.getAlerts(),
   });
 
   // Récupérer les actions urgentes
-  const { data: urgentActions = [] } = useQuery({
+  const { data: urgentActions = [] } = useQuery<UrgentAction[]>({
     queryKey: ['urgentActions'],
     queryFn: () => adminService.getUrgentActions(),
   });
@@ -124,7 +139,7 @@ export default function AdvancedDashboardScreen() {
         <Card style={styles.kpiCard}>
           <View style={styles.kpiContent}>
             <View style={styles.kpiIcon}>
-              <MaterialCommunityIcons name="users" size={28} color="#007AFF" />
+              <MaterialCommunityIcons name="account-group" size={28} color="#007AFF" />
             </View>
             <View style={styles.kpiData}>
               <Text style={styles.kpiValue}>{formatNumber(stats?.totalUsers || 0)}</Text>
@@ -210,6 +225,8 @@ export default function AdvancedDashboardScreen() {
               data={chartData.bookingData}
               width={320}
               height={220}
+              yAxisLabel=""
+              yAxisSuffix=""
               chartConfig={{
                 backgroundColor: '#fff',
                 backgroundGradientFrom: '#fff',
@@ -234,7 +251,7 @@ export default function AdvancedDashboardScreen() {
             data={urgentActions}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <Card style={[styles.actionCard, { marginBottom: 12 }]}>
+              <Card style={StyleSheet.flatten([styles.actionCard, { marginBottom: 12 }])}>
                 <View style={styles.actionRow}>
                   <View style={styles.actionIcon}>
                     <MaterialCommunityIcons
@@ -270,7 +287,7 @@ export default function AdvancedDashboardScreen() {
             data={alerts}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <Card style={[styles.alertCard, { marginBottom: 12 }]}>
+              <Card style={StyleSheet.flatten([styles.alertCard, { marginBottom: 12 }])}>
                 <View style={styles.alertRow}>
                   <View style={[styles.alertIcon, { backgroundColor: item.color }]}>
                     <MaterialCommunityIcons name={item.icon} size={18} color="#fff" />
@@ -330,6 +347,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8',
+    marginTop: 40,
   },
   header: {
     flexDirection: 'row',

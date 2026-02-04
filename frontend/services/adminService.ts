@@ -85,13 +85,13 @@ class AdminService {
   }
 
   // Alertes affichées dans le dashboard avancé
-  async getAlerts() {
+  async getAlerts(): Promise<Array<{ id: string; message: string; timestamp: string; color: string; icon: string }>> {
     // À terme : appeler un endpoint `/admin/alerts`
     return [];
   }
 
   // Actions urgentes affichées dans le dashboard avancé
-  async getUrgentActions() {
+  async getUrgentActions(): Promise<Array<{ id: string; title: string; description: string; severity: 'high' | 'medium' | 'low' }>> {
     // À terme : appeler un endpoint `/admin/urgent-actions`
     return [];
   }
@@ -285,6 +285,47 @@ class AdminService {
     try {
       const response = await apiClient.get('/admin/commissions/settings');
       return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /** Commissions par période (semaine / mois / année) pour l'écran commissions */
+  async getCommissions(period: 'week' | 'month' | 'year') {
+    try {
+      const response = await apiClient.get('/admin/commissions', {
+        params: { period },
+      });
+      const data = response.data?.data || response.data;
+      return (
+        data ?? {
+          currentRate: 0,
+          totalCollected: 0,
+          monthlyTotal: 0,
+          details: [],
+        }
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /** Mise à jour du taux de commission (pour l'écran commissions) */
+  async updateCommissionRate(rate: number) {
+    return this.updateCommissionSettings(rate);
+  }
+
+  /** Liste des profils avec filtre (pending / approved / rejected) pour l'écran validation */
+  async getProfiles(filter: 'pending' | 'approved' | 'rejected') {
+    if (filter === 'pending') {
+      return this.getPendingProfiles(1, 50);
+    }
+    try {
+      const response = await apiClient.get('/admin/profiles', {
+        params: { status: filter },
+      });
+      const data = response.data?.data || response.data || [];
+      return Array.isArray(data) ? data : data.items || [];
     } catch (error) {
       throw error;
     }

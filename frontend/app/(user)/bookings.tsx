@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import { bookingService } from '@/services/bookingService';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 type BookingStatus = 'pending' | 'accepted' | 'rejected' | 'cancelled' | 'completed';
 
@@ -61,9 +62,7 @@ export default function BookingsHistoryScreen() {
 
   if (isLoading) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color="#6366f1" />
-      </View>
+      <LoadingSpinner fullScreen />
     );
   }
 

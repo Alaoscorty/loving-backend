@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import {
   View,
   Text,
@@ -9,20 +9,24 @@ import {
   Platform,
   Alert,
   ActivityIndicator,
-  ScrollView,
   ImageBackground,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import BottomSheet from '@gorhom/bottom-sheet';
 import { useAuth } from '@/contexts/AuthContext';
 import { authService } from '@/services/authService';
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
 const ADMIN_CODE = '20025';
 
 export default function RegisterAdminScreen() {
   const router = useRouter();
   const { login } = useAuth();
+
   const [step, setStep] = useState<'code' | 'form'>('code');
   const [code, setCode] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -31,27 +35,38 @@ export default function RegisterAdminScreen() {
     password: '',
     confirmPassword: '',
   });
-  const [loading, setLoading] = useState(false);
+
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ['45%', '90%'], []);
 
   const handleCodeSubmit = () => {
     if (code.trim() !== ADMIN_CODE) {
-      Alert.alert('Code incorrect', 'Le code d\'administration est invalide.');
+      Alert.alert('Code incorrect', 'Le code d’administration est invalide.');
       return;
     }
     setStep('form');
+    bottomSheetRef.current?.snapToIndex(1);
   };
 
   const handleRegisterAdmin = async () => {
-    if (!formData.firstName?.trim() || !formData.lastName?.trim() || !formData.email?.trim() || !formData.phone?.trim() || !formData.password) {
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.password
+    ) {
       Alert.alert('Erreur', 'Veuillez remplir tous les champs');
       return;
     }
+
     if (formData.password !== formData.confirmPassword) {
       Alert.alert('Erreur', 'Les mots de passe ne correspondent pas');
       return;
     }
+
     if (formData.password.length < 6) {
-      Alert.alert('Erreur', 'Le mot de passe doit contenir au moins 6 caractères');
+      Alert.alert('Erreur', 'Mot de passe trop court');
       return;
     }
 
@@ -59,19 +74,17 @@ export default function RegisterAdminScreen() {
     try {
       const data = await authService.registerAdmin({
         code: ADMIN_CODE,
-        firstName: formData.firstName.trim(),
-        lastName: formData.lastName.trim(),
-        email: formData.email.trim().toLowerCase(),
-        phone: formData.phone.trim(),
-        password: formData.password,
+        ...formData,
+        email: formData.email.toLowerCase(),
       });
 
-      const accessToken = String(data.accessToken);
-      const refreshToken = String(data.refreshToken);
-      const user = data.user;
+      await login(
+        String(data.accessToken),
+        String(data.refreshToken),
+        data.user
+      );
 
-      await login(accessToken, refreshToken, user);
-      Alert.alert('Compte créé', 'Compte administrateur créé avec succès.', [
+      Alert.alert('Succès', 'Compte administrateur créé', [
         { text: 'OK', onPress: () => router.replace('/(admin)/dashboard') },
       ]);
     } catch (error: any) {
@@ -82,139 +95,206 @@ export default function RegisterAdminScreen() {
   };
 
   return (
-    <ImageBackground source={require('@/assets/fond.jpg')} style={styles.images} resizeMode="cover">
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
+    <ImageBackground
+      source={require('@/assets/fond.jpg')}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <View style={styles.overlay} />
+
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        enableContentPanningGesture={true}
+        keyboardBehavior="interactive"   
+        backgroundStyle={styles.sheetBackground}
+        handleIndicatorStyle={styles.indicator}
       >
-        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
-          <View style={styles.content}>
-            <Text style={styles.title}>Créer un compte administrateur</Text>
-            <Text style={styles.subtitle}>
-              {step === 'code' ? 'Entrez le code d\'administration' : 'Renseignez vos informations'}
-            </Text>
+        <BottomSheetScrollView
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="interactive"
+          style={{ flex: 1 }}                    // ← important
+          contentContainerStyle={[styles.sheetContent, { flexGrow: 1 }]}
+        >
+          {/* IMPORTANT: wrapper flex */}
+          <View style={{ flex: 1 }}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+              keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
+              style={{ flex: 1 }}
+            >
+              <Text style={styles.title}>Compte administrateur</Text>
+              <Text style={styles.subtitle}>
+                {step === 'code'
+                  ? 'Entrez le code sécurisé'
+                  : 'Informations administrateur'}
+              </Text>
 
-            {step === 'code' ? (
-              <View style={styles.form}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Code d'administration"
-                  placeholderTextColor="#999"
-                  value={code}
-                  onChangeText={setCode}
-                  keyboardType="number-pad"
-                  maxLength={10}
-                  autoFocus
-                />
-                <TouchableOpacity style={styles.button} onPress={handleCodeSubmit}>
-                  <Text style={styles.buttonText}>Valider le code</Text>
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <View style={styles.form}>
-                <View style={styles.nameRow}>
+              {step === 'code' ? (
+                <>
                   <TextInput
-                    style={[styles.input, styles.inputHalf]}
-                    placeholder="Prénom"
-                    placeholderTextColor="#999"
-                    value={formData.firstName}
-                    onChangeText={(t) => setFormData((p) => ({ ...p, firstName: t }))}
+                    style={styles.input}
+                    placeholder="Code d’administration"
+                    keyboardType="number-pad"
+                    value={code}
+                    onChangeText={setCode}
+                    autoFocus
                   />
-                  <TextInput
-                    style={[styles.input, styles.inputHalf]}
-                    placeholder="Nom"
-                    placeholderTextColor="#999"
-                    value={formData.lastName}
-                    onChangeText={(t) => setFormData((p) => ({ ...p, lastName: t }))}
-                  />
-                </View>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Email"
-                  placeholderTextColor="#999"
-                  value={formData.email}
-                  onChangeText={(t) => setFormData((p) => ({ ...p, email: t }))}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Téléphone"
-                  placeholderTextColor="#999"
-                  value={formData.phone}
-                  onChangeText={(t) => setFormData((p) => ({ ...p, phone: t }))}
-                  keyboardType="phone-pad"
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Mot de passe"
-                  placeholderTextColor="#999"
-                  value={formData.password}
-                  onChangeText={(t) => setFormData((p) => ({ ...p, password: t }))}
-                  secureTextEntry
-                  autoCapitalize="none"
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Confirmer le mot de passe"
-                  placeholderTextColor="#999"
-                  value={formData.confirmPassword}
-                  onChangeText={(t) => setFormData((p) => ({ ...p, confirmPassword: t }))}
-                  secureTextEntry
-                  autoCapitalize="none"
-                />
-                <TouchableOpacity
-                  style={[styles.button, loading && styles.buttonDisabled]}
-                  onPress={handleRegisterAdmin}
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <ActivityIndicator color="#fff" />
-                  ) : (
-                    <Text style={styles.buttonText}>Créer le compte administrateur</Text>
-                  )}
-                </TouchableOpacity>
-              </View>
-            )}
 
-            <TouchableOpacity style={styles.backLink} onPress={() => router.back()}>
-              <Text style={styles.backLinkText}>Retour</Text>
-            </TouchableOpacity>
+                  <TouchableOpacity style={styles.button} onPress={handleCodeSubmit}>
+                    <Text style={styles.buttonText}>Valider</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <>
+                  <View style={styles.nameRow}>
+                    <TextInput
+                      style={[styles.input, styles.inputHalf]}
+                      placeholder="Prénom"
+                      value={formData.firstName}
+                      onChangeText={(t) =>
+                        setFormData((p) => ({ ...p, firstName: t }))
+                      }
+                    />
+                    <TextInput
+                      style={[styles.input, styles.inputHalf]}
+                      placeholder="Nom"
+                      value={formData.lastName}
+                      onChangeText={(t) =>
+                        setFormData((p) => ({ ...p, lastName: t }))
+                      }
+                    />
+                  </View>
+
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    value={formData.email}
+                    onChangeText={(t) =>
+                      setFormData((p) => ({ ...p, email: t }))
+                    }
+                  />
+
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Téléphone"
+                    keyboardType="phone-pad"
+                    value={formData.phone}
+                    onChangeText={(t) =>
+                      setFormData((p) => ({ ...p, phone: t }))
+                    }
+                  />
+
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Mot de passe"
+                    secureTextEntry
+                    value={formData.password}
+                    onChangeText={(t) =>
+                      setFormData((p) => ({ ...p, password: t }))
+                    }
+                  />
+
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Confirmer le mot de passe"
+                    secureTextEntry
+                    value={formData.confirmPassword}
+                    onChangeText={(t) =>
+                      setFormData((p) => ({ ...p, confirmPassword: t }))
+                    }
+                  />
+
+                  <TouchableOpacity
+                    style={[styles.button, loading && styles.disabled]}
+                    onPress={handleRegisterAdmin}
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <ActivityIndicator color="#fff" />
+                    ) : (
+                      <Text style={styles.buttonText}>Créer le compte</Text>
+                    )}
+                  </TouchableOpacity>
+                </>
+              )}
+
+              <TouchableOpacity
+                style={{ marginTop: 20 }}
+                onPress={() => router.back()}
+              >
+                <Text style={styles.link}>Retour</Text>
+              </TouchableOpacity>
+            </KeyboardAvoidingView>
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </BottomSheetScrollView>
+      </BottomSheet>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  images: { flex: 1 },
-  scrollContent: { flexGrow: 1, justifyContent: 'center', padding: 20 },
-  content: { paddingVertical: 24 },
-  title: { fontSize: 24, fontWeight: '700', color: '#1f2937', textAlign: 'center', marginBottom: 8 },
-  subtitle: { fontSize: 14, color: '#666', textAlign: 'center', marginBottom: 24 },
-  form: { width: '100%' },
-  input: {
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    padding: 16,
-    fontSize: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#e5e5e5',
+  background: { flex: 1 },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.35)',
   },
-  inputHalf: { flex: 1 },
-  nameRow: { flexDirection: 'row', gap: 12, marginBottom: 0 },
+  sheetBackground: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+  },
+  indicator: {
+    width: 60,
+    backgroundColor: '#ccc',
+  },
+  sheetContent: {
+    padding: 24,
+    paddingBottom: 40,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#6366f1',
+    textAlign: 'center',
+  },
+  subtitle: {
+    textAlign: 'center',
+    color: '#666',
+    marginBottom: 24,
+  },
+  nameRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  input: {
+    backgroundColor: '#f4f4f5',
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 14,
+    fontSize: 15,
+  },
+  inputHalf: {
+    flex: 1,
+  },
   button: {
     backgroundColor: '#6366f1',
-    borderRadius: 12,
     padding: 16,
+    borderRadius: 14,
     alignItems: 'center',
     marginTop: 8,
   },
-  buttonDisabled: { opacity: 0.6 },
-  buttonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
-  backLink: { marginTop: 24, alignItems: 'center' },
-  backLinkText: { color: '#6366f1', fontSize: 14 },
+  disabled: { opacity: 0.6 },
+  buttonText: {
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  link: {
+    textAlign: 'center',
+    color: '#6366f1',
+  },
 });

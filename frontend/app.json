@@ -2,7 +2,7 @@
   "expo": {
     "name": "Loving - Accompagnement Social",
     "slug": "loving-app",
-    "version": "1.0.0",
+    "version": "1.8.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",

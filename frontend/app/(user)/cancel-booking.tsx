@@ -14,6 +14,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { bookingService } from '@/services/bookingService';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export default function CancelBookingScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -64,9 +65,7 @@ export default function CancelBookingScreen() {
 
   if (isLoading) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color="#6366f1" />
-      </View>
+      <LoadingSpinner fullScreen />
     );
   }
 

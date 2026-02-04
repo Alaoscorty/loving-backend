@@ -179,7 +179,6 @@ export default function ProfileListScreen() {
           data={profiles}
           renderItem={renderProfileCard}
           keyExtractor={(item) => item._id || item.id || Math.random().toString()}
-          scrollEnabled={false}
           contentContainerStyle={styles.listContent}
           refreshControl={
             <RefreshControl refreshing={isLoading} onRefresh={refetch} />
@@ -187,6 +186,7 @@ export default function ProfileListScreen() {
           onEndReached={handleLoadMore}
           onEndReachedThreshold={0.5}
         />
+
       )}
 
       {/* Load more button */}

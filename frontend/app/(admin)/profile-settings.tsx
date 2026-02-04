@@ -207,7 +207,7 @@ export default function ProfileSettingsScreen() {
   };
 
   if (isLoading) {
-    return <LoadingSpinner fullScreen />;
+    return <LoadingSpinner />;
   }
 
   return (

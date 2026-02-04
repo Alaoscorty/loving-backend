@@ -138,7 +138,7 @@ export default function PaymentScreen() {
   };
 
   if (bookingLoading || methodsLoading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner fullScreen />;
   }
 
   return (

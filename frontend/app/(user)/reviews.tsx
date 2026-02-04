@@ -13,6 +13,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { bookingService } from '@/services/bookingService';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export default function ReviewsScreen() {
   const { bookingId } = useLocalSearchParams<{ bookingId: string }>();
@@ -61,9 +62,7 @@ export default function ReviewsScreen() {
 
   if (isLoading) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color="#6366f1" />
-      </View>
+     <LoadingSpinner fullScreen />
     );
   }
 

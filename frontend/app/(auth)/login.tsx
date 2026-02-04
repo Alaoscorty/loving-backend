@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import {
   View,
   Text,
@@ -14,13 +14,19 @@ import {
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
 import { authService } from '@/services/authService';
+import BottomSheet from '@gorhom/bottom-sheet';
+import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   const { login } = useAuth();
+
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ['55%', '80%'], []);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -32,7 +38,7 @@ export default function LoginScreen() {
     try {
       const response = await authService.login(email, password);
       await login(response.accessToken, response.refreshToken, response.user);
-      // Redirection basée sur le rôle
+
       if (response.user.role === 'provider') {
         router.replace('/(provider)/dashboard');
       } else if (response.user.role === 'admin') {
@@ -41,7 +47,10 @@ export default function LoginScreen() {
         router.replace('/(user)/home');
       }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message || 'Une erreur est survenue';
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        'Une erreur est survenue';
       Alert.alert('Erreur de connexion', errorMessage);
     } finally {
       setLoading(false);
@@ -50,19 +59,38 @@ export default function LoginScreen() {
 
   return (
     <ImageBackground
-      source={require("@/assets/fond.jpg")}
-      style={styles.Images}
-      resizeMode='cover'
+      source={require('@/assets/fond.jpg')}
+      style={styles.background}
+      resizeMode="cover"
     >
-        <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
-        <View style={styles.content}>
-          <Text style={styles.title}>Loving</Text>
-          <Text style={styles.subtitle}>Accompagnement Social & Événementiel</Text>
+      {/* Overlay sombre */}
+      <View style={styles.overlay} />
 
-          <View style={styles.form}>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        enableContentPanningGesture={true} 
+        keyboardBehavior="interactive"   
+        backgroundStyle={styles.sheetBackground}
+        handleIndicatorStyle={styles.indicator}
+      >
+        <BottomSheetScrollView
+          style={{ flex: 1 }}       
+          contentContainerStyle={[styles.sheetContent, { flexGrow: 1 }]}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="interactive"
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
+            style={{ flex: 1 }}
+          >
+            <Text style={styles.title}>Loving</Text>
+            <Text style={styles.subtitle}>
+              Accompagnement Social & Événementiel
+            </Text>
+
             <TextInput
               style={styles.input}
               placeholder="Email"
@@ -71,7 +99,6 @@ export default function LoginScreen() {
               onChangeText={setEmail}
               keyboardType="email-address"
               autoCapitalize="none"
-              autoComplete="email"
             />
 
             <TextInput
@@ -81,7 +108,6 @@ export default function LoginScreen() {
               value={password}
               onChangeText={setPassword}
               secureTextEntry
-              autoCapitalize="none"
             />
 
             <TouchableOpacity
@@ -109,123 +135,115 @@ export default function LoginScreen() {
               <View style={styles.dividerLine} />
             </View>
 
-            <TouchableOpacity
-              onPress={() => router.push('/(auth)/register')}
-              style={styles.registerButton}
-            >
+            <TouchableOpacity onPress={() => router.push('/(auth)/register')}>
               <Text style={styles.registerText}>
-                Pas encore de compte ? <Text style={styles.registerBold}>S'inscrire</Text>
+                Pas encore de compte ?{' '}
+                <Text style={styles.registerBold}>S'inscrire</Text>
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => router.push('/(auth)/register-admin')}
-              style={styles.adminLink}
+              style={{ marginTop: 14 }}
             >
-              <Text style={styles.adminLinkText}>Se connecter en tant qu'administrateur</Text>
+              <Text style={styles.adminLinkText}>
+                Connexion administrateur
+              </Text>
             </TouchableOpacity>
-          </View>
-        </View>
-      </KeyboardAvoidingView>
+          </KeyboardAvoidingView>
+        </BottomSheetScrollView>
+      </BottomSheet>
     </ImageBackground>
-    
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
   },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.35)',
+  },
+  sheetBackground: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+  },
+  indicator: {
+    backgroundColor: '#ccc',
+    width: 60,
+  },
+  sheetContent: {
+    paddingHorizontal: 24,
+    paddingBottom: 40,
   },
   title: {
-    fontSize: 42,
+    fontSize: 36,
     fontWeight: 'bold',
     color: '#6366f1',
     textAlign: 'center',
-    marginBottom: 8,
+    marginTop: 10,
   },
   subtitle: {
-    fontSize: 16,
-    color: '#666',
     textAlign: 'center',
-    marginBottom: 40,
-  },
-  form: {
-    width: '100%',
+    color: '#666',
+    marginBottom: 30,
   },
   input: {
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
+    backgroundColor: '#f4f4f5',
+    borderRadius: 14,
     padding: 16,
     fontSize: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#e5e5e5',
+    marginBottom: 14,
   },
   button: {
     backgroundColor: '#6366f1',
-    borderRadius: 12,
     padding: 16,
+    borderRadius: 14,
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 10,
   },
   buttonDisabled: {
     opacity: 0.6,
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
     fontWeight: '600',
+    fontSize: 16,
   },
   linkButton: {
-    marginTop: 16,
     alignItems: 'center',
+    marginTop: 14,
   },
   linkText: {
     color: '#6366f1',
-    fontSize: 14,
   },
   divider: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 24,
+    marginVertical: 22,
   },
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#e5e5e5',
+    backgroundColor: '#e5e7eb',
   },
   dividerText: {
-    marginHorizontal: 16,
-    color: '#999',
-    fontSize: 14,
-  },
-  registerButton: {
-    alignItems: 'center',
+    marginHorizontal: 12,
+    color: '#9ca3af',
   },
   registerText: {
-    color: '#666',
-    fontSize: 14,
+    textAlign: 'center',
+    color: '#555',
   },
   registerBold: {
     color: '#6366f1',
     fontWeight: '600',
   },
-  adminLink: {
-    marginTop: 16,
-    alignItems: 'center',
-  },
   adminLinkText: {
+    textAlign: 'center',
     color: '#6b7280',
     fontSize: 13,
-  },
-  Images: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });

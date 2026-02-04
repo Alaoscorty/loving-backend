@@ -47,7 +47,7 @@ export default function ForgotPasswordScreen() {
 
   return (
     <ImageBackground
-        source={require("@/assets/fond.jpg")}
+        source={require("@/assets/fond1.jpg")}
         style={styles.Images}
         resizeMode='cover'
     >
