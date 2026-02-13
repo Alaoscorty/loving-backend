@@ -79,15 +79,12 @@ export default function RegisterScreen() {
           data.data.user
         );
 
-        if (data.data.user.role === 'provider') {
-          router.replace('/(provider)/dashboard');
-        } else {
-          router.replace('/(user)/home');
-        }
+        // Redirect to index to let it handle role-based redirection
+        router.replace('/');
       } else {
         Alert.alert('Inscription réussie', 'Votre compte a été créé.', [
           { text: 'OK', onPress: () => router.replace('/(auth)/login') },
-        ]);
+        ])
       }
     } catch (error: any) {
       const errorMessage =
@@ -113,23 +110,18 @@ export default function RegisterScreen() {
         index={0}
         snapPoints={snapPoints}
         enableContentPanningGesture={true} 
-        keyboardBehavior="interactive"   
+        keyboardBehavior="interactive"
+        keyboardBlurBehavior="restore"   
         backgroundStyle={styles.sheetBackground}
         handleIndicatorStyle={styles.indicator}
       >
         <BottomSheetScrollView
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="interactive"
-          style={{ flex: 1 }}                  
-  contentContainerStyle={[styles.sheetContent, { flexGrow: 1 }]}
+          contentContainerStyle={styles.sheetContent}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
         >
-          {/* IMPORTANT : wrapper flex */}
-          <View style={{ flex: 1 }}>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-              keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
-              style={{ flex: 1 }}
-            >
+          
               <Text style={styles.title}>Créer un compte</Text>
               <Text style={styles.subtitle}>Rejoignez la communauté Loving</Text>
 
@@ -237,8 +229,6 @@ export default function RegisterScreen() {
                   Déjà un compte ? Se connecter
                 </Text>
               </TouchableOpacity>
-            </KeyboardAvoidingView>
-          </View>
         </BottomSheetScrollView>
       </BottomSheet>
     </ImageBackground>

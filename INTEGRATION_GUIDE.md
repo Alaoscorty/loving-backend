@@ -1,12 +1,14 @@
 # 🔧 Guide Complet d'Intégration - Loving App
 
 ## Table des Matières
+
 1. [Installation des Dépendances](#installation)
 2. [Vérification de la Compilation](#compilation)
 3. [Configuration du Backend](#backend)
 4. [Tests d'Intégration](#tests)
-5. [Dépannage](#dépannage)
-6. [Déploiement](#déploiement)
+5. [Dépannage] (#dépannage)
+
+6. [Déploiement] (#déploiement)
 
 ---
 
@@ -84,10 +86,10 @@ cd frontend
 npx tsc --noEmit
 ```
 
-**Résultat attendu:** `0 errors` 
+**Résultat attendu:** `0 errors` .
 
 Si des erreurs apparaissent:
-- Vérifier que tous les imports sont corrects
+- Vérifier que tous les imports sont corrects.
 - Vérifier que les types sont définis dans `types/index.ts`
 - Vérifier que les chemins relatifs existent
 
@@ -172,6 +174,7 @@ io.on('connection', (socket) => {
 Tous les endpoints suivants DOIVENT être implémentés au backend:
 
 #### Authentification
+
 - `POST /api/auth/login` - Connexion
 - `POST /api/auth/register` - Inscription
 - `POST /api/auth/forgot-password` - Mot de passe oublié
@@ -179,12 +182,14 @@ Tous les endpoints suivants DOIVENT être implémentés au backend:
 - `POST /api/auth/refresh` - Renouvellement du token
 
 #### Profils
+
 - `GET /api/profiles` - Liste des profils
 - `GET /api/profiles/:id` - Détail d'un profil
 - `PUT /api/profiles/:id` - Mise à jour du profil
 - `GET /api/profiles/suggestions` - Suggestions
 
 #### Réservations
+
 - `POST /api/bookings` - Créer une réservation
 - `GET /api/bookings` - Liste des réservations
 - `GET /api/bookings/:id` - Détail d'une réservation
@@ -192,18 +197,21 @@ Tous les endpoints suivants DOIVENT être implémentés au backend:
 - `DELETE /api/bookings/:id` - Annuler une réservation
 
 #### Paiements
+
 - `POST /api/payments` - Créer un paiement
 - `GET /api/payments` - Historique des paiements
 - `POST /api/payment-methods` - Ajouter une méthode
 - `GET /api/payment-methods` - Lister les méthodes
 
 #### Chat
+
 - `GET /api/conversations` - Liste des conversations
 - `GET /api/conversations/:id` - Détail d'une conversation
 - `POST /api/messages` - Envoyer un message
 - `GET /api/messages/:conversationId` - Historique des messages
 
 #### Admin
+
 - `GET /api/admin/dashboard` - Statistiques
 - `GET /api/admin/users` - Liste des utilisateurs
 - `PUT /api/admin/users/:id` - Mettre à jour un utilisateur
@@ -298,13 +306,16 @@ console.log('Paiement créé:', payment.id, payment.status);
 ### Problème: npm install échoue
 
 **Symptôme:**
+
 ```
 npm ERR! code ERESOLVE
 npm ERR! ERESOLVE could not resolve dependencies
 ```
 
 **Solution:**
+
 ```bash
+
 npm install --legacy-peer-deps
 # ou
 npm install --force
@@ -316,11 +327,13 @@ npm install
 ### Problème: Erreurs TypeScript après compilation
 
 **Symptôme:**
+
 ```
 error TS2307: Cannot find module 'some-module'
 ```
 
 **Solutions:**
+
 ```bash
 # 1. Vérifier que le module est installé
 npm list some-module
@@ -334,12 +347,14 @@ npm install --save-dev @types/some-module
 ### Problème: Socket.IO ne se connecte pas
 
 **Symptôme:**
+
 ```
 Socket connection failed
 Error: Authentication required
 ```
 
 **Solution:**
+
 ```typescript
 // Dans socketService.ts, vérifier le token
 const token = await AsyncStorage.getItem('authToken');

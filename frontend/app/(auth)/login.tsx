@@ -70,89 +70,85 @@ export default function LoginScreen() {
         ref={bottomSheetRef}
         index={0}
         snapPoints={snapPoints}
-        enableContentPanningGesture={true} 
-        keyboardBehavior="interactive"   
+        enableContentPanningGesture
+        keyboardBehavior="interactive"
+        keyboardBlurBehavior="restore"
         backgroundStyle={styles.sheetBackground}
         handleIndicatorStyle={styles.indicator}
       >
         <BottomSheetScrollView
-          style={{ flex: 1 }}       
-          contentContainerStyle={[styles.sheetContent, { flexGrow: 1 }]}
+          contentContainerStyle={styles.sheetContent}
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="interactive"
+          showsVerticalScrollIndicator={false}
+          bounces={false}
         >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
-            style={{ flex: 1 }}
+          <Text style={styles.title}>Bienvenue sur Loving</Text>
+          <Text style={styles.subtitle}>
+            Accompagnement Social & Événementiel
+          </Text>
+
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor="#999"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Mot de passe"
+            placeholderTextColor="#999"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+
+          <TouchableOpacity
+            style={[styles.button, loading && styles.buttonDisabled]}
+            onPress={handleLogin}
+            disabled={loading}
           >
-            <Text style={styles.title}>Loving</Text>
-            <Text style={styles.subtitle}>
-              Accompagnement Social & Événementiel
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Se connecter</Text>
+            )}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => router.push('/(auth)/forgot-password')}
+            style={styles.linkButton}
+          >
+            <Text style={styles.linkText}>Mot de passe oublié ?</Text>
+          </TouchableOpacity>
+
+          <View style={styles.divider}>
+            <View style={styles.dividerLine} />
+            <Text style={styles.dividerText}>ou</Text>
+            <View style={styles.dividerLine} />
+          </View>
+
+          <TouchableOpacity onPress={() => router.push('/(auth)/register')}>
+            <Text style={styles.registerText}>
+              Pas encore de compte ?{' '}
+              <Text style={styles.registerBold}>S'inscrire</Text>
             </Text>
+          </TouchableOpacity>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              placeholderTextColor="#999"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-
-            <TextInput
-              style={styles.input}
-              placeholder="Mot de passe"
-              placeholderTextColor="#999"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-
-            <TouchableOpacity
-              style={[styles.button, loading && styles.buttonDisabled]}
-              onPress={handleLogin}
-              disabled={loading}
-            >
-              {loading ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <Text style={styles.buttonText}>Se connecter</Text>
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => router.push('/(auth)/forgot-password')}
-              style={styles.linkButton}
-            >
-              <Text style={styles.linkText}>Mot de passe oublié ?</Text>
-            </TouchableOpacity>
-
-            <View style={styles.divider}>
-              <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>ou</Text>
-              <View style={styles.dividerLine} />
-            </View>
-
-            <TouchableOpacity onPress={() => router.push('/(auth)/register')}>
-              <Text style={styles.registerText}>
-                Pas encore de compte ?{' '}
-                <Text style={styles.registerBold}>S'inscrire</Text>
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => router.push('/(auth)/register-admin')}
-              style={{ marginTop: 14 }}
-            >
-              <Text style={styles.adminLinkText}>
-                Connexion administrateur
-              </Text>
-            </TouchableOpacity>
-          </KeyboardAvoidingView>
+          <TouchableOpacity
+            onPress={() => router.push('/(auth)/register-admin')}
+            style={{ marginTop: 14, paddingBottom: 40 }}
+          >
+            <Text style={styles.adminLinkText}>
+              Connexion administrateur
+            </Text>
+          </TouchableOpacity>
         </BottomSheetScrollView>
       </BottomSheet>
+
     </ImageBackground>
   );
 }
@@ -179,7 +175,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   title: {
-    fontSize: 36,
+    fontSize: 26,
     fontWeight: 'bold',
     color: '#6366f1',
     textAlign: 'center',

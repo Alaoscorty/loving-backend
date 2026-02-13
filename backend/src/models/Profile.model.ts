@@ -84,12 +84,7 @@ const ProfileSchema = new Schema<IProfile>(
         lng: { type: Number },
       },
     },
-    photos: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    photos: [String],
     services: [
       {
         type: {

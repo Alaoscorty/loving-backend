@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
 import { authService } from '@/services/authService';
+import { notificationService } from '@/services/notificationService';
 
 export interface User {
   _id: string;
@@ -104,13 +105,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 
   const logout = async () => {
-  await SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY);
-  await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
-  await AsyncStorage.removeItem(USER_KEY);
+    if (user?._id) {
+      await notificationService.unregisterPushToken(user._id);
+    }
 
-  setToken(null);
-  setUser(null);
-};
+    await SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY);
+    await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
+    await AsyncStorage.removeItem(USER_KEY);
+
+    setToken(null);
+    setUser(null);
+  };
 
 
   const updateUser = (updatedUser: User) => {

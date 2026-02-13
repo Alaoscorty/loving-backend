@@ -12,7 +12,7 @@ eas update --branch preview --message "mise a jour du code"
 Je veux que tu ajoute un assistant IA GEMINI_API_KEY=AIzaSyAbq98gLSns1OPvy_oWJ9naQi3QeAIxwIw qui aura pour but de consiller les utilisateurs et les providers un peu comme ce que fais meta Ai. De plus je veux que tu fasse en sorte que les utilisteurs et les providers puissent s'échanger des images et que leur conversations s'affiche avec un look plus moderne. De plus certains écrans vont jusqu'au niveau de la barre du téléphone ou s'affiche la charge, la date et les notifications donc refait leur dimensions.Et fais également les favories. 
 
 
-j'ai un problème, quand je crée un compte prestataire, l'inscription réussi mais au moment d'afficher le dashboard du prestataire, j'ai la page login qui s'affiche. Quand j'entre les coordonées du compte que j'ai crée, l'application s'arrete automatiquement .Alors que quand je crée un compte utilisateur ou administrateur,j'accède à leur dashboard sans problème 
+j'ai un problème, quand je crée un compte prestataire, l'inscription réussi mais au moment d'afficher le dashboard du prestataire, j'ai la page login qui s'affiche. Quand j'entre les coordonées du compte que j'ai crée, l'application s'arrete automatiquement .Alors que quand je crée un compte utilisateur ou administrateur,j'accède à leur dashboard sans problème (fait)
 
 ensuite je veux que tu prenne connaissance de "@AUDIT_PLAN_VS_CODE.md (1-163) " et de @AA_MON_PROJET.md (1-269) et fait moi les implémentations et pages manquantes sans casser mon code actuelle. 
 
@@ -39,487 +39,60 @@ Sur la chat, afficher l'image de l'utilisateur ainsi que celui de son interlocut
 Sur conervation-list, afficher l'image de l'utilisateur ainsi que son nom au lieu de monter juste un avatar avec U et le nom utilisateur.Rendre ensuite la barre de recherche dynamique.
 Ajouter ensuite les paramètres 
 
-j'ai les erreurs "[{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/calendar.tsx",
-	"owner": "typescript",
-	"code": "7006",
-	"severity": 8,
-	"message": "Le paramètre 'day' possède implicitement un type 'any'.",
-	"source": "ts",
-	"startLineNumber": 65,
-	"startColumn": 22,
-	"endLineNumber": 65,
-	"endColumn": 25,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/cancel-booking.tsx",
-	"owner": "typescript",
-	"code": "2345",
-	"severity": 8,
-	"message": "L'argument de type '{ reason: string; }' n'est pas attribuable au paramètre de type 'string'.",
-	"source": "ts",
-	"startLineNumber": 32,
-	"startColumn": 81,
-	"endLineNumber": 32,
-	"endColumn": 85,
-	"modelVersionId": 12,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "La propriété 'label' n'existe pas sur le type 'PaymentMethod'.",
-	"source": "ts",
-	"startLineNumber": 274,
-	"startColumn": 58,
-	"endLineNumber": 274,
-	"endColumn": 63,
-	"modelVersionId": 6,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "La propriété 'lastDigits' n'existe pas sur le type 'PaymentMethod'.",
-	"source": "ts",
-	"startLineNumber": 275,
-	"startColumn": 25,
-	"endLineNumber": 275,
-	"endColumn": 35,
-	"modelVersionId": 6,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "La propriété 'lastDigits' n'existe pas sur le type 'PaymentMethod'.",
-	"source": "ts",
-	"startLineNumber": 276,
-	"startColumn": 67,
-	"endLineNumber": 276,
-	"endColumn": 77,
-	"modelVersionId": 6,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/payment.tsx",
-	"owner": "typescript",
-	"code": "2559",
-	"severity": 8,
-	"message": "Le type '({ padding: number; } | { marginBottom: number; })[]' n'a aucune propriété en commun avec le type 'ViewStyle'.",
-	"source": "ts",
-	"startLineNumber": 297,
-	"startColumn": 21,
-	"endLineNumber": 297,
-	"endColumn": 26,
-	"relatedInformation": [
-		{
-			"startLineNumber": 12,
-			"startColumn": 3,
-			"endLineNumber": 12,
-			"endColumn": 8,
-			"message": "Le type attendu provient de la propriété 'style', qui est déclarée ici sur le type 'IntrinsicAttributes & CardProps'",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/components/Card.tsx"
-		}
-	],
-	"modelVersionId": 6,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/reservation.tsx",
-	"owner": "_generated_diagnostic_collection_name_#8",
-	"code": {
-		"value": "axe/forms",
-		"target": {
-			"$mid": 1,
-			"path": "/rules/axe/4.11/label",
-			"scheme": "https",
-			"authority": "dequeuniversity.com",
-			"query": "application=axeAPI"
-		}
-	},
-	"severity": 8,
-	"message": "Form elements must have labels: Element has no title attribute Element has no placeholder attribute",
-	"source": "Microsoft Edge Tools",
-	"startLineNumber": 212,
-	"startColumn": 14,
-	"endLineNumber": 212,
-	"endColumn": 19,
-	"modelVersionId": 5,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/reservation.tsx",
-	"owner": "_generated_diagnostic_collection_name_#8",
-	"code": {
-		"value": "axe/forms",
-		"target": {
-			"$mid": 1,
-			"path": "/rules/axe/4.11/label",
-			"scheme": "https",
-			"authority": "dequeuniversity.com",
-			"query": "application=axeAPI"
-		}
-	},
-	"severity": 8,
-	"message": "Form elements must have labels: Element has no title attribute Element has no placeholder attribute",
-	"source": "Microsoft Edge Tools",
-	"startLineNumber": 248,
-	"startColumn": 14,
-	"endLineNumber": 248,
-	"endColumn": 19,
-	"modelVersionId": 5,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/reservation.tsx",
-	"owner": "_generated_diagnostic_collection_name_#8",
-	"code": {
-		"value": "axe/forms",
-		"target": {
-			"$mid": 1,
-			"path": "/rules/axe/4.11/label",
-			"scheme": "https",
-			"authority": "dequeuniversity.com",
-			"query": "application=axeAPI"
-		}
-	},
-	"severity": 8,
-	"message": "Form elements must have labels: Element has no title attribute Element has no placeholder attribute",
-	"source": "Microsoft Edge Tools",
-	"startLineNumber": 287,
-	"startColumn": 14,
-	"endLineNumber": 287,
-	"endColumn": 19,
-	"modelVersionId": 5,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(user)/reviews.tsx",
-	"owner": "typescript",
-	"code": "2304",
-	"severity": 8,
-	"message": "Le nom 'LoadingSpinner' est introuvable.",
-	"source": "ts",
-	"startLineNumber": 64,
-	"startColumn": 7,
-	"endLineNumber": 64,
-	"endColumn": 21,
-	"modelVersionId": 5,
-	"origin": "extHost1"
-}]"
-[{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
-	"owner": "typescript",
-	"code": "2769",
-	"severity": 8,
-	"message": "Aucune surcharge ne correspond à cet appel.\n  La surcharge 1 sur 3, '(options: DefinedInitialDataOptions<DashboardAlert[], Error, DashboardAlert[], readonly unknown[]>, queryClient?: QueryClient | undefined): DefinedUseQueryResult<...>', a généré l'erreur suivante.\n    Impossible d'assigner le type '() => Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'QueryFunction<DashboardAlert[], readonly unknown[]>'.\n      Impossible d'assigner le type 'Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'DashboardAlert[] | Promise<DashboardAlert[]>'.\n        Impossible d'assigner le type 'Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'Promise<DashboardAlert[]>'.\n          Impossible d'assigner le type '{ id: string; message: string; timestamp: string; color: string; icon: string; }[]' au type 'DashboardAlert[]'.\n            Impossible d'assigner le type '{ id: string; message: string; timestamp: string; color: string; icon: string; }' au type 'DashboardAlert'.\n              Les types de la propriété 'icon' sont incompatibles.\n                Impossible d'assigner le type 'string' au type '\"symbol\" | \"function\" | \"solid\" | \"select\" | \"wrap\" | \"key\" | \"sort\" | \"map\" | \"filter\" | \"at\" | \"repeat\" | \"anchor\" | \"link\" | \"details\" | \"head\" | \"label\" | \"menu\" | \"script\" | ... 6577 more ... | \"blank\"'.\n  La surcharge 2 sur 3, '(options: UndefinedInitialDataOptions<DashboardAlert[], Error, DashboardAlert[], readonly unknown[]>, queryClient?: QueryClient | undefined): UseQueryResult<...>', a généré l'erreur suivante.\n    Impossible d'assigner le type '() => Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'unique symbol | QueryFunction<DashboardAlert[], readonly unknown[], never> | undefined'.\n      Impossible d'assigner le type '() => Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'QueryFunction<DashboardAlert[], readonly unknown[], never>'.\n        Impossible d'assigner le type 'Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'DashboardAlert[] | Promise<DashboardAlert[]>'.\n          Impossible d'assigner le type 'Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'Promise<DashboardAlert[]>'.\n            Impossible d'assigner le type '{ id: string; message: string; timestamp: string; color: string; icon: string; }[]' au type 'DashboardAlert[]'.\n              Impossible d'assigner le type '{ id: string; message: string; timestamp: string; color: string; icon: string; }' au type 'DashboardAlert'.\n                Les types de la propriété 'icon' sont incompatibles.\n                  Impossible d'assigner le type 'string' au type '\"symbol\" | \"function\" | \"solid\" | \"select\" | \"wrap\" | \"key\" | \"sort\" | \"map\" | \"filter\" | \"at\" | \"repeat\" | \"anchor\" | \"link\" | \"details\" | \"head\" | \"label\" | \"menu\" | \"script\" | ... 6577 more ... | \"blank\"'.\n  La surcharge 3 sur 3, '(options: UseQueryOptions<DashboardAlert[], Error, DashboardAlert[], readonly unknown[]>, queryClient?: QueryClient | undefined): UseQueryResult<...>', a généré l'erreur suivante.\n    Impossible d'assigner le type '() => Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'unique symbol | QueryFunction<DashboardAlert[], readonly unknown[], never> | undefined'.\n      Impossible d'assigner le type '() => Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'QueryFunction<DashboardAlert[], readonly unknown[], never>'.\n        Impossible d'assigner le type 'Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'DashboardAlert[] | Promise<DashboardAlert[]>'.\n          Impossible d'assigner le type 'Promise<{ id: string; message: string; timestamp: string; color: string; icon: string; }[]>' au type 'Promise<DashboardAlert[]>'.\n            Impossible d'assigner le type '{ id: string; message: string; timestamp: string; color: string; icon: string; }[]' au type 'DashboardAlert[]'.\n              Impossible d'assigner le type '{ id: string; message: string; timestamp: string; color: string; icon: string; }' au type 'DashboardAlert'.\n                Les types de la propriété 'icon' sont incompatibles.\n                  Impossible d'assigner le type 'string' au type '\"symbol\" | \"function\" | \"solid\" | \"select\" | \"wrap\" | \"key\" | \"sort\" | \"map\" | \"filter\" | \"at\" | \"repeat\" | \"anchor\" | \"link\" | \"details\" | \"head\" | \"label\" | \"menu\" | \"script\" | ... 6577 more ... | \"blank\"'.",
-	"source": "ts",
-	"startLineNumber": 76,
-	"startColumn": 5,
-	"endLineNumber": 76,
-	"endColumn": 12,
-	"relatedInformation": [
-		{
-			"startLineNumber": 12,
-			"startColumn": 5,
-			"endLineNumber": 12,
-			"endColumn": 12,
-			"message": "Le type attendu provient de la propriété 'queryFn', qui est déclarée ici sur le type 'DefinedInitialDataOptions<DashboardAlert[], Error, DashboardAlert[], readonly unknown[]>'",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/@tanstack/react-query/build/legacy/queryOptions.d.ts"
-		},
-		{
-			"startLineNumber": 617,
-			"startColumn": 5,
-			"endLineNumber": 617,
-			"endColumn": 12,
-			"message": "Le type attendu provient de la propriété 'queryFn', qui est déclarée ici sur le type 'UndefinedInitialDataOptions<DashboardAlert[], Error, DashboardAlert[], readonly unknown[]>'",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/@tanstack/query-core/build/legacy/hydration-BlEVG2Lp.d.ts"
-		},
-		{
-			"startLineNumber": 617,
-			"startColumn": 5,
-			"endLineNumber": 617,
-			"endColumn": 12,
-			"message": "Le type attendu provient de la propriété 'queryFn', qui est déclarée ici sur le type 'UseQueryOptions<DashboardAlert[], Error, DashboardAlert[], readonly unknown[]>'",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/@tanstack/query-core/build/legacy/hydration-BlEVG2Lp.d.ts"
-		}
-	],
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "La propriété 'length' n'existe pas sur le type 'never[] | NoInfer<TQueryFnData>'.\n  La propriété 'length' n'existe pas sur le type 'NoInfer<TQueryFnData>'.",
-	"source": "ts",
-	"startLineNumber": 106,
-	"startColumn": 19,
-	"endLineNumber": 106,
-	"endColumn": 25,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "La propriété 'length' n'existe pas sur le type 'never[] | NoInfer<TQueryFnData>'.\n  La propriété 'length' n'existe pas sur le type 'NoInfer<TQueryFnData>'.",
-	"source": "ts",
-	"startLineNumber": 282,
-	"startColumn": 15,
-	"endLineNumber": 282,
-	"endColumn": 21,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
-	"owner": "typescript",
-	"code": "2769",
-	"severity": 8,
-	"message": "Aucune surcharge ne correspond à cet appel.\n  La surcharge 1 sur 2, '(props: FlatListProps<never>): FlatList<never>', a généré l'erreur suivante.\n    Impossible d'assigner le type 'never[] | NoInfer<TQueryFnData>' au type 'ArrayLike<never> | null | undefined'.\n      Impossible d'assigner le type 'NoInfer<TQueryFnData>' au type 'ArrayLike<never> | null | undefined'.\n        Impossible d'assigner le type 'TQueryFnData' au type 'ArrayLike<never> | null | undefined'.\n          Impossible d'assigner le type 'TQueryFnData' au type 'ArrayLike<never>'.\n            Impossible d'assigner le type 'NoInfer<TQueryFnData>' au type 'ArrayLike<never>'.\n              Impossible d'assigner le type 'TQueryFnData' au type 'ArrayLike<never>'.\n  La surcharge 2 sur 2, '(props: FlatListProps<never>, context: any): FlatList<never>', a généré l'erreur suivante.\n    Impossible d'assigner le type 'never[] | NoInfer<TQueryFnData>' au type 'ArrayLike<never> | null | undefined'.\n      Impossible d'assigner le type 'NoInfer<TQueryFnData>' au type 'ArrayLike<never> | null | undefined'.\n        Impossible d'assigner le type 'TQueryFnData' au type 'ArrayLike<never> | null | undefined'.\n          Impossible d'assigner le type 'TQueryFnData' au type 'ArrayLike<never>'.\n            Impossible d'assigner le type 'NoInfer<TQueryFnData>' au type 'ArrayLike<never>'.\n              Impossible d'assigner le type 'TQueryFnData' au type 'ArrayLike<never>'.",
-	"source": "ts",
-	"startLineNumber": 287,
-	"startColumn": 13,
-	"endLineNumber": 287,
-	"endColumn": 17,
-	"relatedInformation": [
-		{
-			"startLineNumber": 5,
-			"startColumn": 27,
-			"endLineNumber": 5,
-			"endColumn": 49,
-			"message": "Ce paramètre de type nécessite peut-être une contrainte « extends ArrayLike<never>».",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/@tanstack/react-query/build/legacy/useQuery.d.ts"
-		},
-		{
-			"startLineNumber": 5,
-			"startColumn": 27,
-			"endLineNumber": 5,
-			"endColumn": 49,
-			"message": "Ce paramètre de type nécessite peut-être une contrainte « extends ArrayLike<never>».",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/@tanstack/react-query/build/legacy/useQuery.d.ts"
-		},
-		{
-			"startLineNumber": 5,
-			"startColumn": 27,
-			"endLineNumber": 5,
-			"endColumn": 49,
-			"message": "Ce paramètre de type nécessite peut-être une contrainte « extends ArrayLike<never> | null | undefined».",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/@tanstack/react-query/build/legacy/useQuery.d.ts"
-		},
-		{
-			"startLineNumber": 47,
-			"startColumn": 3,
-			"endLineNumber": 47,
-			"endColumn": 7,
-			"message": "Le type attendu provient de la propriété 'data', qui est déclarée ici sur le type 'IntrinsicAttributes & IntrinsicClassAttributes<FlatList<never>> & Readonly<FlatListProps<never>>'",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/react-native/Libraries/Lists/FlatList.d.ts"
-		},
-		{
-			"startLineNumber": 5,
-			"startColumn": 27,
-			"endLineNumber": 5,
-			"endColumn": 49,
-			"message": "Ce paramètre de type nécessite peut-être une contrainte « extends ArrayLike<never>».",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/@tanstack/react-query/build/legacy/useQuery.d.ts"
-		},
-		{
-			"startLineNumber": 5,
-			"startColumn": 27,
-			"endLineNumber": 5,
-			"endColumn": 49,
-			"message": "Ce paramètre de type nécessite peut-être une contrainte « extends ArrayLike<never>».",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/@tanstack/react-query/build/legacy/useQuery.d.ts"
-		},
-		{
-			"startLineNumber": 5,
-			"startColumn": 27,
-			"endLineNumber": 5,
-			"endColumn": 49,
-			"message": "Ce paramètre de type nécessite peut-être une contrainte « extends ArrayLike<never> | null | undefined».",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/@tanstack/react-query/build/legacy/useQuery.d.ts"
-		},
-		{
-			"startLineNumber": 47,
-			"startColumn": 3,
-			"endLineNumber": 47,
-			"endColumn": 7,
-			"message": "Le type attendu provient de la propriété 'data', qui est déclarée ici sur le type 'IntrinsicAttributes & IntrinsicClassAttributes<FlatList<never>> & Readonly<FlatListProps<never>>'",
-			"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/node_modules/react-native/Libraries/Lists/FlatList.d.ts"
-		}
-	],
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "La propriété 'id' n'existe pas sur le type 'never'.",
-	"source": "ts",
-	"startLineNumber": 288,
-	"startColumn": 42,
-	"endLineNumber": 288,
-	"endColumn": 44,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "La propriété 'color' n'existe pas sur le type 'never'.",
-	"source": "ts",
-	"startLineNumber": 292,
-	"startColumn": 75,
-	"endLineNumber": 292,
-	"endColumn": 80,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "La propriété 'icon' n'existe pas sur le type 'never'.",
-	"source": "ts",
-	"startLineNumber": 293,
-	"startColumn": 56,
-	"endLineNumber": 293,
-	"endColumn": 60,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "La propriété 'message' n'existe pas sur le type 'never'.",
-	"source": "ts",
-	"startLineNumber": 296,
-	"startColumn": 61,
-	"endLineNumber": 296,
-	"endColumn": 68,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/advanced-dashboard.tsx",
-	"owner": "typescript",
-	"code": "2339",
-	"severity": 8,
-	"message": "La propriété 'timestamp' n'existe pas sur le type 'never'.",
-	"source": "ts",
-	"startLineNumber": 298,
-	"startColumn": 38,
-	"endLineNumber": 298,
-	"endColumn": 47,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-}]
-[{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
-	"owner": "typescript",
-	"code": "7006",
-	"severity": 8,
-	"message": "Le paramètre 'report' possède implicitement un type 'any'.",
-	"source": "ts",
-	"startLineNumber": 145,
-	"startColumn": 43,
-	"endLineNumber": 145,
-	"endColumn": 49,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
-	"owner": "typescript",
-	"code": "7006",
-	"severity": 8,
-	"message": "Le paramètre 'r' possède implicitement un type 'any'.",
-	"source": "ts",
-	"startLineNumber": 175,
-	"startColumn": 30,
-	"endLineNumber": 175,
-	"endColumn": 31,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
-	"owner": "typescript",
-	"code": "7006",
-	"severity": 8,
-	"message": "Le paramètre 'r' possède implicitement un type 'any'.",
-	"source": "ts",
-	"startLineNumber": 181,
-	"startColumn": 30,
-	"endLineNumber": 181,
-	"endColumn": 31,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
-	"owner": "typescript",
-	"code": "7006",
-	"severity": 8,
-	"message": "Le paramètre 'r' possède implicitement un type 'any'.",
-	"source": "ts",
-	"startLineNumber": 187,
-	"startColumn": 30,
-	"endLineNumber": 187,
-	"endColumn": 31,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
-	"owner": "typescript",
-	"code": "7006",
-	"severity": 8,
-	"message": "Le paramètre 'r' possède implicitement un type 'any'.",
-	"source": "ts",
-	"startLineNumber": 193,
-	"startColumn": 30,
-	"endLineNumber": 193,
-	"endColumn": 31,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
-	"owner": "typescript",
-	"code": "7006",
-	"severity": 8,
-	"message": "Le paramètre 'evidence' possède implicitement un type 'any'.",
-	"source": "ts",
-	"startLineNumber": 334,
-	"startColumn": 43,
-	"endLineNumber": 334,
-	"endColumn": 51,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-},{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/reports.tsx",
-	"owner": "typescript",
-	"code": "7006",
-	"severity": 8,
-	"message": "Le paramètre 'index' possède implicitement un type 'any'.",
-	"source": "ts",
-	"startLineNumber": 334,
-	"startColumn": 53,
-	"endLineNumber": 334,
-	"endColumn": 58,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-}]
-[{
-	"resource": "/c:/Users/creationapplication/Appliconfirmer/Arefait/reussit/Loving/frontend/app/(admin)/user-management.tsx",
-	"owner": "typescript",
-	"code": "7006",
-	"severity": 8,
-	"message": "Le paramètre 'user' possède implicitement un type 'any'.",
-	"source": "ts",
-	"startLineNumber": 117,
-	"startColumn": 39,
-	"endLineNumber": 117,
-	"endColumn": 43,
-	"modelVersionId": 1,
-	"origin": "extHost1"
-}]
+FAire en sorte que le bottom sheet de la page login, register et régister admin puisse scroller pour afficher le contenue du bas afin de faciliter l'utilisation à l'utilisateur
+
+Je développe une app React Native/Expo appelée "Loving" avec un backend Node.js/Express. J'ai un problème critique avec l'inscription des prestataires (providers) :
+
+**PROBLÈME PRINCIPAL :**
+- L'inscription du prestataire réussit côté backend
+- Après inscription, l'utilisateur est censé être redirigé vers son dashboard (/provider/dashboard)
+- Mais au lieu de ça, la page de login s'affiche
+- Quand l'utilisateur entre ses identifiants manuellement, l'app crash
+
+**CONTEXTE TECHNIQUE :**
+- Frontend : React Native + Expo Router
+- Backend : Node.js + Express + MongoDB
+- Authentification : JWT tokens stockés dans SecureStore/AsyncStorage
+- Architecture : Routes groupées par rôle (auth), (user), (provider), (admin)
+
+**FLUX D'INSCRIPTION ACTUEL :**
+1. User s'inscrit avec role: 'provider' dans register.tsx
+2. Backend crée user + profile provider
+3. Frontend appelle login() avec tokens reçus
+4. Redirection vers /(provider)/dashboard
+5. Mais dashboard affiche page login au lieu du contenu
+
+**FICHIERS CONCERNÉS :**
+- frontend/app/(auth)/register.tsx (logique inscription)
+- frontend/app/index.tsx (redirections par rôle)
+- frontend/app/(provider)/_layout.tsx (protection routes provider)
+- frontend/contexts/AuthContext.tsx (gestion auth state)
+- backend/src/controllers/auth.controller.ts (logique backend)
+
+**ERREURS TYPESCRIPT À CORRIGER :**
+Voici les erreurs TypeScript principales à résoudre :
+- notificationService introuvable dans _layout.tsx
+- Erreurs de types dans admin.routes.ts (propriétés firstName, lastName, email, phone sur ObjectId)
+- Erreurs de style dans validate-profiles.tsx (fichier corrompu)
+- Types manquants dans reports.tsx et autres fichiers admin
+- Erreurs de types dans booking-details.tsx et autres composants
+
+**CE QUE JE VEUX :**
+1. **FIX CRITIQUE** : Après inscription provider, redirection directe vers dashboard provider (pas page login)
+2. **FIX AUTH FLOW** : S'assurer que login() met à jour correctement l'état auth avant redirection
+3. **FIX TYPESCRIPT** : Corriger toutes les erreurs TypeScript listées
+4. **TEST** : Vérifier que l'inscription provider fonctionne de A à Z
+
+**CODE ACTUEL CLÉ :**
+Voici des extraits du code actuel :
+
+**register.tsx :**
+```typescript
+if (data?.data?.token && data?.data?.refreshToken && data?.data?.user) {
+  await login(data.data.token, data.data.refreshToken, data.data.user);
+  if (data.data.user.role === 'provider') {
+    router.replace('/(provider)/dashboard'); // <-- PROBLÈME ICI ?
+  } else {
+    router.replace('/(user)/home');
+  }
+}

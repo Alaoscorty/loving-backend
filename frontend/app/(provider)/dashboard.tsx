@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, LoadingSpinner } from '@/components';
 import { providerService, bookingService } from '@/services';
@@ -51,7 +51,7 @@ export default function ProviderDashboardScreen() {
   const quickAccessItems = [
     {
       id: 'profile',
-      icon: 'account',
+      icon: 'person-outline',
       label: 'Profil',
       color: '#007AFF',
       bgColor: 'rgba(0, 122, 255, 0.1)',
@@ -59,7 +59,7 @@ export default function ProviderDashboardScreen() {
     },
     {
       id: 'planning',
-      icon: 'calendar',
+      icon: 'calendar-outline',
       label: 'Planning',
       color: '#34C759',
       bgColor: 'rgba(52, 199, 89, 0.1)',
@@ -67,7 +67,7 @@ export default function ProviderDashboardScreen() {
     },
     {
       id: 'requests',
-      icon: 'bell',
+      icon: 'notifications-outline',
       label: 'Demandes',
       color: '#FF9500',
       bgColor: 'rgba(255, 149, 0, 0.1)',
@@ -76,7 +76,7 @@ export default function ProviderDashboardScreen() {
     },
     {
       id: 'earnings',
-      icon: 'cash-multiple',
+      icon: 'cash-outline',
       label: 'Revenus',
       color: '#50C878',
       bgColor: 'rgba(80, 200, 120, 0.1)',
@@ -106,8 +106,8 @@ export default function ProviderDashboardScreen() {
           style={styles.settingsButton}
           onPress={() => router.push('/(provider)/profile')}
         >
-          <MaterialCommunityIcons
-            name="cog"
+          <Ionicons
+            name="settings"
             size={24}
             color="#fff"
           />
@@ -128,7 +128,7 @@ export default function ProviderDashboardScreen() {
               activeOpacity={0.7}
             >
               <View style={styles.iconContainer}>
-                <MaterialCommunityIcons
+                <Ionicons
                   name={item.icon as any}
                   size={28}
                   color={item.color}
@@ -153,8 +153,8 @@ export default function ProviderDashboardScreen() {
         <View style={styles.statsGrid}>
           <Card style={styles.statCard}>
             <View style={styles.statIconContainer}>
-              <MaterialCommunityIcons
-                name="calendar-check"
+              <Ionicons
+                name="checkmark-circle"
                 size={24}
                 color="#007AFF"
               />
@@ -167,8 +167,8 @@ export default function ProviderDashboardScreen() {
 
           <Card style={styles.statCard}>
             <View style={styles.statIconContainer}>
-              <MaterialCommunityIcons
-                name="cash-multiple"
+              <Ionicons
+                name="cash"
                 size={24}
                 color="#34C759"
               />
@@ -181,7 +181,7 @@ export default function ProviderDashboardScreen() {
 
           <Card style={styles.statCard}>
             <View style={styles.statIconContainer}>
-              <MaterialCommunityIcons
+              <Ionicons
                 name="star"
                 size={24}
                 color="#FFD700"
@@ -195,8 +195,8 @@ export default function ProviderDashboardScreen() {
 
           <Card style={styles.statCard}>
             <View style={styles.statIconContainer}>
-              <MaterialCommunityIcons
-                name="bell"
+              <Ionicons
+                name="notifications"
                 size={24}
                 color="#FF9500"
               />
@@ -279,8 +279,8 @@ export default function ProviderDashboardScreen() {
       {/* Empty State */}
       {bookingRequests.length === 0 && (
         <View style={styles.emptyState}>
-          <MaterialCommunityIcons
-            name="inbox-outline"
+          <Ionicons
+            name="mail-outline"
             size={64}
             color="#d1d5db"
           />

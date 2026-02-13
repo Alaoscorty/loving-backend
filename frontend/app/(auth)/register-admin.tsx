@@ -106,24 +106,20 @@ export default function RegisterAdminScreen() {
         ref={bottomSheetRef}
         index={0}
         snapPoints={snapPoints}
-        enableContentPanningGesture={true}
-        keyboardBehavior="interactive"   
+        keyboardBehavior="interactive"
+        keyboardBlurBehavior="restore"
+        
         backgroundStyle={styles.sheetBackground}
         handleIndicatorStyle={styles.indicator}
       >
+
         <BottomSheetScrollView
           keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="interactive"
-          style={{ flex: 1 }}                    // ← important
-          contentContainerStyle={[styles.sheetContent, { flexGrow: 1 }]}
+          contentContainerStyle={styles.sheetContent}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
         >
-          {/* IMPORTANT: wrapper flex */}
-          <View style={{ flex: 1 }}>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-              keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
-              style={{ flex: 1 }}
-            >
+
               <Text style={styles.title}>Compte administrateur</Text>
               <Text style={styles.subtitle}>
                 {step === 'code'
@@ -228,8 +224,7 @@ export default function RegisterAdminScreen() {
               >
                 <Text style={styles.link}>Retour</Text>
               </TouchableOpacity>
-            </KeyboardAvoidingView>
-          </View>
+            
         </BottomSheetScrollView>
       </BottomSheet>
     </ImageBackground>
@@ -253,7 +248,7 @@ const styles = StyleSheet.create({
   },
   sheetContent: {
     padding: 24,
-    paddingBottom: 40,
+    paddingBottom: 80,
   },
   title: {
     fontSize: 28,

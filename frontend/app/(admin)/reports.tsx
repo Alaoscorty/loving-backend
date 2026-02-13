@@ -142,7 +142,7 @@ export default function ReportsScreen() {
     return map[status] || status;
   };
 
-  const filteredReports = reports.filter((report) => {
+  const filteredReports = reports.filter((report: Report) => {
     if (searchQuery.trim()) {
       return (
         report.reporterName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -172,19 +172,19 @@ export default function ReportsScreen() {
       <View style={styles.statsContainer}>
         <View style={styles.statItem}>
           <Text style={styles.statNumber}>
-            {reports.filter((r) => r.status === 'pending').length}
+            {reports.filter((r: Report) => r.status === 'pending').length}
           </Text>
           <Text style={styles.statLabel}>En attente</Text>
         </View>
         <View style={styles.statItem}>
           <Text style={styles.statNumber}>
-            {reports.filter((r) => r.status === 'investigating').length}
+          {reports.filter((r: Report) => r.status === 'investigating').length}
           </Text>
           <Text style={styles.statLabel}>Enquête</Text>
         </View>
         <View style={styles.statItem}>
           <Text style={styles.statNumber}>
-            {reports.filter((r) => r.status === 'resolved').length}
+          {reports.filter((r: Report) => r.status === 'resolved').length}
           </Text>
           <Text style={styles.statLabel}>Résolus</Text>
         </View>
@@ -331,7 +331,7 @@ export default function ReportsScreen() {
                 <View style={styles.evidenceSection}>
                   <Text style={styles.evidenceLabel}>📸 Preuves ({report.evidence.length})</Text>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    {report.evidence.map((evidence, index) => (
+                    {report.evidence.map((evidence: string, index: number) => (
                       <TouchableOpacity
                         key={index}
                         style={styles.evidenceItem}

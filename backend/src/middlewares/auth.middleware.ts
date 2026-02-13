@@ -99,3 +99,6 @@ export const authorize =
 
     next();
   };
+
+// Alias pour compatibilité
+export const authMiddleware = authenticate;

@@ -14,6 +14,7 @@ import * as Notifications from 'expo-notifications';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ChatProvider } from '@/contexts/ChatContext';
 import { NotificationProvider } from '@/contexts/NotificationContext';
+import { notificationService } from '@/services/notificationService';
 
 // ⚠️ Notifications UNIQUEMENT sur mobile
 if (Platform.OS !== 'web') {
@@ -38,7 +39,7 @@ const queryClient = new QueryClient({
 export default function RootLayout() {
   useEffect(() => {
     if (Platform.OS !== 'web') {
-      Notifications.requestPermissionsAsync();
+      notificationService.requestPermissions();
     }
   }, []);
 

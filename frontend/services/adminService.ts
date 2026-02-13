@@ -354,6 +354,43 @@ class AdminService {
       throw error;
     }
   }
+
+  // Moderation methods
+  async getModerationItems(type?: string, page: number = 1, limit: number = 10) {
+    try {
+      const response = await apiClient.get('/admin/moderation', {
+        params: { type, page, limit },
+      });
+      const data = response.data?.data || response.data || [];
+      return Array.isArray(data) ? data : data.items || [];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async approveModerationItem(itemId: string, notes?: string) {
+    try {
+      const response = await apiClient.post(
+        `/admin/moderation/${itemId}/approve`,
+        { notes }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async rejectModerationItem(itemId: string, reason: string) {
+    try {
+      const response = await apiClient.post(
+        `/admin/moderation/${itemId}/reject`,
+        { reason }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const adminService = new AdminService();

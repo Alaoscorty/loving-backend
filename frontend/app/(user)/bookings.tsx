@@ -21,9 +21,10 @@ export default function BookingsHistoryScreen() {
   const router = useRouter();
   const [filter, setFilter] = useState<BookingStatus | 'all'>('all');
 
-  const { data: bookings, isLoading, refetch } = useQuery({
+  const { data: bookings, isLoading, error, refetch } = useQuery({
     queryKey: ['bookings', filter],
     queryFn: () => bookingService.getUserBookings(filter === 'all' ? undefined : filter),
+    retry: 1,
   });
 
   const getStatusColor = (status: BookingStatus) => {
@@ -63,6 +64,17 @@ export default function BookingsHistoryScreen() {
   if (isLoading) {
     return (
       <LoadingSpinner fullScreen />
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.errorText}>Erreur lors du chargement des réservations</Text>
+        <TouchableOpacity style={styles.retryButton} onPress={() => refetch()}>
+          <Text style={styles.retryButtonText}>Réessayer</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 

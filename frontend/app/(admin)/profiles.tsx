@@ -23,6 +23,11 @@ export default function ProfilesValidationScreen() {
     queryFn: () => adminService.getProfiles(filter),
   });
 
+  const { data: stats } = useQuery({
+    queryKey: ['adminStats'],
+    queryFn: () => adminService.getStats(),
+  });
+
   const approveMutation = useMutation({
     mutationFn: (profileId: string) => adminService.approveProfile(profileId),
     onSuccess: () => {

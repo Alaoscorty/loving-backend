@@ -6,13 +6,61 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/contexts/AuthContext';
+import { adminService } from '@/services/adminService';
+import { LoadingSpinner } from '@/components';
 
 export default function AdminDashboardScreen() {
   const { user } = useAuth();
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const { data: stats, isLoading } = useQuery({
+    queryKey: ['adminStats'],
+    queryFn: () => adminService.getStats(),
+  });
+
+  const suspendMutation = useMutation({
+    mutationFn: (userId: string) => adminService.updateUserStatus({
+      userId,
+      status: 'suspended',
+      reason: 'Suspension temporaire par l\'administrateur'
+    }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['adminStats'] });
+      Alert.alert('Succès', 'Utilisateur suspendu temporairement');
+    },
+    onError: (error: any) => {
+      Alert.alert('Erreur', error.message || 'Erreur lors de la suspension');
+    },
+  });
+
+  const handleSuspendUser = () => {
+    Alert.alert(
+      'Suspendre un utilisateur',
+      'Entrez l\'ID de l\'utilisateur à suspendre :',
+      [
+        { text: 'Annuler', style: 'cancel' },
+        {
+          text: 'Suspendre',
+          style: 'destructive',
+          onPress: () => {
+            // Pour simplifier, on utilise un ID fictif
+            // En production, ouvrir un modal pour saisir l'ID
+            suspendMutation.mutate('user_id_placeholder');
+          },
+        },
+      ]
+    );
+  };
+
+  if (isLoading) {
+    return <LoadingSpinner fullScreen />;
+  }
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>

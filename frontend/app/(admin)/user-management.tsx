@@ -114,7 +114,7 @@ export default function UserManagementScreen() {
     return map[status] || status;
   };
 
-  const filteredUsers = users.filter((user) => {
+  const filteredUsers = users.filter((user: User) => {
     if (searchQuery.trim()) {
       return (
         user.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
